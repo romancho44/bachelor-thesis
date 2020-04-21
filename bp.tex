@@ -244,14 +244,18 @@ Poslední táhlo motivace využívá strachu uživatelů ze ztráty určitých p
 a~možností či nabytých statků nejrůznějšího rázu. 
 Tato taktika nabízí uživatelům různé příložitosti, které však mohou navždy ztratit,
 pokud na ně ihned nezareagují. 
-Tímto způsobem systémy vyvíjejí na uživatele poměrně velký tlak a~spousta z~nich o~nejrůznější možnosti či vydobyté bonusy nechce přijít,
+Tímto způsobem systémy vyvíjejí na uživatele poměrně velký tlak
+a~spousta z~nich o~nejrůznější možnosti či vydobyté bonusy nechce přijít,
 proto se pro ně jeví nezbytné, se určitým činnostem více věnovat.
 
 
 Cílem gamifikace je lidi motivovat, 
 pomoci jim ke splnění jejích cílů, ať už jsou to cíle kariérní, studijní či osobní.
-Ceny a~status, který hráči v~průběhu hraní získávají, pomáhají ke sledování jejich průběžného postupu. Tyto mechaniky podporují osobní cestu k~jejich seberozvoji. 
-Gamifikace se dnes již uplatňuje v~nejrůznějších odvětvích, například pro vzdělávání, firemní rozvoj nebo marketing.
+Ceny a~status, který hráči v~průběhu hraní získávají,
+ pomáhají ke sledování jejich průběžného postupu.
+Tyto mechaniky podporují osobní cestu k~jejich seberozvoji. 
+Gamifikace se dnes již uplatňuje v~nejrůznějších odvětvích,
+ například pro vzdělávání, firemní rozvoj nebo marketing.
 
 
 \sekce{Podniková gamifikace}
@@ -325,8 +329,11 @@ Aplikace nabízí možnost chatování s~hráči z~družiny, případně i~ve ve
 
 U~mobilní aplikace Epic Win si hráč vytváří seznam úkolů,
 ke kterým přiřazuje důležitost a~případně dovednost,
-kterou plněním daného úkolu rozvíjí. S~plněním úkolu hráč rozvíjí své dovednosti a~zkušenosti, čímž zvyšuje svůj level a~zároveň postavičkou putuje po cestě za dobrodružstvím, 
-což je vizuálně reprezentováno mapou. Tato aplikace se snaží zaujmout jednoduchostí a~grafickým zpracováním.
+kterou plněním daného úkolu rozvíjí. 
+S~plněním úkolu hráč rozvíjí své dovednosti a~zkušenosti,
+ čímž zvyšuje svůj level a~zároveň postavičkou putuje po cestě za dobrodružstvím, 
+což je vizuálně reprezentováno mapou. 
+Tato aplikace se snaží zaujmout jednoduchostí a~grafickým zpracováním.
 
 \par
 
@@ -740,7 +747,7 @@ Jasper je engine pro zpracování Java Server Pages (JSP).
 Soubory JSP zpracovává a~kompiluje je do Java kódu jakožto servlety,
 které pak může obsluhovat Catalina.
 
-% (https://en.wikipedia.org/wiki/Apache\_Tomcat)
+% (https://en.wikipedia.org/wiki/Apache_Tomcat)
 
 % TomEE
 Poměrně důležitou nádstavbou k~Apache Tomcat je TomEE,
@@ -1415,22 +1422,34 @@ public class KategorieDovednostiServiceImplementation
 \sekce{Služba pro inicializaci úkolů nového hráče}
 
 Každý uživatel systému může za pomocí naší aplikace plnit různé pracovní úkoly.
-Úkoly byly navrženy a~vytovřeny především pro nové členy firmy Optimal Energy. Byly vytvořeny dle letitých zkušeností jiných pracovníků a~měly by být pro nováčky vysoce přínosným interaktivním průvodcem a~pomocníkem.
+Úkoly byly navrženy a~vytovřeny především pro nové členy firmy Optimal Energy. 
+Byly vytvořeny dle letitých zkušeností jiných pracovníků 
+a~měly by být pro nováčky vysoce přínosným interaktivním průvodcem a~pomocníkem.
 
-Za každý splněný úkol získává užívatel určité zkušenostní body, virtuální měnu a~v~předchozí sekci zmíněné dovednostní body. 
+Za každý splněný úkol získává užívatel určité zkušenostní body, 
+virtuální měnu a~v~předchozí sekci zmíněné dovednostní body. 
 
-Úkol může uživatel prostřednictvím webové aplikace spustit a~zahájit tak jeho plnění. Po spuštění úkolu je startována časomíra, která měří dobu, která proběhla od zahájení plnění tohoto úkolu, až do jeho ukončení. Určité úkoly může uživatel označit sám jako splěné a~jiné jsou plněny na základě příchozích dat z~jiného systému NIS firmy Optimal Energy. 
+Úkol může uživatel prostřednictvím webové aplikace spustit a~zahájit tak jeho plnění. 
+Po spuštění úkolu je startována časomíra, která měří dobu, 
+která proběhla od zahájení plnění tohoto úkolu, až do jeho ukončení. 
+Určité úkoly může uživatel označit sám jako splěné 
+a~jiné jsou plněny na základě příchozích dat z~jiného systému NIS firmy Optimal Energy. 
 
-Jednotlivé úkoly jsou uceleny do tzv. herních misí, které na sebe navazují. Dle vydefinovaných pravidel návazností v~databázi jsou úkoly webovou aplikací nabízeny a~uživatelem plněny v~určitém pořadí.
+Jednotlivé úkoly jsou uceleny do tzv. herních misí, které na sebe navazují. 
+Dle vydefinovaných pravidel návazností v~databázi jsou úkoly webovou aplikací nabízeny 
+a~uživatelem plněny v~určitém pořadí.
 
 Různorodou funkcionalitu pro práci s~herními úkoly nabízí modul \texttt{oe-questy}.
-Po registraci nového hráče do systému je potřebné mu vytvořit instanci prvního úkolu. Na základě splění tohoto úkolu budou postupně odemykány i~další. 
-Proto bylo v~modulu \texttt{oe-questy} nezbytné vytvořit službu pro vytvoření instance prvního úkolu, pro nově přihlášeného uživatele. 
+Po registraci nového hráče do systému je potřebné mu vytvořit instanci prvního úkolu. 
+Na základě splění tohoto úkolu budou postupně odemykány i~další. 
+Proto bylo v~modulu \texttt{oe-questy} nezbytné vytvořit službu pro vytvoření instance prvního úkolu, 
+pro nově přihlášeného uživatele. 
 
 Implementačně se jedná o~poměrně jednoduchou databázovou transakci, která nejdříve dohledá v~databázi instanci typu prvního úkolu dle určitého kódu a~vytvoří v~tabulce \texttt{quest} nový záznam propojený s~dohledaným typem úkolu a~s~parametrem id hráče, rozšifrovaného z~JWT tokenu, náležejícímu určitému uživateli.
 
 
-Entitními třídami, vytvořených dle databáze pro herní úkoly, potřebných pro fungování služby jsou \texttt{TypQuestu} a~\texttt{Quest}.
+Entitními třídami, vytvořených dle databáze pro herní úkoly, 
+potřebných pro fungování služby jsou \texttt{TypQuestu} a~\texttt{Quest}.
 
 
 \obrazek
@@ -1780,7 +1799,17 @@ public class TimelineRestController extends AbstractJwtDecoderController
 
 \begin{literatura}
 
-\citace{sapDigitalist}{sapDigitalist}
+\citace{codecademyRest}{Codecademy, 2018}
+{
+\autor{Codecademy}
+\nazev{What is REST?} Learn to Code - for Free | Codecademy [online]. 
+Copyright © [cit. 21.04.2020]. 
+Dostupné z:
+\\
+\texttt{https://www.codecademy.com/articles/what-is-rest}
+}
+
+\citace{sapDigitalist}{Digitalist Magazine, 2018}
 {
 \autor{Digitalist Magazine News on Cloud, Mobile, Big Data, Analytics \& More}
 \nazev{Gamification: Turning Work Into Play}
@@ -1807,6 +1836,16 @@ Dostupné z:
 \texttt{https://habitica.com/static/home}
 }
 
+\citace{javaWorld}{JavaWorld.com, 2020}
+{
+\autor{JavaWorld}
+\nazev{What is Tomcat? The original Java servlet container} | JavaWorld. 
+Welcome to JavaWorld.com [online]. Copyright © 2020 IDG Communications, Inc. 
+Dostupné z: 
+\\
+https://www.javaworld.com/article/3510460/what-is-apache-tomcat-the-original-java-servlet-container.html
+}
+
 \citace{gamethinking}{Kim, Game Thinking, 2018}
 {
 \autor{Kim, A.J. and Koster, R. and Kim, S.}:
@@ -1830,6 +1869,15 @@ Dostupné z:
 Copyright © 2019 Oracle. 
 \\
 Dostupné z: 
+\\
+\texttt{https://www.oracle.com/technetwork/java/intro-141325.html}
+}
+
+\citace{oracleJPA}{Oracle, 2013}{
+\autor{Oracle}
+\nazev{Introduction to the Java Persistence API -- The Java EE 6 Tutorial.} 
+[online]. Copyright © 2013, Oracle and [cit. 21.04.2020]. 
+Dostupné z:
 \\
 \texttt{https://www.oracle.com/technetwork/java/intro-141325.html}
 }
@@ -1887,7 +1935,7 @@ Dostupné z:
 \citace{technologyAdviceGamification}{technologyadvice.com, 2019}{
 \autor{technologyadvice.com}
 \nazev{Gamification}
-[online]. Dostupné z:
+[online]. Dostupné z: 
 \\
 \texttt{https://technologyadvice.com/gamification}
 }
@@ -1899,8 +1947,26 @@ Dostupné z:
 © Copyright 2020. All Rights Reserved.
 Dostupné z:
 \\
+% TODO: opravit odkaz
 % odkaz nefunguje, zalamovani to rozbiji
 \texttt{https://www.tutorialspoint.com/mvc\_framework/mvc\_framework\_introduction.htm}
+}
+
+\citace{tomcatWikipedia}{en.wikipedia.org, 2020}{
+\autor{Wikipedia}
+\nazev{Apache Tomcat} -- Wikipedia.[online]
+Dostupné z:
+\\
+\texttt{https://en.wikipedia.org/wiki/Apache_Tomcat}
+}
+
+\citace{xicom}{Xicom, 2020}{
+\autor{Xicom}
+\nazev{9 Best Reasons To Choose Java For Web Development} 
+Xicom | Software, Web, Mobile App Development Company [online].
+Dostupné z:
+\\
+\texttt{https://www.xicom.biz/blog/9-best-reasons-to-choose-java-for-web-development/}
 }
 
 \citace{octalysis}{Yu-kai Chou, Octalysis}{
