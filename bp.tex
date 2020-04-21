@@ -1,0 +1,2146 @@
+% preambule dokumentu
+\documentclass[12pt]{article}
+\usepackage{dipp,xltxtra,polyglossia,graphicx,listings,color}
+\usepackage[htt]{hyphenat}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% styly pro sazbu java kódu
+\lstset{
+  frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  inputencoding=utf8,
+  extendedchars=true,
+  literate=
+     {á}{{\'a}}1
+     {í}{{\'i}}1
+     {é}{{\'e}}1
+     {ý}{{\'y}}1
+     {ú}{{\'u}}1
+     {ó}{{\'o}}1
+     {ě}{{\ˇ{e}}}1
+     {š}{{\ˇ{s}}}1
+     {č}{{\ˇ{c}}}1
+     {ř}{{\ˇ{r}}}1
+     {ž}{{\ˇ{z}}}1
+     {ď}{{\ˇ{d}}}1
+     {ť}{{\ˇ{t}}}1
+     {ň}{{\ˇ{n}}}1                
+     {ů}{{\r{u}}}1
+     {Á}{{\'A}}1
+     {Í}{{\'I}}1
+     {É}{{\'E}}1
+     {Ý}{{\'Y}}1
+     {Ú}{{\'U}}1
+     {Ó}{{\'O}}1
+     {Ě}{{\ˇ{E}}}1
+     {Š}{{\ˇ{S}}}1
+     {Č}{{\ˇ{C}}}1
+     {Ř}{{\ˇ{R}}}1
+     {Ž}{{\ˇ{Z}}}1
+     {Ď}{{\ˇ{D}}}1
+     {Ť}{{\ˇ{T}}}1
+     {Ň}{{\ˇ{N}}}1                
+     {Ů}{{\r{U}}}1
+}
+
+\setdefaultlanguage{czech}
+\begin{document}
+\pagestyle{headings}
+
+\def\typprace{Bakalářská}
+
+% uvodni cast bakalářské prace
+\titul{Implementace backendových modulů a~následné navržení a~implementace modulu timeline pro potřeby gamifikovaného informačního systému}
+{Roman Vozka}{Ing. Jan Kolomazník, Ph.D.}{Brno, 2020}
+
+
+\obsah
+\cislovat{2}
+
+% jednotlive kapitoly dokumentu
+
+\kapitola{Úvod a~cíl}
+
+Pro zpracování své bakalářské práce
+jsem se rozhodl připojit do vývojového týmu firmy Gamifika s.r.o.,
+který vyvíjí gamifikovaný informační systém 
+pro kariérní růst spolupracovníků firmy Optimal Energy.
+Ve vývojovém týmu zaujímám funkci bakendového vývojáře 
+a~již druhým rokem se podílím na vývoji backendu webové aplikace informačního systému.
+K~projektu jsem se připojil ve fázi, kdy se utvářely základy pro vývoj
+a~navrhovaly se jednotlivé části gamifikovaného informačního systému.
+
+
+Cílem projektu je vytvoření snadno ovladatelného poutavého systému
+pro podporu pracovního nasazení, motivace a~rozvoje pracovníků.
+Přidanými hodnotami vytvářeného systému pro firmu Optimal Energy
+by mělo být předání vize a~hodnot nováčkům, snížení retence,
+efektivnější zavádění nových firemních procesů 
+a~dynamičtější růst struktur ve firmě. 
+
+
+Pro nové zaměstnance by měl systém sloužit
+jako kapesní průvodce pro nastartování kariéry ve firmě.
+Systém by se měl stát ideálním nástrojem pro zapracování
+a~plnění pracovních úkolů.
+Novým zaměstnancům poskytne interaktivní trénink obchodních dovedností,
+přístup do znalostní báze a~tvorbu užitečných návyků.
+
+
+Jak již může být z~názvu práce zřejmé, tak se tato bakalářská práce
+zabývá především implementací určitých bakendových modulů webové aplikace
+gamifikovaného informačního systému, cílem je tedy samotná implementace.
+
+
+Nejdříve je v~práci představen pojem gamifikace se 
+zajímavostí aplikace tohoto odvětví na informační systém.
+Následně se může čtenář v~částí literárního přehledu
+ve stručnosti seznámit se základními pojmy,
+týkajících se vývoje webových aplikací a~dozvědět se určité informace o~nástrojích a~technologiích,
+které používáme při vývoji backendových modulů informačního systému.
+
+V~kapitole vlastní práce je výsledně popsán samotný vývoj a~funkcionalita
+vybraných částí modulů s~využitím představených technologií
+a~to především programovacího jazyka Java, s~využitím frameworku Spring.
+
+
+\kapitola{Rešerše gamifikace}
+
+Snahou procesu gamifikace je zasazení herních mechanismů a~principů,
+které ve hrách dobře fungují, do neherního prostředí.
+V~gamifikaci je kladen největší důraz na motivaci člověka.
+
+% motivace v~gamifikovaných systémech
+Jednou z~hlavních myšlenek je tedy optimalizace motivace lidí
+v~rámci určitého systému, na rozdíl od striktního zaměření na výkonnost.
+Většina systémů je zaměřených především na plnění určitých funkcí 
+a~jsou navrženy tak, aby byla vykonávaná práce hotova, co možná nejrychleji.
+Existují však systémy, které se na druhou stranu zaměřují spíše na lidi,
+jejich potřeby, pocity a~důvody, proč nechtějí nebo naopak chtějí dělat určité věci.
+Tyto systémy se snaží více rozvíjet u~lidí jejich zapojování do procesů 
+a~zapálení pro věc.
+
+Herní průmysl je oblastí, která cílí úhlavně na lidi a~snaží se je,
+co nejvíce zaujmout, zabavit a~naplnit jejich potřeby.
+Právě z~těchto důvodů je toto zaměření nazýváno gamifikace (od angl. slova game). 
+Hlavním účelem her je potěšit hráče, který ji hraje. \cite{octalysis}
+
+\sekce{Gamifikační framework Octalysis}
+
+Jedním z~význačných a~uznávaných lidí zabývající se gamifikací je Yu Kai Chou,
+který na základě jeho letitých zkušeností v~této oblasti vytvořil gamifikační
+framework nazvaný Octalysis pro analýzu toho, co činí různé herní i~neherní systémy
+zábavnými.
+
+Pojmový rámec Octalysis
+\footnote{Blog autora o~gamifikačním frameworku Octalysis: https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework}
+je postavený na myšlence toho,
+že jsou hry zábavné, protože bývají postavené na určitých základních principech,
+která nás motivují ke specifickým činnostem.
+Dle Yu-kai Choua nás různé typy herních technik posouvají určitým směrem.
+Některé mají inspirační a~umocňující efekt,
+zatímco jiné se snaží s~hráči spíše manipulovat,
+což může vést až k~posedlosti.
+Analytický nástroj Octalysis byl navržen tak,
+aby bylo možné odlišit různe druhy motivace lidí.
+
+\clearpage
+
+Gamifikační framework Octalysis byl vytvořen jako osmihran reprezentující
+8 různých motivačních principů na každé straně.
+
+\obrazek
+\vlozeps{bakalarska-prace/oktalyza}{0.18}
+\endobr{Zjednodušený diagram gamifikačního frameworku Octalysis}
+
+% 1 smysl, význam, poslání
+Smysl či poslání je motivačním principem, při kterém hráči 
+věří, že dělají něco významnějšího než jsou oni sami nebo
+byli vybráni pro konání nějakého většího dobra.
+Příkladem mohou být i~lidé, kteří věnují spoustu času správou nějakého
+fóra, případně tvorbě věcí pro celou komunitu jako třeba u~Wikipedie nebo 
+celé řady Open Source projektů.
+V~souvislosti s~tímto přístupem bývá někdy uplatňováno
+i~takzvané štěstí začátečníka, jako efekt kdy lidé věří, 
+že byli obdarování něčím vzácným, co kupříkladu u~her, jiní hráči nevlastní.
+
+% 2 rozvoj, vylepšování vlastností, pokrok
+Motivační princip seberozvoje čerpá z~pokroku, rozvíjení dovedností
+a~eventuálně z~překonávání různých výzev.
+Velice motivační ve hrách bývají právě výzvy,
+pokud za ně hráči získavají určité trofeje nebo odměny. 
+Systémy odměn a~výzev, různé bodovací systémy a~žebříčky
+jsou poměrně lehko implementovatelné,
+proto je využívá mnoho herních i~neherních systémů.
+
+% 3 zplnomocnění, kreativita, zpětná vazba
+Dalším motivační procesem by se dalo nazvat zplnomocněním člověka 
+v~rámci nějakého kreativného procesu, kde musí opakovaně přicházet s~novými
+nápady a~zkoušet různé kombinace. Poskytnutí prostoru pro vyjádření
+kreativity a~možnosti vidět své výsledky, společně se získáním zpětné vazby
+a~možností na ně reagovat je pro mnoho lidí zábavné.
+Příkladem může být hraní se stavebnicí Lego nebo malování,
+což jsou činnosti, které má spousta lidí v~oblibě a~jsou pro ně zábavné sami o~sobě.
+Uplatnění těchto mechanik uplatňuje mnoho herních vývojářů,
+díky čemuž nutně nemusí pravidelně produkovat nový herní obsah 
+a~přesto jimi vyvinuté herní aktivity mohou být pro uživatele dlouhodobě svěží a~poutavé.
+
+% 4 vlastnictví, majetek
+Možnost vlastnit či sbírat určité věci, ikdyž třeba jen virtuální,
+přináší mnohým uživatelům příjemný pocit a~podporuje jejich lačnost
+sytém dále používat. Jedná se tak o~další významný, motivační a~táhnoucí mechanismus.
+Rozvíjení majetku či vlasnictví vychází z~lidské přirozenosti,
+a~proto mnozí hráči vrozeně chtějí ve hrách získávat nové předměty
+a~budovat své bohatství.
+
+% 5 Sociální vliv
+Dobře známým hnacím faktorem je vliv sociální. 
+K~tomuto vlivu se řadí kupříkladu sociální přijetí, soutěživost, mentorství,
+přátelství a~také závist. Poměrně velký efekt působící na hráče různých her
+má, když vidí jiného hráče velice dobrého v~určité činnosti. 
+To umocňuje snahu různých hráčů více vykonávat nějakou činnost a~zlepšovat se v~ní.
+Spousta firem v~dnešních dnech klade relativně velký důraz na optimalizaci
+jejich socílních průzkumů a~strategií.
+
+% 6 Nouze a~netrpělivost
+Jiná strana osmihranu frameworku Octalysis pozoruje využití
+netrpělivosti lidí. Spousta systémů pracuje s~netrpělivostí
+prostřednictvím dynamik využívajících termíny. 
+Hra či aplikace nabídne uživateli určitou věc, která je však uživateli 
+odemčena až po určité stanovené lhůtě, například po 2 hodinách.
+U~některých lidí tato dynamika vyvolává potřebu na danou věc neustále myslet
+a~konrolovat její přístupnost, což vede k~častějšímu používání systému.
+U~uživatelů takto narůstá zájem o~určitou oblast, už jen z~principu,
+že byli na ni nuceni tak „dlouho“ čekat.
+
+% 7 Nepředvídatelnost a~zvědavost
+Když nelze předpokládat, co se stane, jsme nuceni o~tom přemýšlet častěji a~
+hledáme různé všemožné různé varianty, které by mohli nastat.
+Právě díky tomuto napětí, které nepředvídatelnost přinaší se spousta lidí 
+dívá na filmy nebo čte různé příběhy. 
+Na principech nepředvídatelnosti a~náhody jsou však postaveny i~hazardní hry
+které v~lidech vyvolávají zvědavost a~napětí.
+Možnost navodit pocit napětí a~vzbudit u~uživatelů zvědavost spousta systémů
+s~výhodou využívá, obvykle nějakou formou loterijního programu.
+
+% 8 Strach ze ztráty 
+Poslední táhlo motivace využívá strachu uživatelů ze ztráty určitých příložitostí 
+a~možností či nabytých statků nejrůznějšího rázu. 
+Tato taktika nabízí uživatelům různé příložitosti, které však mohou navždy ztratit,
+pokud na ně ihned nezareagují. 
+Tímto způsobem systémy vyvíjejí na uživatele poměrně velký tlak a~spousta z~nich o~nejrůznější možnosti či vydobyté bonusy nechce přijít,
+proto se pro ně jeví nezbytné, se určitým činnostem více věnovat.
+
+
+Cílem gamifikace je lidi motivovat, 
+pomoci jim ke splnění jejích cílů, ať už jsou to cíle kariérní, studijní či osobní.
+Ceny a~status, který hráči v~průběhu hraní získávají, pomáhají ke sledování jejich průběžného postupu. Tyto mechaniky podporují osobní cestu k~jejich seberozvoji. 
+Gamifikace se dnes již uplatňuje v~nejrůznějších odvětvích, například pro vzdělávání, firemní rozvoj nebo marketing.
+
+
+\sekce{Podniková gamifikace}
+
+% Přeformulovat, nebo dát pryč!
+%Současný propojený svět nabízí téměř neomezené virtuální možnosti zábavy. V~porovnání s~čtyřstěnnými betonovými kancelářními budovami,
+%které velice často nabízejí opakovatelné a~únavné úkoly.
+%Bez ohledu na to, kde lidé pracují, tak často svádějí bitvy
+%mezi produktivitou a~rozptýlením, který obvykle vyhrává.
+
+Jelikož se firmy snaží využívání lidských zdrojů zefektivnit co nejvíce, 
+někdy bývá nápor na zaměstnance velice kritický,
+gamifikace se tak stává rostoucím trendem pro podporu pracovních výkonů
+a~motivaci zaměstnanců.
+% citace ??
+Podniková gamifikace využívá prvků herního designu a~snaží se
+je implementovat do~neherního podnikového prostředí. 
+Gamifikace využívaná ve firmách
+má mnoho podob a~ve své podstatě se používá napříč různými průmysly. 
+V~korporátním světě může zvýšit motivaci zaměstnanců, generovat nápady a~podporovat inovace. 
+Pro mnoho firem to může být ten pravý nástroj, jak zvýšit angažovanost zaměstnanců
+a~podpořit jejich nadšení z~práce. 
+
+\par 
+% Příklad použití
+Zaměstnanci se například formou hraní deskové hry, vytvořené na základě firemních pochodů,
+poutavou a~zábavnou formou seznamují s~pracovištěm, dalšími zaměstnanci, 
+významem jednotlivých oddělení,
+přičemž si z~takovéto hry odnášejí cenné zkušenosti, které dále v~praxi mohou využít.
+
+\par
+
+Populární cesty aplikace gamifikace na pracoviště zahrnují: vzdělávací aktivity, tréninková sezení,rozvíjení schopností zaměstnanců a~v~neposlední řadě i~motivaci. 
+
+Gamifikace používá psychologii a~průzkumy lidského chování, k~tomu aby správně zacílila a~zapůsobila na publikum,
+kterému se následně dle jejich potřeb budou vytvářet herní prvky na míru.
+
+\sekce{Gamifikované aplikace a~systémy}
+
+Gamifikovaný software je jakýkoliv nástroj nebo platforma používaná s~uplatňováním herních mechanik na neherní prostředí,
+s~cílem posílit angažovanost a~úspěšné výsledky.
+Běžné případy užití zahrnují oddanost zákazníka, e-learning, motivace zaměstnanců a~řízení výkonnosti. 
+
+\par
+
+Volně dostupnými populárními gamifikovanými aplikacemi jsou Habatica, Epic Win nebo LifeRPG. 
+Tyto aplikace umožňují uživatelům (hráčům) vytvářet si vlastní úkoly, 
+za jejichž splnění pak získávají odměny ve formě zkušenostních bodů,
+penízků nebo různé dovednostní body. 
+Na základě těchto bodů uživatel pak prostřednictvím grafického rozhraní přehledně vidí,
+jak se zlepšuje a~rozvíjí si své dovednosti. 
+
+\par
+
+Například webová a~mobilní aplikace Habitica se snaží u~hráčů vytvořit dobré návyky
+a~naopak jim pomáha se zbavováním těch špatných.
+V~případě, že hráč rozvíjí své dobré návyky,
+získává zkušenostní body a~herní měnu, 
+pakliže dělá ty špatné, ztrácí body zdraví. 
+Uživatel si může vytvářet různé seznamy úkolů,
+které potřebuje v~běžném i~pracovním životě řešit,
+ty pak může například dle věcnosti seskupovat do určitých kategorií.
+Aplikace nabízí nejrůznější nastavení pro úkoly, například upozorňování, dobu splnění, náročnost úkolu.
+Habitica hojně podporuje služby pro spolupráci s~jinými hráči. Lze vytvářet družiny,
+ve kterých hráči mohou společně společně plnit úkoly nebo výzvy.
+Za herní měnu si hráči mohou pořizovat pro svou postavu nejrůznější předměty, 
+které jim v~herním světě nějakým způsobem pomáhají. 
+Aplikace nabízí možnost chatování s~hráči z~družiny, případně i~ve veřejných chatovacích skupinách.  
+
+\par
+
+U~mobilní aplikace Epic Win si hráč vytváří seznam úkolů,
+ke kterým přiřazuje důležitost a~případně dovednost,
+kterou plněním daného úkolu rozvíjí. S~plněním úkolu hráč rozvíjí své dovednosti a~zkušenosti, čímž zvyšuje svůj level a~zároveň postavičkou putuje po cestě za dobrodružstvím, 
+což je vizuálně reprezentováno mapou. Tato aplikace se snaží zaujmout jednoduchostí a~grafickým zpracováním.
+
+\par
+
+Vývojem mobilní aplikace s~prvky gamifikace se v~rámci bakalářské práce zabýval Pavol Podstrelený (2018). 
+Jeho práce se zabývá gamifikací, motivací a~typologií hráčů, dále pak samotným vývojem mobilní aplikace, 
+kde uživatelé plní různé úlohy, například matematické, za jejichž splnění získávají body a~odznaky.
+Důraz byl kladen především na grafické zpracování a~barevné rozlišení jednotlivých pracovních prvků.
+K~vývoji aplikace byl použit programovací jazyk Kotlin.
+
+\par
+
+Co se spojení gamifikace a~podnikových aplikací či informačních systémů týče jsem nalezl především systémy,
+které zahrnovaly z~gamifikace prvky především pro bodování zaměstnanců, statistické ukazatele výkonnosti, žebříčky, úspěchy, odznaky.
+Příkladem integrace gamifikovaných prvků do podnikových aplikací je gamifikovaný modul od společnosti SAP, SAP Cloud Platform Gamification,
+který je možné začlenit do existující či nové podnikové aplikace. 
+SAP Cloud Platform Gamification nabízí koncepty jako je bodování, odznaky, mise, analýzy, které zaměstnanec vidí přehledně na gamifikovaném panelu.
+
+\par
+% příběh? možná spíš širší kontext, styl? 
+% U~žádného z~těchto softwarových řešení jsem však nenašel příběh,
+% který by hráče do používání aplikace více vtáhnul.
+Do námi vyvíjeného systému se budeme snažit zakomponovat poutavý příběh,
+který bude zahrnovat mise, což jsou větší celky úkolů, které budou hráči plnit.
+Pro vývoj našeho systému příběh považujeme za velmi důležitou část,
+protože se od něj bude odvíjet grafické zpracování uživatelského rozhraní. 
+Chceme aby toto uživatelské rozhraní hráče na první pohled upoutalo, aby jeho ovladatelnost byla velice intuitivní a~jednoduchá. 
+
+\par
+% Teď už ne! Odkázat se na M.B. a~D.D.
+% V~rámci závěrečných prací jsem dosud neobjevil žádnou práci,
+% která by se zabývala propojení podnikového systému či informačního systému s~gamifikací. 
+
+\kapitola{Literární přehled}
+
+V~této kapitole jsou popsány stěžejní pojmy a~technologie použité pro vývoj webové aplikace
+gamifikovaného informačního systému. 
+
+Jelikož se práce zaměřuje primárně na vývoj webové aplikace... TODO
+
+\sekce{Systém WWW}
+Webové aplikace fungují na základě systému WWW. 
+Systém WWW (World Wide Web) poskytuje komunikaci typu klient -- server (Obrázek 1)
+prostřednictvím následujících základních složek:
+
+\begin{itemize}
+\item komunikačního protokolu HTTP, 
+\item jednoznačné globální identifikace WWW zdrojů (URL, URI, URN),
+\item standardního jazyka pro vytváření a~publikaci WWW zdrojů/dokumentů -- HTML
+(HyperText Markup Language).
+\end{itemize}
+
+\obrazek
+\vlozeps{bakalarska-prace/client-server.jpg}{0.8}
+\endobr{Komunikace typu klient -- server}
+
+% HTTP
+\textbf{HTTP} je základem  WWW systému. 
+Jedná se o~jednoduchý síťový protokol aplikační vrstvy, 
+který pro přenos dat využívá protokol TCP. 
+% TODO: rozvést komunikaci typu klient -- server
+Je založený na principu klient -- server, 
+což znamená, že jsou zprávy ve formě požadavků a~odpovědí vyměňovány mezi klientem 
+a~serverem. 
+
+% HTTP Response, MIME
+\textbf{HTTP odpovědi} byly původně textové dokumenty ve tvaru HTML.
+Nyní, díky podpoře \textbf{MIME} (Multipurpose Internet Mail Extensions),
+mohou obsahovat soubory různých i~netextových formátů.
+MIME je tedy standard pro specifikaci internetového média (zdroje).
+Hlavičky MIME jsou součástí záhlaví HTTP zpráv, např.: \texttt{Content-type:~application/json.} 
+
+\textbf{Uniform Resource Locator} (URL) je typ URI -- identifikátoru přístupu k~internetovému zdroji. Formát URL pro protokol HTTP:
+
+\bigskip
+
+\texttt{http://\[:\]\[\[?\]\[\#\]\]}
+
+\bigskip
+
+\noindent{Adresa URL je složena z~následujících 2 složek:
+\footnote{Přednaška z~předmětu Počítačové~sítě I: Systém WWW, 2017}}
+
+\begin{itemize}
+    \item \textbf{Hierarchická složka} -- vyjadřuje cestu k~webovému objektu
+    \item \textbf{Nehierarchická složka} -- obsahuje volitelné položky:
+        \begin{itemize}
+            \item \textbf{Query} -- hodnoty předávané ke zpracování webovým aplikacím jako parametr QUERY\_STRING.
+            \item \textbf{Fragment} -- odkaz na identifikátor, kterým je označena určitá část webového objektu
+        \end{itemize} 
+\end{itemize}
+
+\sekce{Webové aplikace}
+
+Webové aplikace jsou sofistikované systémy, které jsou ve většině případů 
+používané prostřednictvím webového prohlížeče. 
+Na webový prohlížeč a~internet je možné v~tomto kontextu pohlížet jako na prostředí 
+pro provoz webové aplikace. Pro přenos dat mezi klientem a~serverem je využíván protokol \texttt{HTTP}.
+Přenášené data mohou obsahovat kusy kódu, 
+které jsou interpretovány na straně klienta pomocí programovacího jazyka \texttt{JavaScript}.
+
+Nespornou výhodou webových aplikací je, že nemusí být instalované na uživatelově počítači.
+Jediné, co uživatel pro spuštění a~provoz webové aplikace potřebuje, je webový prohližeč.
+Tato vlastnost je činí velice přístupnými. Na druhé straně však webové aplikace nemohou 
+využít plnou funkcionalitu počítače, pakliže to webový prohlížeč neumožňuje.
+
+Pro vývoj webových aplikací neexistuje žádná obecná technika, 
+která by se dala brát jako určité paradigma, exisují různé osvědčené postupy,
+které však mohou být protichůdné a~nebo jsou vhodné pouze za určitých podmínek.
+
+% TODO: formy webových aplikací
+Exitují různé formy webových aplikací,
+přičemž každá z~nich může být jinak vhodná na určité úkony.
+
+Webové aplikace jsou obvykle psány ve více programovacích jazycích,
+které se liší mezi backendem a~frontendem,
+což jsou 2 hlavní části webových aplikací \cite{odinuv}.
+
+
+
+\sekce{Architektura MVC}
+Někdy bývá u~webových aplikací uplatňován architektonický vzor Model-View-Controller 
+% \footnote{https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm}
+(MVC),
+který rozděluje aplikaci do tří hlavních logických komponent (model, view, controller).
+Každá z~těchto komponent je vytvořena za účelem zpracování specifických aspektů aplikace.
+Architektura MVC je jednou z~nejvíce používaných standardů při vývoji
+škálovatelných a~rozšiřitelných webových aplikací.
+
+Komponenta model reprezentuje datový oddíl aplikace. 
+Tato komponenta obvykle pracuje s~databází a~na základě požadavků 
+je různě zpracovává, odesílá, ukládá či transformuje.
+
+Komponenta view je hlavní vykreslovací komponentou, se kterou interaguje uživatel.
+Poskytuje veškerou logiku uživatelského rozhraní aplikace, 
+zahrnujíc veškeré komponenty uživatelského rozhraní jako jsou formuláře, tlačítka 
+atd.
+
+Komponenta controller poskytuje rozhraní mezi dvěma zmíněnými komponentami
+model a~view. Zpracovává veškerou podnikovou logiku aplikace. 
+Typicky na základě obdržených požadavků od uživatele, zprostředkovaných komponentou
+view, manipuluje s~daty prostřednictvím komponenty model a~v~závěru odesílá
+odpověď zpět komponentě view, která výsledek vykreslí uživateli.
+
+
+\sekce{Frontend}
+
+Frontend je to, co vidí uživatel ve webovém prohlížeči.
+Obvykle se jedná o~webovou stránku, která je zobrazována uživateli prostřednictvím
+technologií \texttt{HTML}, \texttt{CSS}, \texttt{JavaScript} a~různého mediálního obsahu (obrázky, videa atd.).
+V~dnešní době je hojně využíván JavaScript, který z~frontendu utváří samostatnou aplikaci.
+
+Pro první verzi frontendu webové aplikace byl využiván TypeScript
+s~použitím frameworku Angular,
+tyto technologie jsou popsány v~diplomové práci Ing. Martina Bendíka.
+Pro druhou a~třetí verzi webové aplikace, která je aktuálně vyvíjena, 
+používáme JavaScript s~použitím frameworku Polymer.
+
+\sekce{Backend}
+
+Bakend je souhrn funkcionalit zodpovědných za manipulaci dat, 
+podnikovou logiku, zabezpečení, komunikaci s~jinými službami či aplikacemi a~
+dodání kódů různých webových technologií do uživatelova prohlížeče (\texttt{HTML, CSS, JavaScript}).
+% \textbf{(http://odinuv.cz/articles/web-applications/)}
+Pod pojmem backend si můžeme představit téměř všechno běžící na serveru, 
+případně více serverech, potřebného pro provoz a~fungování webových aplikací.
+
+Práce se zabývá implementací určitých \texttt{backendových modulů} webové aplikace informačního systému. Pod \texttt{backendovým modulem} si můžeme představit aplikaci
+poskytující výše uvedenou funkcionalitu a~to především manipulaci, správu a~přenos dat.
+Pro implementaci těchto modulů byl použit programovací jazyk \texttt{Java} s~využitím frameworku \texttt{Spring}. Obě technologie jsou více představeny a~popsány ve stejnojmenných samostatných sekcích.
+
+
+
+\sekce{Webové služby}
+
+Webová služba
+% \footnote{Java Web Services, Martin Kalin, 2009} 
+je druh webové aplikace typicky poskytované prostředncitvím HTTP. 
+Webová služba je tedy distribuovaná aplikace, jejíž komponenty lze nasadit a~spustit na různých zařízeních. 
+
+Klientem webové služby je ve většině případů jiná aplikace, namísto webového prohlížeče.
+Klientská aplikace může být napsána v~jakémkoliv jazyce, který podporuje
+odpovídající knihovny pro webové služby.
+Koncepce webových služeb klade vysoký důraz na jazykovou průhlednost, 
+to znamená, že poskytovatel a~příjemce služby nemusejí být napsáni
+ve stejném programovacím jazyce. 
+% interoperabilita
+Jazyková průhlednost je klíčem k~\textbf{interoperabilitě}, schopnosti webových služeb hladce fungovat napříč různými systémy navzdory rozdílům v~programovací jazycích,
+podporovaných knihovnách a~platformách.
+%Několik funkcí odlišuje webové služby od distibuovaných systémů:
+%Otevřená infrastruktura, Jazyková průhlednost a~Modulární desgin
+Webové služby mohou být rozděleny do dvou skupin, na SOAP-ově založené a~RESTové.
+
+\sekce{SOAP -- Simple Object Access Protocol}
+
+Zjednodušeně je SOAP \footnote{Java Web Services, Martin Kalin, 2009}  určitý dialekt XML
+(EXtensible Markup Language), ve kterém je zapsána zpráva do xml dokumentu.
+SOAP bývá někdy zaměňován za SOA (Service Oriented Architecture) protokol.
+SOAPově založenou službu poskytovanou prostřednictvím protokolu HTTP je možné brát i~jako speciální případ služby RESTové.
+
+
+
+\sekce{REST -- Representational State Transfer}
+
+REST sám o~sobě není architekturou. REST je množina omezení,
+které při aplikování na návrh systému, utvářejí určítý architektonický styl. 
+
+\bigskip
+
+\noindent{Následující pravidla definují RESTový systém:}
+\begin{itemize}
+\item Musí se jednat o~systém typu klient-server.
+\item Sytém musí být bezstavový -- nemělo by být potřebné udržovat sezení, každý požadavek by měl být nezávislý na ostatních.
+\item Měl by podporovat systém ukládání do mezipaměti -- síťová infrastruktura by měla podporovat mezipaměť na různých úrovních.
+\item Musí být jednotně přístupný -- každý zdroj musí mít unikátní adresu a~validní přístupový bod.
+\item Musí být vrstvený -- musí podporovat škálovatelnost.
+\end{itemize}
+
+\noindent{RESTový systém může být implementován v~jakékoliv dostupné síťové architektuře.}
+(RESTful Java Web Services, Jose Sanodval, 2009)
+
+
+% bezstavovost
+Systémy, které se řídí paradigmatem REST jsou bezstavové, což znamená,
+že servre nemusí vědět nic o~tom, v~jakém stavu je klient a~naopak.
+Tímto způsobem mohou server i~klient porozumět  jakékoliv přijaté zprávě,
+aniž by viděli zprávy předchozí.
+
+% (https://www.codecademy.com/articles/what-is-rest)
+
+% SOA - Mikroslužby
+\sekce{Servisně orientovaná architektura (SOA)}
+Servisně orientovaná architektura je styl softwarového návrhu, 
+kde jsou služby aplikačních komponent poskytovány jiným komponentám
+prostřednictvím komunikačního protokolu po síti.
+
+Služba je v~rámci servisně orientované architektury jednotkou funkcionality, 
+ke které lze přistupovat vzdáleně z~jiné aplikace.
+Tato služba je schopna fungovat nezávisle a~také je možné ji nezávisle upravovat.
+
+\bigskip
+
+\noindent{Vlastnosti služby servisně orientované architektury:}
+
+\begin{itemize}
+
+\item Logicky reprezentuje podnikovou činnost se specifikovaným výstupem.
+
+\item Je samostatná.
+
+\item Je černou skříňkou pro příjemce, což znamená,
+      že příjemci nemusí být známo vnitřní fungování služby.
+      
+\item Může se skládat z~jiných podslužeb.
+
+\end{itemize}
+
+Různé služby mohou být spojeny pro poskytnutí funkcionality velké softwarové aplikace,
+tento princip SOA sdílí s~přístupem modulárního programování. 
+Servisně orientovaná architektura integruje distribuované,
+odděleně spravované a~nasazené komponenty softwarového systému.
+Tato integrace je umožněna technologiemi a~standardy, které usnadňují
+komunikaci komponent a~spolupráci v~síti.
+
+SOA je spojena s~myšlenkou aplikačního programového rozhraní
+(application programming interface -- API), komunikačního protokolu mezi 
+různými částmi počítačového systému určeného pro zjednodušení implementace, 
+údržby a~komunikace jednolivých částí systému. 
+Toto API umožňuje provoz jednotlivých služeb.
+%(en.wikipedia.org, 2020)
+
+\sekce{Programovací jazyk Java}
+% úvod
+V~této sekci se pokusím lehce představit programovací jazyk java a~
+vysvětlit důvod, proč jsme pro implementaci bakendových aplikací
+gamifikovaného informačního systému zvolili právě tento nástroj.
+
+Java
+% \footnote{https://www.oracle.com/technetwork/java/intro-141325.html, Oracle, 1999}
+je univerzální objektově orientovaný programovací jazyk. 
+Byla navržena tak, aby byly v~ní napsané programy spustitelné na nejrůznějších platformách.
+Zkompilovaný kód javy lze spustit na všech platformách, které Javu podporují,
+aniž by bylo nutné zdrojové java kódy opětovně kompilovat.
+Java aplikace jsou obvykle kompilovány do byte-kódu, 
+který může být uveden do chodu na jakémkoliv java virtuálním stroji
+(Java Virtual Machine -- JVM) bez ohledu na základní architekturu počítače.
+Programovací jazyk java má poměrně jednoduchou syntaxi, 
+podobnou programovacím jazykům C a~C++. 
+
+% popularita, kde je používaná
+Programovací jazyk Java je jedním z~nejpopulárnějších programovacích jazyků.
+% (en.wikipedia.org)
+Byla využita pro vytvoření mnoha bankovních a~finančních systémů po celém světě.
+Je také používána velkými podniky jako je Amazon, Google nebo Facebook,
+díky čemuž je považována za jedno z~nejlepších řešení pro vývoj podnikových i~webových systémů.
+
+% bezpečnost
+Java má mnoho vestavěných zabezpečovacích funkcí pro pokročilé ověřování,
+kryptografii a~řízení přístupu, které jsou velmi užitečné pro vývoj webových aplikací.
+Za pomocí těchto funkcí, mohou vývojáři s~výhodou využívat komplexní
+rozhraní, zahrnující mechanismy pro bezpečné přihlášování, digitální podpisy a~možnost vytvářet vlastní bepečností politiku.
+
+% rozmanitá sada volně dostupných nástrojů a~knihoven
+Spousta špičkových firem vyvíjejících webové aplikace dává přednost javě, 
+před jinými technologiemi díky rozmanité sadě volně dostupných nástrojů a~knihoven.
+Java poskytuje nejrůznější rozhraní pro vytváření sítí, zpracování různorodých dat,
+napojení na databáze, jejich správu a~nespočetné množství dalších věcí.
+Příkladem volně dostupných open source knihoven pro další funkcionalitu může být
+Apache POI, Google Guava, Jackson a~další.
+
+% příklady 
+Javu používá mnoho slavných webových stránek jako jsou
+eBay.com, Amazon.com, LinkedIn.com a~Facebook.com. 
+Je považována za jeden z~nejlepších nástrojů
+pro vývoj jakékoliv podnikové webové aplikace, v~téměř
+jakémkoliv průmyslovém odvětví včetně zdravotnictví, výroby či finančnictví.
+
+% IDE
+Pro javu lze použít nejrůznější nástroje usnadňující vývoj a~vynikající volně dostupná vývojová prostředí
+jako například NetBeans, který jsme používali pro vývoj první verze backendových modulů 
+(aplikací).
+% Poznámka pod čarou
+Aktuálně používáme vysoce populární vývojové prostředí IntelliJ IDEA
+od společnosti JetBrains.
+% MULTI-THREADING -- TODO
+Díky schopnosti více-vláknového zpracování,
+mohou java aplikace spravovat více uživatelů či vláken najednou.
+Java napomáhá vytvářet co nejvíce procesových vláken z~jediné instance
+spuštěné java aplikace na stejném počítači, podle toho jak to aplikace vyžaduje.
+
+% Škálovatelnost
+
+% Objektová orientace
+Jednou z~hlavních příčín popularity javy je její objektová orientace.
+Pro vývoj webových aplikací tato schopnost může být velice žádoucí,
+objektově orientované aplikace se jednodušeji spravují a~programují.
+Objektový přístup udržuje systém modulární, flexibilní a~škálovatelný.
+Objekty vytvářené v~javě lze znovu použít v~jiných částech systému.
+Možnost znovu použít jednotlivě části systému může výrazně snížit náklady na vývoj.
+
+% Komunita
+Další velkou výhodou tohoto programovacího jazyka je rozsáhlá komunita vývojářů,
+tento jazyk použivájící, díky čemuž existuje spousta různých diskuzních fórem,
+skupin, seminářů atd. Členové těchto komunit
+jsou ochotní napomáhat a~sdílet své znalosti mezi sebou.
+Díky těmto komunitám lze získat různorodé pohledy na řešené problémy
+a~jejich různé možnosti řešení.
+
+% (https://www.xicom.biz/blog/9-best-reasons-to-choose-java-for-web-development/)
+
+\sekce{Apache Maven}
+
+Pro vývoj backendových modulů bylo třeba použít nějaký nástroj,
+díky kterému budeme moci efektivně spravovat naše aplikace,
+stahovat a~používat různé frameworky, knihovny, pluginy 
+a~definovat určité informace o~našich projektech včetně jejich vzájemných závislostí. 
+
+K~těmto účelům jsme se rozhodli používat Maven od firmy Apache.
+Maven je nástroj pro správu a~vytváření projektů založených na javě.
+Primárním cílem nástroje Maven je umožnit vývojářům získat přehled o~stavu 
+vývoje, v~co nejkratším čase. 
+
+% Usnadnění procesu sestavení aplikací
+Maven ulehčuje proces sestavení aplikací a~snaží se poskytnout především 
+nejdůležitější informace týkající se tohoto procesu,
+odstíněné od méně podstatných detailů,
+které se však dají v~případě potřeby získat. 
+
+% Poskytnutí jednotného systému sestavení aplikací
+Maven poskytuje jendotný systém pro sestavení aplikací. 
+Jak má být projekt sestaven je možné definovat pomocí 
+jeho objektového modelu projeku (project object model),
+který je v~aplikaci reprezentován konfiguračním xml dokumentem, 
+a~sady pluginů, které jsou sdílené pro všechny projekty.
+Jakmile se uživatel Mavenu seznámí s~tímto procesem sestavování aplikací,
+je již díky jednotné struktuře, poměrně snadné se zorientovat i~v~jiných aplikacích,
+vytvořených pomocí Maven.
+
+% Poskytnutí kvalitních informací o~projektu
+Prostřednictvím dat definovaných v~objektovém modelu projektu (obyčejně pom.xml)
+a~zdrojových kódu je Maven schopen podávat spoustu užitečných informací o~projektu,
+např.: křížové zdoje, seznam závistlostí, reporty, týkající se testů aplikace atd.
+
+% Poskytování pokynů a~rad pro vývoj osvědčených postupů
+Maven se snaží vytyčovat určité osvědčené postupy pro vývoj
+a~napomáhat tak vést vývoj projektu určitým směrem. 
+V~tomto ohledu je kladen důraz například na testování,
+kde je specifikace a~spouštění určitých druhů testů
+součástí normálního cyklu sestavení aplikace.
+
+%(https://maven.apache.org/what-is-maven.html)
+
+
+\sekce{Apache Tomcat}
+Tomcat je jedním z~nejrozšířenějších aplikačních java serverů, 
+pro provoz webových aplikací. 
+Základní komponenty Apache Tomcat jsou Catalina, Coyote a~Jasper.
+
+% Catalina
+Catalina funguje v~rámci Tomcatu jako servlet kontejner. 
+To znamená, že implementuje specifikace pro servlety a~technologii JavaServer Pages (JSP).
+
+% Coyote
+Coyote je konektorovou komponentou Tomcatu podporující protokol HTTP 1.1 
+a~funguje jako webový server, který spravuje lokální soubory a~HTTP dokumenty.
+Coyote naslouchá na určitém TCP portu a~očekává příchozí připojení,
+následně předává obdržené požadavky na Tomcat Engine pro jejich zpracování
+a~odesílá zpět odpověd klientovi, který požadavek odeslal.
+
+% Jasper
+Jasper je engine pro zpracování Java Server Pages (JSP).
+Soubory JSP zpracovává a~kompiluje je do Java kódu jakožto servlety,
+které pak může obsluhovat Catalina.
+
+% (https://en.wikipedia.org/wiki/Apache\_Tomcat)
+
+% TomEE
+Poměrně důležitou nádstavbou k~Apache Tomcat je TomEE,
+který podporuje dodatečné technologie,
+jako například populární Java Persistence API (JPA) pro práci s~databází,
+které je více popsáno v~samostatně sekci.
+
+Apache Tomcat lze použít i~jako vestavěnou aplikaci, v~rámci webové aplikace.
+Při vývoji webové aplikace pak lze s~využitím vestavěného tomcatu
+spouštět pouze samotnou webovou aplikaci, jelikož sama sobě vyvolá
+potřebné funkce serveru pro spuštění a~správný chod.
+Spouštění vestavěného serveru může velice zjednodušit vývoj,
+jelikož se vývojář musí vypořádat pouze s~jedinou komponentou a~to aplikací samotnou,
+tím pádem nemusí vůbec řešit nasazování aplikace na aplikační server.
+
+%(https://www.javaworld.com/article/3510460/what-is-apache-tomcat-the-original-java-servlet-container.html)
+
+Z~hlediska lokálního vývoje našich backendových modulů jsme dříve používali 
+spuštěný Tomcat jakožto nezávislého hostitele pro vyvíjené webové aplikace.
+Aktuálně jsme však začali využívat možnosti spouštění technologie Tomcat jako vestavěnou
+aplikaci za pomocí knihovny Spring Boot, o~které je možno se dozvědět více v~sekci
+věnované frameworku Spring.
+
+\sekce{Java Persistence API}
+Java Persistence API (JPA) poskytuje java vývojářům
+objektově-relační mapování pro správu relačních dat v~java aplikacích.
+
+% ORM
+Objektově-relační mapování lze zjednodušeně vysvětlit jako
+programovací techniku pro přemodelování relační databáze
+na objektově orientovaný model v~aplikaci.
+Se samotnými záznamy databáze lze následně v~rámci aplikace pracovat jako s~objekty.
+% (https://en.wikipedia.org/wiki/Object-relational_mapping)
+
+%Java Persistence se skládá ze 4 oblastí: samotného Java Persistence API,
+%dotazovacího jazyka, Java Persistence Criteria API 
+%a~objektově/relačních mapovacích metadat.
+
+Jednou z~nejdůležitějších částí JPA jsou entitní třídy.
+Entitní třídy ve svě podstatě reprezentují databázovou tabulku
+relační databáze a~instance entitních tříd odopovídají jednomu řádku v~tabulce.
+
+Trvalý stav entit je reprezentován prostřednictvím jejich atributů,
+u~kterých se používají objektově/relační mapovací anotace 
+pro správné namapování databázových entit a~jejich vazeb.
+
+Níže je možné si prohlédnot ukázku entitní třídy Obec z~backendového 
+modulu oe-adresy. Třída byla mnou implementována na základě databázové tabulky 
+obec navžené Ing. Martinem Bendíkem. U~entitní třídy je možné spatřit 
+význačné anotace z~balíčku javax.persistence knihovny JPA,
+pro mapování entitní třídy, kupříkladu anotace\texttt{@Entity}, \texttt{@Table}
+a~\texttt{@Column}. 
+
+\begin{lstlisting}
+...
+
+@Entity
+@Table(name = "obec")
+@EntityListeners(AuditingEntityListener.class)
+public class Obec implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
+    
+    @Basic(optional = false)
+    @Column (name = "nazov", length = 255, nullable = false)
+    private String nazov;
+     
+    @Basic(optional = false) 
+    @Column(name = "psc", length = 5, nullable = false)
+    private String psc; 
+    
+    @ManyToOne
+    @JoinColumn(name = "id_okresu")  
+    private Okres okres; 
+    
+    @OneToMany(cascade = CascadeType.ALL,
+               fetch = FetchType.LAZY,
+               mappedBy = "obec")   
+    private Set adresy;
+    
+    ...
+\end{lstlisting}
+
+Anotace \texttt{@Entity} označuje třídu \texttt{Obec}
+jako entitní třidu a~v~kombinaci s~anotací \texttt{@Table} 
+a~použitím parametru \texttt{name} s~hodnotou \texttt{"obec"} je určeno pro jakou databázovou tabulku bude entitní třída použita.
+Anotace \texttt{@Column} uvedené nad některými atributy třídy,
+JPA říkají, které atributy náležejí jakým databázovým sloupcům a~s~jakými omezeními.
+V~příkladu je možné vidět i~anotace \texttt{@ManyToOne} a~\texttt{@OneToMany},
+které zachycují vazby na jiné databázové tabulky, včetně jejich kardinality.
+
+% Dotazovací metody JPA
+JPA nabízí 2 význačné metody pro vytváření databázových dotazů, 
+The Java Persistence query language (JPQL) a~The Criteria API.
+% JPQL
+JPQL je dotazovacím jazykem velice podobným SQL, používaným pro dotazování
+entit a~jejich vazeb.
+% Criteria API
+The Criteria API se používá pro vytváření typově bezpečných dotazů
+prostřednictvím specifických rozhraní programovacího jazyka java.
+
+% (https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html)
+
+Pro práci s~daty v~backendových aplikacích využíváme referenční implementaci 
+JPA Hibernate, která je k~dispozici prostřednictvím frameworku Spring.
+
+\sekce{Framework Spring}
+
+Framework Spring je vysoce používaným a~volně dostupným frameworkem
+jazyka java pro vývoj podknikových a~webových aplikací.
+Nabízí mnoho technologických řešení, které je možné s~výhodou
+použít a~tím velice zefektivnit vývoj.
+Framework Spring je rozdělen do několika modulů.
+Tyto moduly lze libovolně používat a~kombinovat dle potřeby.
+
+Spring nabízí základní podporu pro různé aplikační architektury,
+zahrnující zasílaní zpráv, správu transakčních dat a~web.
+Pro vývoj webových aplikací jsou k~dispozici 2 dceřiné frameworky,
+Spring MVC web framework založený na technologii servletů 
+a~paralelně Spring WebFlux reactive web framework.
+
+% Design Philosophy
+Spring framework byl vystavěn na základě určitých principů.
+% Možnost výběru na různých úrovních
+Jedním z~nich je poskytnutí možnosti výběru na různých úrovních vývoje.
+Spring umožňuje určitá rozhodnutí týkající se návrhu systému, 
+co nejvíce odložit, případně i~změnit.
+Příkladem může být změna poskytovatelů 
+pro správu dat prostřednictvím konfigurace,
+aniž by bylo nutné měnit kód aplikace.
+Stejná flexibilita platí i~pro koncepty související s~infrastrukturou 
+a~integrace s~aplikačními rozhraními třetích stran.
+
+% Podpora různých perspektiv vývoje
+Framework Spring podporuje poměrně širokou škálu perspektiv vývoje
+a~lze jej přizpůsobit různým potřebám aplikace.
+% Zpětná kompatibilita
+Spring udržuje poměrně silnou zpětnou kompatibilitu. 
+Z~těchto důvodů framework podoporuje pouze určitou řadu
+pečlivě vybraných verzí Java Development Kit
+a~knihoven třetích stran, usnadňujících správu aplikací,
+a~knihoven závislých na frameworku Spring.
+
+% Inuitivita a~jednoduchost použití
+Vývojáři tohoto frameworku se snažili vytvořit aplikační rozhraní tak,
+aby bylo velice intuitivní a~vydrželo v~mnoha verzích po mnoho let.
+% Dokumentace
+Proto byly nastavené vysoké standardy pro kvalitu kódu.
+Framework Spring klade velký důraz na smysluplný, aktuální a~přesný javadoc
+(Java dokumentace).
+
+%(https://docs.spring.io/spring/docs/current/spring-framework-reference/overview.html\#overview)
+
+% Dependency Injection and Inversion of Control
+Přestože Java platforma nabízí bohatou funkcionalitu pro vývoj aplikací,
+postrádá prostředky k~uspořádání základních stavebních jednotek do souvislého celku,
+Tento úkol je ponechán softwarovým architektům a~vývojářům.
+K~těmto účelům he možné použít návrhové vzory, jako jsou továrny, abstraktní továrny,
+stavitel, dekorátor, pro skládání různých tříd a~instancí objektů,
+které výseledně tvoří aplikaci.
+Tyto návrhové vzory jsou formalizovanými osvědčenými postupy,
+které je však nutné nějakým způsobem implementovat.
+
+"Komponenta Spring Framework Inversion of Control řešít tento problém
+poskytováním formalizovaných prostředků pro sestavování nesourodých
+součáští do plně funkční aplikace připravené k~použití."
+Spring framework  implementuje určité návrhové vzory a~poskytuje
+je prostřednictvím objektů, které je možné integrovat do vlastních aplikací.
+Mnoho organizací využívá Spring Framework tímto způsobem k~vývoji robustních
+a~udržovatelných aplikací.
+
+Framework Spring se skládá z~různých funkcionalit organizovaných do 20 různých modulů.
+Tyto moduly jsou seskupený do částí Core, Container, Data Access/Integration,
+Web, Aspect Oriented Programming (AOP), Instrumentation a~Test,
+jako je vyzobrazeno na obrázku 2 níže.
+
+\obrazek
+\vlozeps{bakalarska-prace/spring-overview}{0.6}
+\endobr{Framework Spring -- moduly}
+
+Dále budou stručně představeny určité moduly frameworku Spring,
+které používáme pro vývoj java aplikací backendu.
+
+% Core a~Beans - IoC, BeanFactory
+Moduly Core a~Beans poskytují základní části frameworku,
+zahrnující funkce Inversion of Control a~Dependency Injection.
+Jednou z~těchto funkcionalit je \texttt{BeanFactory},
+což je sofistikovaná implementace návrhového vzoru továrna.
+\texttt{BeanFactory} odstraňuje potřebu používat programové jedináčky a~umožňuje oddělit konfiguraci a~specifikaci závislostí aplikace oddělit 
+od skutečné logiky programu.
+
+%
+Ze Skupiny Data Access/Integration modulů používáme především JDBC, ORM
+a~modul Transaction.
+
+% JDBC
+JDBC modul poskytuje vrstvu pro Java Database Connection
+-- JDBC (aplikační rozhraní pro připojení do databází), 
+která odstraňuje potřebu zdlouhavého implementování JDBC a~zpracování chybových stavů specifických pro různé druhy databázových systému.
+
+% ORM
+Modul ORM poskytuje integrační vrstvy pro populární objektově-relační mapování
+zahrnující JPA, Hibernate a~další technologie.
+Použitím modulu ORM je možné použít oba zmíněné ORM frameworky 
+v~kombinaci s~dalšími funkcemi, které Spring nabízí, 
+jako například funkce pro deklarativní správu databázových transakcí.
+
+% Transaction
+Modul Transacion podporuje programové a~deklarativní řízení
+transakcí pro třídy, které implementují speciální rozhraní a~
+pro všechny obyčejné Java objekty (POJOs).
+% Web, MVC
+Další moduly, které používáme jsou Web a~Servlet, patřící do rodiny modulů Web.
+Kombinace těchto 2 modulů poskytuje implementaci architektury MVC
+pro webové aplikace. 
+
+%https://docs.spring.io/spring/docs/3.0.x/spring-framework-reference/html/overview.html
+
+% Spring Boot
+Jedním z~nejčastěji používaných projektů z~rodiny Spring,
+je projekt Spring Boot, který jsme se rozhodli v~backendových modulech použít.
+Spring-Boot usnadňuje vytváření samostatných spustitelných aplikací
+založených na frameworku Spring.
+
+
+% https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
+
+\kapitola{Vlastní práce}
+
+%Oproti starší verzi byla zásadním způsobem změněna celková struktura systému.
+%I~zásady a~postupy vývoje byly uceleny a~sjednoceny,
+%například kód píšeme oproti starší verzi výhradně v~anglickém jazyce.
+
+Pro přehlednost bylo ze všech implementovaných služeb vybráno 5 následujících:
+
+\begin{itemize}
+\item Služba pro registraci nového hráče
+\item Služba pro potvrzení prvního přihlášení
+\item Služba pro inicializaci dovednosního stromu hráče
+\item Služba pro inicializaci úkolů nového hráče
+\item Služba pro získaní důležitých událostí přihlášeného hráče
+\end{itemize}
+
+První 4 uvedené služby byly implementovány na základě servisně orientovaných modelů navržených Ing. Martinem Bendíkem.
+Tyto 4 služby byly vytvořeny v~rámci starší verze systému a~všechny se týkají inicializace nového uživatele.
+
+Pro poslednní službu jsem ná zakladě požadavků a~dosupného databázového modelu navrhnul taktéž servisně orientovaných model,
+jehož prototyp jsem následně implementoval. Služba bude využita v~rámci nové verze systému.
+
+\clearpage
+
+\sekce{Služba pro registraci nového hráče}
+
+Služba byla implementována v~rámci modulu oe-security pro potřebu vytvoření nového uživatelského účtu.
+Novému uživateli systému je tedy za pomocí této služby připraven účet,
+díky kterému se bude moci do webové aplikace přihlašovat a~bude mu tak umožněno používat její základní funkcionalitu.
+Modul oe-security je modul, který spravuje veškeré operace týkající se zabezpečení aplikace.
+To znamená, že poskytuje služby pro přihlášení, odhlášení a~operace pro zabezpečení služeb jiných modulů.
+
+Služby poskytované uživatelům jsou zabezpečeny prostřednictvím JWT tokenu (JSON Web Token).
+Uživatel po úspěšném přihlášení do systému obdrží z~modulu oe-security JWT token.
+Obdržený JWT token je následně uložen do lokálního uložiště klientova webového prohlížeče. 
+Tímto je uživatel autentizován a~další služby jsou z~aplikace volány s~tímto tokenem vloženým do hlavičky HTTP požadavku. 
+Takto příchozí požadavky jsou vyhondnoceny, zda obsahují v~hlavičče validní token a~pokud ano, 
+tak je toto volání považováno za autentizované a~validní. Následně je z~příchozího tokenu možné získnat id přihlášeného uživatele,
+které je použito pro získaní dat, týkajících se tohoto uživatele.
+
+Nový uživatel je do systému registrován po obdržení a~potvzení emailu s~pozvánkou.
+Pozvánku budou mít možnost zasílat všichni uživatelé systému.
+Po potvrzení pozvánky, je uživatel přesměrován na registrační
+formulář, kde vyplní svůj email, login a~heslo. 
+Na základě odeslání tohoto formuláře je mu vytvořen a~inicializován účet. 
+Tuto HTTP POST operaci obsluhuje služba pro registraci nového hráče.
+
+Vstupním objektem této služby je objekt s~názvem NovyHracDto a~jeho atributy jsou:
+\begin{itemize}
+\item email -- email, na který byl zaslán email s~pozvánkou,
+\item login -- název účtu, volený pseudonym,
+\item heslo,
+\item registrationToken -- registrační token, získaný z~emailové pozvánky,
+\item idParent -- ID nadřízeného
+\end{itemize}
+
+Po úspěšném zpracování požadavku je vrácen výstupní objekt, 
+který byl nazván LoginResponseDto.
+Jedná se o~jednoduchý objekt zapouzdřující atribut accessToken, znakový řetězec reprezentující přístupový JWT token. 
+
+Na základě servisně orientovaného modelu navrženého Ing. Martinem Bendíkem byla
+následně vydefinována HTTP REST operace v~REST API modulu oe-security. 
+REST API bylo implementována za pomocí technologie Swagger. Níže je možno vidět úryvek z~API, popisující registrační službu. 
+
+\clearpage
+
+\begin{lstlisting}
+paths:
+ /rest/security/registration:
+    post:
+      tags:
+        - Security
+      summary: Sluzba dle zadanych hodnot vytvori instanci noveho hrace.
+      operationId: postNovyHrac
+      parameters:
+        - in: body
+          name: novyHracDto
+          required: true
+          schema:
+            $ref: '#/definitions/NovyHracDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/LoginResponseDto'
+...
+definitions:
+# Vstupní DTO
+    NovyHracDto:
+        type: object
+        properties:
+          email:
+            type: string
+          login:
+            type: string
+          heslo:
+            type: string
+          registrationToken:
+            type: integer
+          idParent:
+            type: integer
+            format: int64
+        
+# Výstupní DTO 
+    LoginResponseDto:
+        type: object
+        properties:
+          accessToken:
+            type: string
+...
+\end{lstlisting}
+
+Služba pro registraci provádí databázovou transakci,
+která zastřešuje 5 databázových operací. 
+Pro zpřístupnění základní funkcionality webové aplikace nově registrovanému uživateli je nutné vytvořit 5 nových záznamů,
+v~5 vzájemně provázaných databázových tabulkách.
+Jedná se o~tabulky \texttt{osobne\_udaje}, \texttt{udaje\_postavy}, \texttt{nastavenia}, \texttt{hrac} a~\texttt{prihlasovacie\_udaje}.
+
+Pro práci s~uvedenými databázovými tabulkami byly v~jazyce java implementovány příslušné entitní třídy.
+
+\obrazek
+\vlozeps{bakalarska-prace/oe-security-domain-simple.png}{0.6}
+\endobr{Zjednodušený class diagram entitních tříd modulu oe-security}
+
+\clearpage
+
+Pro uložení nových záznamů do databáze bylo implementováno 5 obslužných metod ve třídě \texttt{LoginServiceImplementation}. Každá metoda ukládá nový záznam do určité databázové tabulky za pomocí metody save implementované referenční implementací JPA (Java Persistence API) Hibernate. 
+
+Stěžejní public metodou, která je důležitá pro realizaci celé databázové transakce, je metoda \texttt{createNewHra}c. Do této metody vstupuje objekt \texttt{NovyHracDto}, který byl získán na základě přijatého těla HTTP požadavku. Metoda vytváří nový objekt od entitní třídy \texttt{PrihlasovacieUdaje} a~nastaví mu hodnoty dle vstupního objektu novyHracDto, včetně hesla, zašifrovaného pomocí alogritmu \texttt{SHA256}. 
+
+Metoda \texttt{createNewHrace} provolá private metodu \texttt{initHrac}, která vytvoří a~inicializuje objekt entitní třídy \texttt{Hrac}, vytvoří další 3 objekty \texttt{osobniUdaje}, \texttt{udajePostavy}, \texttt{nastaveni} a~prováže s~nimi objekt \texttt{hrac}. 
+
+Objekt \texttt{hrac} je metodou vrácen a~využit v~metodě \texttt{createNewHrac}, kde je ve výsledném zpracování pomocí jeho id provozán s~objektem přihlašovacích údajů. Objekt přihlašovacích údajů je následně doplněn o~další dvě hodnoty atributů prvního přihlášení a~uživatelské role. Pak je již předán výše zmíněné metodě save, která zapříčiní spuštění databázové transakce. 
+
+Aby bylo dosaženo provedení jednotlivých databázových dotazů uvnitř jedné transakce,
+musí být metoda, případně třída anotována anotací \texttt{@Transactional} frameworku Spring. 
+
+
+\clearpage
+
+\begin{lstlisting}
+
+@Service
+@Transactional
+public class LoginServiceImplementation implements LoginService {
+    
+    @Autowired
+    private HracRepository hracRepository;
+
+    @Autowired
+    private PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
+    
+    ...
+
+    @Override
+    public PrihlasovacieUdaje createNewHrac(NovyHracDto novyHracDto) {
+        PrihlasovacieUdaje prihlasovacieUdaje = new PrihlasovacieUdaje();
+        prihlasovacieUdaje.setLogin(novyHracDto.getLogin());
+        prihlasovacieUdaje.setEmail(novyHracDto.getEmail());
+
+        // nastavit zahashovane heslo dle algoritmu SHA256
+        prihlasovacieUdaje.setPassword(Hashing.sha256().hashString(
+                novyHracDto.getHeslo(), StandardCharsets.UTF_8).toString());
+
+        // provolat inicializaci Hrace a~provazat s~jeho ID
+        prihlasovacieUdaje.setIdHraca(initHrac(novyHracDto).getId());
+
+        // uzivatel se prihlasuje poprve
+        prihlasovacieUdaje.setPrvePrihlasenie(true);
+        prihlasovacieUdaje.setIdRola(ID_ROLE_STANDARD);
+        return prihlasovacieUdajeRepository.save(prihlasovacieUdaje);
+    }
+
+    ...
+
+    private Hrac initHrac(NovyHracDto novyHracDto) {
+        Hrac hrac = new Hrac();
+        hrac.setOsobneUdaje(initOsobniUdaje());
+        hrac.setUdajePostavy(initUdajePostavy());
+        hrac.setNastavenia(initNastaveni());
+        // set ID nadrizeneho
+        hrac.setIdParent(novyHracDto.getIdParent());
+        return hracRepository.save(hrac);
+    }
+\end{lstlisting}
+
+\clearpage
+
+HTTP REST operaci pro registraci uživatele obsluhuje třída \texttt{LoginRestController}. 
+Tato třída zpracovává přijaté HTTP požadavky a~jejich těla ve formátu JSON. Na základě zpracování požadavků provolává potřebné metody pro zpracování dat a~odesílá zpět příslušnou HTTP odpověď dle standardu REST.
+
+Aby byla třída aplikací registrována, jakožto třída zpracovávající REST operace, byla anotována anotací \texttt{@RestController} frameworku Spring. Další význačnou anotací tohoto frameworku, kterou byla třída opatřena je anotace\texttt{ @RequestMapping}, díky které je specifikováno pod jakou url adresou tato třída zpracovává požadavky, v~jakém formátu požadavky příjmá a~v~jakém formátu odesílá odpovědi. 
+
+HTTP POST operaci registrace nového uživatele zpracovává metoda \texttt{postNovyHrac}, fungující pod url koncovým bodem \texttt{/registration}. 
+Metoda \texttt{postNovyHrac} volá metodu \texttt{createNewHrac} přes instanci rozhraní \texttt{loginService}. Z~návraceného objektu z~metody \texttt{createNewHrac} je vytvořen JWT token, který je uložen do atributu \texttt{accessToken} odchozího objektu \texttt{LoginResponseDto}. Objekt \texttt{LoginResponseDto} je následně odeslán ve formátu JSON ven z~aplikace.
+
+\clearpage
+
+\begin{lstlisting}
+
+@RestController
+@RequestMapping(
+        value = "/rest/security",
+        produces = {"application/json"},
+        consumes = {"application/json"})
+public class LoginRestController implements SecurityApi {
+    
+    @Autowired
+    private LoginService loginService;
+    
+    @Autowired
+    private JwtTokenService jwtTokenService;
+    
+    ...
+
+    /**
+     * Dle vstupujiciho DTO metoda vytvori noveho hrace
+     * a~odesle zpet pristupovy token.
+     *
+     * @param novyHracDto prichozi DTO noveho hrace,
+     * ktery ma byt registrovan
+     *                    
+     * @return Metoda vraci LoginResponseDTO
+     * obsahujici pristupovy token
+     */
+    @Override
+    @PostMapping(value = "/registration")
+    public ResponseEntity postNovyHrac(
+            @RequestBody NovyHracDto novyHracDto) {
+             
+        JwtToken jwtToken = jwtTokenService.createJwtToken(
+                loginService.createNewHrac(novyHracDto));
+                
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setAccessToken(jwtToken.getToken());
+
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);      
+    }
+    
+    ...
+
+\end{lstlisting}
+
+\clearpage
+
+
+\sekce{Služba pro potvrzení prvního přihlášení}
+
+Pro zobrazení určitých vizuálních prvků a~informací uživateli, je třeba rozlišovat, zda se uživatel do systému přihlašuje poprvé. Jedním ze zobrazovaných prvků uživateli po prvním přihlášení je například uvítací modální okno, které hráče přivitá do aplikace a~ve stručnosti ho s~naší aplikací seznámí. Jakmile je uživatel proveden celým uvítacím procesem, nechceme ho již při dalším přihlášení do systému obtěžovat těmito informacemi a~proto mu již určité prvky nebudou znovu zobrazeny.
+
+Informace o~prvním přihlášení určitého uživatele je uchována v~databázové tabulce \texttt{prihlasovacie\_udaje}. Do aplikace je zasílána službou modulu \texttt{oe-hrac} společně s~dalšími údaji o~uživateli ihned po uživatelově přihlášení.
+
+Po zobrazení prvků spojených s~prvním vstupem do aplikace je nutné odeslat požadavek na změnu příznaku prvního přihlášení. Proto bylo potřebné vytvořit službu, díky které bude možné tento příznak změnit. Jelikož se jedná o~službu týkající se základního panelu hráče, byla tato služba implementována v~modulu \texttt{oe-hrac}.
+
+Služba pro potvrzení prvního přihlášení je implementačně poměrně jednoduchá. Pracuje pouze s~jednou již výše uvedenou databázovou tabulkou \texttt{prihlasovacie\_udaje}, kde na základě přijatého požadavku mění v~příslušném řádku tabulky, reprentujícím přihlašovací údaje přihlášeného hráče, hodnotu prvního přihlášení, definovanou logickým datovým typem boolean. 
+
+Pro realizaci této funkcionality je třeba nejdříve dohledat instanci přihlašovacích údajů dle id hráče přihlášeného uživatele. Takto získanému objektu je následně nastavena hodnota prvního přihlášení podle hodnoty uložené v~příchozím objektu z~HTTP požadavku -- \texttt{PrvniPrihlaseniDto}.  Záznam je po úpravě uložen do databáze. 
+
+\clearpage
+
+\begin{lstlisting}
+@Service
+public class HracServiceImplementation implements HracService {
+
+@Autowired
+PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
+
+...
+
+    /**
+     * Metoda upravi hodnotu prvniho prihlaseni, dle vstupniho DTO,
+     * objektu prihlasovacich udaju, dohledaneho dle ID hrace.
+     * 
+     * @param hracId ID prihlaseneho uzivatele
+     * @param prvniPrihlaseniDto DTO s~priznakem prvniho prihlaseni
+     * @return aktualizovany objekt prvniho prihlaseni
+     */
+    @Override
+    @Transactional
+    public PrihlasovacieUdaje editPrvniPrihlaseni(Long hracId,
+                                   PrvniPrihlaseniDto prvniPrihlaseniDto) {
+
+        Optional prihlasovacieUdajeOptinal
+                = prihlasovacieUdajeRepository.findByHracId(hracId);
+
+        if (!prihlasovacieUdajeOptinal.isPresent()) {
+            return null;
+        }
+
+        PrihlasovacieUdaje prihlasovaciUdajeToEdit 
+                    = prihlasovacieUdajeOptinal.get();
+        prihlasovaciUdajeToEdit.setPrvePrihlasenie(
+                prvniPrihlaseniDto.getPrvniPrihlaseni());
+        return prihlasovacieUdajeRepository.save(prihlasovaciUdajeToEdit);
+    }
+
+...
+\end{lstlisting}
+
+Služba je poskytována pod url koncovým bodem \texttt{/rest/hrac/prvni-prihlaseni} a~HTTP metodou PUT.  Takto je služba registrována pod metodou \texttt{putPrvniPrihlaseni} třídy \texttt{HracRestController}.
+Část třídy s~implementací této metody si může čtenář prohlédnout v~kapitole příloh.
+
+\clearpage
+
+\sekce{Služba pro inicializaci dovednosního stromu hráče}
+
+Každý uživatel systému získává za plnění pracovních úkolů určité dovedností body. Tyto dovedností body náleží dovednostem, které v~průběhu kariéry ve firmě Optimal Energy za používání našeho systému, uživatel získává a~rozvíjí. Díky těmto rozvíjeným dovednostem uživatel vidí, jak se v~různých činnostech zlepšuje a~nabývá nových zkušeností či vědomostí. 
+
+V~systému jsou dovednosti rozděleny do určitých kategorií dle věcného významu. Podle vydefinovaných pravidel v~databázy jsou pak přidělovány zmíněné body k~určitým dovednostem za splnění pracovních úkolů evidovaných naším systémem.
+
+Pro správu dovedností hráčů byl zřízen samostaný modul \texttt{oe-dovednosti}, který pracuje s~daty těchto dovedností. Před tím než uživatel začne plnit v~systému pracovní úkoly je nezbytné, aby mu byla připravena příslušná struktura dat, týkající se jeho dovedností, které při plnění úkolů bude rozvíjet. Proto byla vyvinuta služba pro inicializaci dovednostního stromu hráče.
+
+
+Pro vytvoření struktury dat dovedností (jinak dovednostního stromu) určitého uživatele je nutné:
+
+\begin{itemize}
+
+\item vytvořit v~databázové tabulce \texttt{kategoria\_dovednosti} instanci od každého druhu dovednostní kategorie
+\item  a~následně vytvořit nové záznamy v~tabulce \texttt{dovednost} od každého typu dovednosti.
+\end{itemize}
+
+Data jednotlivých druhů kategorií dovedností a~druhů dovedností jsou uloženy v~tabulkách \texttt{typ\_kategoria\_dovednosti} a~\texttt{typ\_dovednosti}.
+Entitní třídy, zrcadlící databázové tabulky, se kterými služba pracuje, jsou \texttt{TypKategoriaDovednosti}, \texttt{TypDovednosti}, \texttt{KategoriaDovednosti} a~\texttt{Dovednost}. Na uvedeném obrázku 2 níže je možné si prohlédnout zjednodušený class diagram modulu \texttt{oe-dovednosti}. 
+
+\clearpage
+
+\obrazek
+\vlozeps{bakalarska-prace/oe-dovednosti-domain-simple.png}{0.5}
+\endobr{Zjednodušený class diagram entitních tříd modulu oe-dovednosti}
+
+Pro správné vytvoření celého dovednostního stromu hráče bylo ve třídě KategorieDovednostiServiceImplementation vytvořeno 6 metod, příčemž 5 z~nich jsou pomocné private metody.
+
+Nejdříve byly implementovány metody pro vygenerování kategorií dovedností přihlášeného hráče. Metoda nesoucí název \texttt{createKategorieDovednosti} obstarává vložení nového záznamu kategorie dovednosti dle zadaného id hráče a~objektu třídy \texttt{TypKategorieDovednosti}.
+V~metodě \texttt{initKategorieDovednosti} je z~databáze získán seznam všech typů dovedností a~pro každou položku z~tohoto seznamu je provolána metoda \texttt{createKategorieDovednosti} pro vytvoření nové kategorie dovednosti určitého uživatele. Díky těmto dvěma metodám jsou vygenerovány všechny potřebné kategorie dovedností danému uživateli. 
+
+Jakmile jsou vytvořeny dovednostní kategorie započnou se vytvářet všechny potřebné dovednosti. K~tomuto jsou použity metody \texttt{initDovednostiHrace}, \texttt{createAllDovednostiKategorie} a~\texttt{createDovednost}. Metoda \texttt{initDovenostiHrace} projde vstupní seznam kategorií dovedností a~pro každou položku provolá metodu \texttt{createAllDovednostiKategorie}. Metoda \texttt{createAllDovednostiKategorie}  podle typu kategorie dovednosti, získaného ze vstupního objektu kategorie dovednosti, dotáhne z~databáze příslušné typy dovedností a~pro každou položku z~tohoto seznamu provolá metoda \texttt{createDovednost}, která zapříčiní vytvoření nové dovednosti. 
+
+Vygenerování celého dovednostního stromu hráče je spuštěno zastřešující public metodou \texttt{initStromDovednosti}, která provolává 2 výše popsané metody \texttt{initKategorieDovednostiHrace} a~\texttt{initDovednostiHrace}. Aby byla zajištěna konzistence dat, je popsaná funkcionalita těchto 6 metod realizována jako databázová transakce. 
+
+Služba je poskytována prostřednictvím třídy \texttt{DovednostiRestController} jakožto HTTP POST operace \texttt{initDovednostiHrace}, pod url koncovým bodem \texttt{/rest/dovednosti/inicializace}.
+
+\begin{lstlisting}
+@Service
+public class KategorieDovednostiServiceImplementation 
+        implements KategorieDovednostiService {
+        
+    @Autowired
+    private KategorieDovednostiRepository kategoriaDovednostiRepository;
+    @Autowired
+    private TypKategorieDovednostiRepository 
+                                typKategorieDovednostiRepository;
+    @Autowired
+    private TypDovednostiRepository typDovednostiRepository;
+    @Autowired
+    private DovednostRepository dovednostRepository;
+    
+    ...
+    
+    @Override
+    @Transactional
+    public void initStromDovednosti(Long hracId) {
+        
+        Iterable kategorieDovednostiIterable
+                = initKategorieDovednostiHrace(hracId);
+
+        initDovednostiHrace(kategorieDovednostiIterable);
+
+    }
+    
+    private List initKategorieDovednostiHrace(Long hracId) {
+
+        // ziskat seznam vsech typu kategorii dovednosti
+        Iterable typyKategorieDovednosti
+                = typKategorieDovednostiRepository.findAll();
+    
+        List kategoriaDovednostiList
+                = new ArrayList<>();
+    
+        // pro kazdy typ kategorie dovednosti
+        // vytvorit hraci instanci kategorie dovednosti
+        typyKategorieDovednosti.forEach(TypKategorieDovednosti -> {
+                    KategoriaDovednosti kategoriaDovednosti =
+                            createKategorieDovednosti(hracId, TypKategorieDovednosti);
+                    kategoriaDovednostiList.add(kategoriaDovednosti);
+        });
+
+        return kategoriaDovednostiList;
+    }
+    
+    private KategoriaDovednosti createKategorieDovednosti(
+            Long hracId, TypKategorieDovednosti typKategorieDovednosti) {
+
+        KategoriaDovednosti kategoriaDovednosti = new KategoriaDovednosti();
+        kategoriaDovednosti.setTypKategorieDovednosti(typKategorieDovednosti);
+        kategoriaDovednosti.setIdHraca(hracId);
+        kategoriaDovednosti.setZiskaneSkusenosti(0);
+        kategoriaDovednosti.setUroven(0);
+        kategoriaDovednosti.setAktivita(0);
+        return kategoriaDovednostiRepository.save(kategoriaDovednosti);
+    }
+    
+    private void initDovednostiHrace(Iterable kategorieDovednostiIterable) {
+        kategorieDovednostiIterable.forEach(
+                KategoriaDovednosti -> createAllDovednostiKategorie(
+                        KategoriaDovednosti));
+    }
+
+    private void createAllDovednostiKategorie(
+            KategoriaDovednosti kategorieDovednosti) {
+
+        // vyhledat typy dovednosti dle typu kategorie dovednosti
+        Iterable typyDovednostiIterable = typDovednostiRepository
+                .findByTypKategorieDovednosti(
+                        kategorieDovednosti.getTypKategorieDovednosti());
+
+        // vytvorit instanci dovednosti od kazdeho typu dovednosti
+        // prislusne kategorie dovednosti
+        typyDovednostiIterable.forEach(
+                TypDovednosti -> createDovednost(
+                        kategorieDovednosti, TypDovednosti));
+    }
+    
+    private Dovednost createDovednost(
+            KategoriaDovednosti kategoriaDovednosti,
+            TypDovednosti typDovednosti) {
+
+        Dovednost dovednost = new Dovednost();
+        dovednost.setKategoriaDovednosti(kategoriaDovednosti);
+        dovednost.setTypDovednosti(typDovednosti);
+        dovednost.setUroven(0);
+        dovednost.setSkusenosti(0);
+        dovednost.setAktivita(0);
+        return dovednostRepository.save(dovednost);
+    }
+
+    
+\end{lstlisting}
+
+\clearpage
+
+\sekce{Služba pro inicializaci úkolů nového hráče}
+
+Každý uživatel systému může za pomocí naší aplikace plnit různé pracovní úkoly.
+Úkoly byly navrženy a~vytovřeny především pro nové členy firmy Optimal Energy. Byly vytvořeny dle letitých zkušeností jiných pracovníků a~měly by být pro nováčky vysoce přínosným interaktivním průvodcem a~pomocníkem.
+
+Za každý splněný úkol získává užívatel určité zkušenostní body, virtuální měnu a~v~předchozí sekci zmíněné dovednostní body. 
+
+Úkol může uživatel prostřednictvím webové aplikace spustit a~zahájit tak jeho plnění. Po spuštění úkolu je startována časomíra, která měří dobu, která proběhla od zahájení plnění tohoto úkolu, až do jeho ukončení. Určité úkoly může uživatel označit sám jako splěné a~jiné jsou plněny na základě příchozích dat z~jiného systému NIS firmy Optimal Energy. 
+
+Jednotlivé úkoly jsou uceleny do tzv. herních misí, které na sebe navazují. Dle vydefinovaných pravidel návazností v~databázi jsou úkoly webovou aplikací nabízeny a~uživatelem plněny v~určitém pořadí.
+
+Různorodou funkcionalitu pro práci s~herními úkoly nabízí modul \texttt{oe-questy}.
+Po registraci nového hráče do systému je potřebné mu vytvořit instanci prvního úkolu. Na základě splění tohoto úkolu budou postupně odemykány i~další. 
+Proto bylo v~modulu \texttt{oe-questy} nezbytné vytvořit službu pro vytvoření instance prvního úkolu, pro nově přihlášeného uživatele. 
+
+Implementačně se jedná o~poměrně jednoduchou databázovou transakci, která nejdříve dohledá v~databázi instanci typu prvního úkolu dle určitého kódu a~vytvoří v~tabulce \texttt{quest} nový záznam propojený s~dohledaným typem úkolu a~s~parametrem id hráče, rozšifrovaného z~JWT tokenu, náležejícímu určitému uživateli.
+
+
+Entitními třídami, vytvořených dle databáze pro herní úkoly, potřebných pro fungování služby jsou \texttt{TypQuestu} a~\texttt{Quest}.
+
+
+\obrazek
+\vlozeps{bakalarska-prace/oe-questy-domain.png}{0.5}
+\endobr{Zjednodušený class diagram entitních tříd modulu oe-questy}
+
+
+Java třída implemetnující službu nese název \texttt{QuestServiceImplementation}.
+V~metodě \texttt{createQuestForNewPlayer} používá 2 instance repozitářů databázových dotazů \texttt{QuestRepository} a~\texttt{TypQuestuRepository}, pro správné vytvoření prvního úkolu. Pro získání instance typu prvního úkolu dle kódu je použit způsob, kdy je z~názvu metody \texttt{findByKod}, za pomocí referenční implementace Hibernate, vyvozen databázový dotaz pro získání chtěného záznamu. Posléze je provolána obslušná private metoda \texttt{createQuest} s~parametry id hráče, typem prvního úkolu a~id připraveného stavu úkolu. V~této private metodě je použit druhý repozitář databázových dotazů pro úkoly, na kterém je zavolána metoda \texttt{create} se sestaveným objektem prvního úkolu nového hráče v~parametru.
+
+Jelikož je vkládání nového záznamu prvního úkolu závislé na správném provedení databázového dotazu pro získání typu prvního úkolu, byla metoda\texttt{ createQuestForNewPlayer} opatřena anotací \texttt{@Trasnactional} pro vytvoření databázové transakce.
+
+\begin{lstlisting}
+@Service
+public class QuestServiceImplementation implements QuestService{
+    
+    @Autowired
+    private QuestRepository questRepository;
+    
+    @Autowired
+    private TypQuestuRepository typQuestuRepository;
+    
+    ...
+    
+    @Override
+    @Transactional
+    public Quest createQuestForNewPlayer(Long hracId) {
+
+        // ziskat typ prvniho questu
+        Optional typPrvnihoQuestu
+                = typQuestuRepository
+                    .findByKod(KOD_TYPU_PRVNIHO_QUESTU);
+
+        // pokud nenalezen, vrat null
+        if (!typPrvnihoQuestu.isPresent()) {
+            return null;
+        }
+
+        // vytvorit prvni quest noveho hrace
+        return createQuest(hracId, typPrvnihoQuestu.get(),
+                STAV_QUESTU_PRIPRAVENY);
+    }
+    
+    private Quest createQuest(Long hracId,
+                              TypQuestu typQuestu,
+                              Long stavQuestuId) {
+
+        Quest quest = new Quest();
+        quest.setTypQuestu(typQuestu);
+        quest.setIdHraca(hracId);
+        quest.setIdStavQuestu(stavQuestuId);
+        quest.setDatumVzniku(new Date());
+        return questRepository.save(quest);
+    }
+    
+    ...
+
+\end{lstlisting}
+
+\clearpage
+
+\sekce{Služba pro získaní důležitých událostí přihlášeného hráče}
+
+Služba je implementována pro potřeby nové verze systému, v~novém prototypu modulu Timeline. 
+Modul Timeline bude poskytovat služby pro obsluhu dříve vzniklých událostí uživatelů.
+Pro tuto verzi systému je prozatím požadována pouze služba pro získání informací o~dříve
+proběhlých událostech, týkajících se uživatelova rozvoje.
+Do budoucna se počítá s~tím, že by mohl tento modul nabízet služby zaměřené na vyhodnocování těchto událostí.
+Mohlo by se jednat o~poskytování určitých analýz či statiských přehledů,
+které by mohly mít přidanou hodnout nejen pro uživatele samotné, ale i~jejich manažery.
+
+Služba pro získaní událostí přihlášeného hráče by měla poskytnout
+uživateli jakýsi retrospektivní přehled o~tom,
+co se mu v~rámci jeho kariéry, za používání našeho systému, podařilo vykonat.
+Uživatel tak získá chronologický seznam splněných herních misí, úkolů,
+dosažených dovedností, získáných úrovní atd.
+Uvidí čeho se mu podařilo dosáhnout a~co všechno se mu již podařilo vykonat.
+
+
+Pro službu na získání důležitých událostí přihlášeného hráče
+bylo možno s~výhodou využít databáze pro notifikace -- notifications-db,
+kam se ukládají veškeré události a~důležitá oznámení, které chceme zobrazovat uživateli.
+Pro databázové tabulky, které jsou zásadní pro fungování služby, byly navrženy a~v~javě implementovány tzv. entitní třídy.
+Jsou to třídy Notification, NotificationType a~TitleAttribute. 
+Class diagram těchto tříd je uveden níže k~nahlédnutí.
+
+
+\clearpage
+
+% TODO: přidat do předchozího odstavce odkaz na obrazek
+
+\obrazek
+\vlozeps{bakalarska-prace/timeline-domain.png}{0.6}
+\endobr{Zjednodušený class diagram entitních tříd modulu timeline}
+
+Pro potřeby služby je třeba vyfiltrovat pouze chtěné události na základě analýzy.
+Bylo zjištěno, že je potřeba získat množinu dat bez různých aplikačních oznámení, upozornění atd.
+Každá událost má jednoznačně určen svůj typ.
+Typ události je uřčen uknikátním kódem (znakový řetězec).
+Těchto předpokladů bylo možno využít pro oddělení dat, které bylo možno označit za nežádoucí.
+Nad očištěnou množinou dat je uživateli umožněno dále vyhledávat pomocí query parametru eventTypeCodes.
+\texttt{EventTypeCodes} reprezentuje pole kódů typů událostí, dle kterých může uživatel v~datech vyhledávat.
+% TODO: Dle doporučení JK doplnit Vennův diagram pro lepší představu množin
+Výsledná množina dat pak bude sjednocením všech událostí,
+které budou odpovídat všem typům událostí dle validních kódů zadaných v~eventTypeCodes.
+Pakliže nebude zadán žádný kód, budou vráceny všechny události bez uplatnění tohoto filtru.
+Je předpokládáno, že vizuálně budou pro uživatele kódy reprezentovány pomocí ikon,
+představující jednotlivé typy událostí.
+Vzhledem k~tomu, že se do budoucna počítá s~velkým počtem různých událostí, 
+které v~průběhu používání aplikace uživatelem nastanou, 
+bylo nutné zavést i~stránkování výstupních dat. 
+
+Vstupem služby jsou JWT token přihlášeného uživatele, posílaný v~hlavičce HTTP požadavku,
+ze kterého je získáno id hráče, query parametry pro stránkování offset, limit
+a~dále již zmíněný query parametr pro filtorvání eventTypeCodes. 
+
+Výstupem služby je seznam EventDto objektů.
+Atributy těchto objektů jsou: 
+\begin{itemize}
+\item created -- informace o~tom, kdy byla vytvořena příslušná událost,
+\item title -- titulek události,
+\item eventTypeCode -- kód označující typ událostí (bude provázáno s~ikonami),
+\item idRoute -- pro případné přesměrování či dotažení doplňujících údajů.
+\end{itemize}
+
+
+Služba je navržena a~zdokumentována servisně orientovaným modelem, kde jsou zakresleny výše zmíněné vstupy a~výstupy, 
+aplikační rozhraní s~url koncovým bodem  ...api/timeline/events, pod kterým bude služba dostupná,
+a~třída TimelineRestController spravující přísušnou HTTP operaci.
+
+\clearpage
+
+\obrazek
+\vlozeps{bakalarska-prace/get-player-events.png}{0.58}
+\endobr{Servisně orientovaný model služby Get Player Events}
+
+\clearpage
+
+Na základě tohoto modelu bylo objektovou notací JSON vydefinováno Swagger API,
+které slouží jako další dokumentace modulu a~jeho poskytovaných služeb.
+Toto API bylo následně za pomocí technologie Swagger codegenu 
+použito pro vygenerování kódu java rozhraní TimelineApi, 
+které bylo možno s~výhodou implementovat java třídou TimelineRestController
+spravující HTTP REST operace modulu Timeline.
+Swagger codegenem byla vygenerována i~java třída EventDto pro výstupní objekty,
+které budou na požádání službou odeslány ve formátu JSON.
+
+Při implemetaci bylo nutno zavést dynamicky vytvářený databázový dotaz,
+který bude provoláván vždy při použití služby,
+jelikož na jejím vstupu bude proměnlivý EventsFilter objekt pro filtrování dat.
+V~rámci java implementace bylo možno s~výhodou použít knihovnu Querydsl,
+která umožňuje dynamicky vytvářet databázové dotazy 
+pro získávání dat dle různých filtrovacíh kritérií.
+
+Po přidání Querydsl knihovny a~příslušného pluginu do projektu, 
+tato technologie analyzuje v~aplikaci obsažené entiní databázové třídy.
+Pro každou entiní třídu vytvoří příslušnou dotazovací třídu,
+kterou je pak možné využít pro sestavování vyhledávácích kritérií.
+
+Takto byla vytvořena dotazovací třída QNotification,
+která byla následně použita ve třídě NotificationPredicate.
+Třida NotificationPredicate poskytuje statickou metodu createBy.
+Vstupním parametrem metody createBy je objekt třídy EventsFilter. 
+Třída EventsFilter obsahuje atributy, jejichž hodnoty jsou předány metodám atributů objektu
+dotazovací třídy QNotification pro sestavení vyhledávacích podmínek.
+Tyto podmínky se dají přirovnat k~podmínkám klauzule WHERE při vytváření databázového sql dotazu SELECT.
+Takto sestavené podmínky je možné zahrnout do vyhledávání s~pomocí objektu třídy BooleanBuilder, taktéž z~knihovny Querydsl.
+Objekt třídy BooleanBuilder k~těmto účelům poskytuje metody and nebo or, 
+díky kterým je možné mezi podmínkami vytvořit stejnojmenné vztahy.
+Tento objekt je zároveň výstupem metody createBy a~dalo by se říci, že reprezentuje výslednou sql klauzuli WHERE.
+
+\clearpage
+
+\begin{lstlisting}
+public class NotificationPredicate {
+
+    /**
+     * Method creates Predicate that represents
+     * conditions for DB query by input filter.
+     *
+     * @param filter contains params for creating query conditions
+     * @return querydsl BooleanBuilder
+     */
+    public static Predicate createBy(EventsFilter filter) {
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        QNotification notification = QNotification.notification;
+
+        // Get without notifications which types are specified
+        // in unwanted notification type codes in events filter.
+        cutOffNotificationsByNotifTypeCodes(
+                filter.getUnwantedNotificationTypeCodes(),
+                booleanBuilder, notification);
+
+        // find only notifications of logged in player
+        booleanBuilder.and(notification.idPlayer.eq(filter.getIdPlayer()));
+
+        // filter by user wanted notification types
+        filterByNotificationTypeCodes(
+                filter.getNotificationTypeCodes(),
+                booleanBuilder, notification);
+
+
+        return booleanBuilder;
+    }
+
+    private static void cutOffNotificationsByNotifTypeCodes(
+            List notificationTypeCodes,
+            BooleanBuilder booleanBuilder,
+            QNotification notification) {
+
+        if (!CollectionUtils.isEmpty(notificationTypeCodes)) {
+
+            BooleanBuilder codeBooleanBuilder = new BooleanBuilder();
+            notificationTypeCodes.forEach(notificationTypeCode ->
+                    codeBooleanBuilder.andNot(
+                            notification.notificationType()
+                                    .code.eq(notificationTypeCode)));
+
+            booleanBuilder.and(codeBooleanBuilder);
+        }
+    }
+
+    private static void filterByNotificationTypeCodes(
+                List notificationTypeCodes,
+                BooleanBuilder booleanBuilder,
+                QNotification notification) {
+
+        if (!CollectionUtils.isEmpty(notificationTypeCodes)) {
+
+            BooleanBuilder codeBooleanBuilder = new BooleanBuilder();
+            notificationTypeCodes.forEach(notificationTypeCode ->
+                    codeBooleanBuilder.or(
+                            notification.notificationType()
+                                    .code.eq(notificationTypeCode)));
+
+            booleanBuilder.and(codeBooleanBuilder);
+        }
+    }
+}
+\end{lstlisting}
+
+Výstupní objekt metody createBy je předán na vstup metody findAll rozhraní NotificationRepository,
+současně s~objektem pro stránkování, získaného z~objektu třídy EventsFilter. 
+Po provolání metody findAll s~těmito parametry je vytvořen a~následně spuštěn příslušný databázový dotaz.
+Výsledkem je dotažení dat z~databáze, jakožto objektů od entitní třídy Notification.
+
+Metoda je provolávána z~metody getEvents třídy EventsServiceImpl.
+Dotažené objekty z~databáze od třídy Notification jsou v~metodě getEvents
+přemapovány na posílané EventDto objekty s~použitím příslušných private metod.
+Takto upravené a~získané objekty jsou v~závěru odeslány uživateli metodou getPlayerEvents
+třídy TimelineRestController prostřednictvím HTTP odpovědi.
+
+
+\clearpage
+
+\begin{lstlisting}
+
+@Service
+@Slf4j
+public class EventsServiceImpl implements EventsService {
+
+    @Autowired
+    private NotificationRepository notificationRepository;
+    
+    ...
+    
+    /**
+     * Method calls findAll with Predicate
+     * created from EventsFilter
+     * for retrieving Notification records from DB
+     * and map them to Event DTOs.
+     *
+     * @param filter for filtering events
+     * @return List of Event DTOs
+     */
+    @Override
+    public List getEvents(EventsFilter filter) {
+
+        // get query predicate
+        Predicate predicate = NotificationPredicate.createBy(filter);
+
+        // call findAll method from lower layer
+        // with querydsl Predicate and Spring Data Pageable
+        List notifications = Lists
+                .newArrayList(notificationRepository
+                        .findAll(predicate,
+                                filter.getPaggingAndSorting()));
+
+        if (notifications == null) {
+            return null;
+        }
+        return getEventDtoListFromNotifications(notifications);
+    }
+    
+    ...
+
+\end{lstlisting}
+
+
+\clearpage
+
+
+\begin{lstlisting}
+@Slf4j
+@RestController
+@RequestMapping(path = "timeline", produces = {"application/json"})
+public class TimelineRestController extends AbstractJwtDecoderController
+                                    implements TimelineApi {
+
+    @Autowired
+    private EventsService eventsService;
+
+    /**
+     * Method calls appropriate service methods for retrieving
+     * player events.
+     *
+     * @param eventTypeCodes Notification Type's~codes
+     *        for filtering events
+     * @param limit
+     * @param offset
+     * @return List of Event's~DTOs
+     */
+    @Override
+    @GetMapping("/events")
+    public ResponseEntity> getPlayerEvents(@Valid List eventTypeCodes,
+                                                    @Valid Integer limit,
+                                                    @Valid Integer offset) {
+
+        EventsFilter eventsFilter = new EventsFilter(getTokenSubject(),
+                eventTypeCodes, limit, offset);
+
+        log.info("Calling getEvents with filter: {}", eventsFilter.toString());
+        // calling service method from lower layer
+        List eventDtoList = eventsService.getEvents(eventsFilter);
+        return new ResponseEntity<>(eventDtoList, HttpStatus.OK);
+    }
+    
+    ...
+}
+\end{lstlisting}
+
+
+
+\kapitola{Závěr}
+
+\begin{literatura}
+
+\citace{sapDigitalist}{sapDigitalist}
+{
+\autor{Digitalist Magazine News on Cloud, Mobile, Big Data, Analytics \& More}
+\nazev{Gamification: Turning Work Into Play}
+SAP Innovation [online]. Copyright © 2018 SAP SE. All rights reserved.
+Dostupné z:
+\\
+\texttt{https://www.digitalistmag.com/cio-knowledge/2016/10/03/gamification-turning-work-into-play-04509516}
+}
+
+\citace{epicwin}{Epic Win, 2019}
+{
+\autor{Epic Win}
+\nazev{Epic Win -- Level-Up Your Life} visual playfulness [online].
+Dostupné z:
+\texttt{http://www.rexbox.co.uk/epicwin/index.html}
+}
+
+\citace{habitica}{Habitica, 2019}
+{
+\autor{Habitica}
+\nazev{Habitica -- Gamify Your Life} [online]
+Dostupné z: 
+\\
+\texttt{https://habitica.com/static/home}
+}
+
+\citace{gamethinking}{Kim, Game Thinking, 2018}
+{
+\autor{Kim, A.J. and Koster, R. and Kim, S.}:
+\nazev{Game Thinking: Innovate Smarter \&
+Drive Deep Engagement with Design Techniques from Hit Games}
+Dostupné z: \texttt{https://Gamethinking.io}, 2018. ISBN 9780999788547
+}
+
+\citace{mavenIntroduction}{Maven, 2020}{
+\autor{Maven}
+\nazev{Maven -- Introduction}. Maven -- Welcome to Apache Maven [online].
+\\
+Dostupné z: 
+\\
+\texttt{https://maven.apache.org/what-is-maven.html}
+}
+
+\citace{oracleJavaLanguage}{Oracle, 2019}{
+\autor{Oracle}
+\nazev{The Java Language Environment} [online].
+Copyright © 2019 Oracle. 
+\\
+Dostupné z: 
+\\
+\texttt{https://www.oracle.com/technetwork/java/intro-141325.html}
+}
+
+\citace{springbootDocs}{Spring Boot Reference Documentation, 2020}{
+\autor{Pivotal}
+\nazev{Spring Boot Reference Documentation} [online]. Dostupné z:
+\\
+\texttt{https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/}
+}
+
+\citace{springFrameworkDocs}{Spring Framework Reference Documentation, 2010}{
+\autor{Pivotal}
+\nazev{Spring Framework Reference Documentation} [online]. Dostupné z:
+\\
+\texttt{https://docs.spring.io/spring/docs/3.0.x/spring-framework-reference/htmlsingle/}
+}
+
+\citace{springFrameworkCurrentDocs}{Spring Framework Reference Documentation, 2020}{
+\autor{Pivotal}
+\nazev{Spring Framework Reference Documentation} [online]. Dostupné z:
+\\
+\texttt{https://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/}
+}
+
+\citace{podstreleny}{Podstrelený, 2018}{
+\autor{Podstrelený Pavol}
+\nazev{Vývoj mobilní aplikace s~prvky gamifikace} [online].
+Hradec Králové, 2018 [cit. 2018-12-16]. Bakalářská práce. Univerzita~ Hradec~Králové, Fakulta informatiky a~managementu. 
+Vedoucí práce doc. Ing. Filip Malý, Ph.D.. 
+Dostupné z: \texttt{https://theses.cz/id/9cfx4r}
+}
+
+
+
+\citace{odinuv}{Popelka}{
+\autor{Popelka Ondrřej, Lýsek Jiří}
+\nazev{Web Applications} 
+The Making of a Web Application [online]. 
+Dostupné z: 
+\\
+\texttt{http://odinuv.cz/articles/web-applications/}
+}
+
+\citace{sapCloudGamification}{SAP Cloud Platform Gamification, 2018}{
+\autor{SAP SE}
+\nazev{SAP Cloud Platform Gamification}
+| SAP Cloud Platform. [online].
+Copyright © 2018 SAP SE.
+Dostupné z:
+\\
+\texttt{https://cloudplatform.sap.com/capabilities/product-info.SAP-Cloud-Platform-Gamification.e7f91e3d-24b0-422b-8eef-c74f4aaa0c5d.html\#Features}
+}
+
+\citace{technologyAdviceGamification}{technologyadvice.com, 2019}{
+\autor{technologyadvice.com}
+\nazev{Gamification}
+[online]. Dostupné z:
+\\
+\texttt{https://technologyadvice.com/gamification}
+}
+
+
+\citace{tutorialspointMvc}{Tutorialspoint, 2020}{
+\autor{Tutorialspoint}
+\nazev{MVC Framework - Introduction} [online]
+© Copyright 2020. All Rights Reserved.
+Dostupné z:
+\\
+% odkaz nefunguje, zalamovani to rozbiji
+\texttt{https://www.tutorialspoint.com/mvc\_framework/mvc\_framework\_introduction.htm}
+}
+
+\citace{octalysis}{Yu-kai Chou, Octalysis}{
+\autor{Yu-kai Chou}
+\nazev{Octalysis: Complete Gamification Framework}
+Learn Gamification with Yu-kai Chou: cheat codes to win the game of life [online].
+Dostupné z: 
+\\
+\texttt{https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework}
+}
+
+
+
+
+    
+
+\end{literatura}
+
+\kapitola{Přílohy}
+
+V kapitole příloh jsou k nahlédnutí vybrané části zdrojových kódů
+webových REST služeb představených v kapitole vlastní práce.
+
+\sekce{Registrace nového hráče}
+\sekce{Potvrzení prvního přihlášení}
+
+\podsekce{Swagger API}
+\begin{lstlisting}
+
+...
+
+paths:
+    /hrac/prvni-prihlaseni:
+        put:
+          tags:
+            - Hrac
+          summary: Sluzba zmeni hodnotu prvniho prihlaseni prihlaseneho uzivatele.
+          operationId: putPrvniPrihlaseni
+          parameters:
+            - in: body
+              name: editacePrvnihoPrihlaseni
+              required: true
+              schema:
+                $ref: '#/definitions/PrvniPrihlaseniDto'
+          responses:
+            '200':
+              description: OK
+              
+...
+
+definitions:
+  PrvniPrihlaseniDto:
+    type: object
+    properties:
+      prvniPrihlaseni:
+        type: boolean
+
+...
+
+\end{lstlisting}
+
+\podsekce{RestContoller}
+
+\begin{lstlisting}
+@RestController
+@RequestMapping(
+        value = "/rest/hrac",
+        produces = {"application/json"})
+public class HracRestController 
+        extends AbstractJwtRestController implements HracApi {
+    
+    @Autowired
+    private HracService hracService;
+    
+    ...
+    
+    /**
+     * Metoda provola prislusnou service metodu
+     * pro zmenu hodnoty prvnihoPrihlaseni
+     * v~prihlasovacich udajich prihlaseneho hrace.
+     *
+     * @param prvniPrihlaseniDto jednoduche DTO 
+     *        obsahujici boolean prvnihoPrihlaseni
+     *                           
+     * @return prislusnou HTTP odpoved
+     */
+    @Override
+    @PutMapping(
+            value="/prvni-prihlaseni",
+            consumes = {"application/json"})
+    public ResponseEntity putPrvniPrihlaseni(
+            @RequestBody PrvniPrihlaseniDto prvniPrihlaseniDto) {
+
+        // ziskat ID hrace z~tokenu
+        Long hracId = Long.parseLong(getValidJwtToken().getId());
+
+        // provolat metodu prislusne sluzby z~nizsi service vrstvy
+        PrihlasovacieUdaje prihlasovacieUdaje
+            = hracService.editPrvniPrihlaseni(
+                            hracId, prvniPrihlaseniDto);
+
+        if (prihlasovacieUdaje == null) {
+            LOG.error("Prihlasovaci udaje pro ID hrace:
+                                {} nenalezeny.,hracId);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    ...
+    
+\end{lstlisting}
+
+\sekce{Inicializace dovednostního stromu hráče}
+
+\podsekce{Swagger API}
+
+\begin{lstlisting}
+
+...
+
+paths:
+  /dovednosti/inicializace:
+    post:
+      tags:
+        - dovednosti
+      summary: Sluzba inicializuje dovednosti noveho hrace.
+      operationId: initDovednostiHrace
+      responses:
+        '200':
+          description: OK
+
+...
+
+\end{lstlisting}
+
+\podsekce{RestController}
+
+\begin{lstlisting}
+@RestController
+@RequestMapping(value = "/rest/dovednosti",
+                produces = {"application/json"})
+public class DovednostiRestController 
+        extends AbstractJwtRestController 
+        implements DovednostiApi {
+
+    @Autowired
+    private KategorieDovednostiService kategoriaDovednostiService;
+    
+    ...
+
+    /**
+     * Metoda provola inicializaci
+     * dovednostniho stromu noveho hrace.
+     * 
+     */
+    @Override
+    @PostMapping(
+            value = "/inicializace",
+            consumes = {"application/json"})
+    public ResponseEntity initDovednostiHrace() {
+        
+        // ziskat ID hrace z~JWT tokenu
+        Long hracId = Long.parseLong(getValidJwtToken().getSubject());
+
+        // provolat prislusnou metodu sluzby z~nizsi vrstvy
+        kategoriaDovednostiService.initStromDovednosti(hracId);
+        
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    ...
+    
+\end{lstlisting}
+
+
+\sekce{Inicializace úkolů nového hráče}
+
+\podsekce{Swagger API}
+
+\begin{lstlisting}
+
+...
+
+paths:
+  /questy/inicializace:
+    post:
+      tags:
+        - questy
+      summary: Sluzba inicializuje questy noveho hrace.
+      operationId: initQuestyHrace
+      responses:
+        '200':
+          description: OK
+          
+...
+
+\end{lstlisting}
+
+\podsekce{REST Controller}
+
+\begin{lstlisting}
+@RestController
+@RequestMapping(
+        value = "/rest/questy",
+        produces = {"application/json"})
+public class QuestyRestController
+        extends AbstractJwtRestController implements QuestyApi {
+    
+    @Autowired
+    private QuestService questService;
+    
+    ...
+    
+    /**
+     * Metoda provola prislusne service metody pro
+     * vytvoreni instance prvniho questu noveho hrace.
+     *
+     * @return prislusnou HTTP odpoved
+     */
+    @Override
+    @PostMapping(value = "/inicializace")
+    public ResponseEntity initQuestyHrace() {
+
+        // provovolat service metodu nizsi vrstvy
+        Quest quest = questService.createQuestForNewPlayer(
+               Long.parseLong(getValidJwtToken().getSubject()));
+
+        if (quest == null) {
+            LOG.error("Nenalezen prislusny typ questu!");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    ...
+    
+\end{lstlisting}
+
+\sekce{Získání důležitých událostí přihlášeného hráče}
+
+\end{document}
