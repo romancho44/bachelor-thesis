@@ -226,7 +226,7 @@ prostřednictvím dynamik využívajících termíny.
 Hra či aplikace nabídne uživateli určitou věc, která je však uživateli 
 odemčena až po určité stanovené lhůtě, například po 2 hodinách.
 U~některých lidí tato dynamika vyvolává potřebu na danou věc neustále myslet
-a~konrolovat její přístupnost, což vede k~častějšímu používání systému.
+a~kontrolovat její přístupnost, což vede k~častějšímu používání systému.
 U~uživatelů takto narůstá zájem o~určitou oblast, už jen z~principu,
 že byli na ni nuceni tak „dlouho“ čekat.
 
@@ -527,14 +527,16 @@ Webové služby mohou být rozděleny do dvou skupin, na SOAP-ově založené a~
 
 \sekce{SOAP -- Simple Object Access Protocol}
 
-Zjednodušeně je SOAP určitý dialekt XML
-(EXtensible Markup Language), ve kterém je zapsána zpráva do xml dokumentu \cite{kalin}.
-SOAP bývá někdy zaměňován za SOA (Service Oriented Architecture) protokol.
-SOAPově založenou službu poskytovanou prostřednictvím protokolu HTTP je možné brát i~jako speciální případ služby RESTové.
+Zjednodušeně je \texttt{SOAP} určitý dialekt \texttt{XML}
+(EXtensible Markup Language), ve kterém je zapsána zpráva do \texttt{XML} dokumentu.
+\texttt{SOAP} bývá někdy zaměňován za \texttt{SOA} (Service Oriented Architecture) protokol.
+SOAPově založenou službu poskytovanou prostřednictvím protokolu \texttt{HTTP}
+je možné brát i~jako speciální případ služby RESTové.
+\cite{kalin}
 
 \sekce{REST -- Representational State Transfer}
 
-REST sám o~sobě není architekturou. REST je množina omezení,
+\texttt{REST} sám o~sobě není architekturou. REST je množina omezení,
 které při aplikování na návrh systému, utvářejí určítý architektonický styl. 
 
 \bigskip
@@ -830,8 +832,9 @@ public class Obec implements Serializable {
 
 Anotace \texttt{@Entity} označuje třídu \texttt{Obec}
 jako entitní třidu a~v~kombinaci s~anotací \texttt{@Table} 
-a~použitím parametru \texttt{name} s~hodnotou \texttt{"obec"} je určeno pro jakou databázovou tabulku bude entitní třída použita.
-Anotace \texttt{@Column} uvedené nad některými atributy třídy,
+a~použitím parametru \texttt{name} s~hodnotou \texttt{"obec"}
+je určeno pro jakou databázovou tabulku bude entitní třída použita.
+Anotace \texttt{@Column} uvedené nad některými atributy třídy ,
 JPA říkají, které atributy náležejí jakým databázovým sloupcům a~s~jakými omezeními.
 V~příkladu je možné vidět i~anotace \texttt{@ManyToOne} a~\texttt{@OneToMany},
 které zachycují vazby na jiné databázové tabulky, včetně jejich kardinality.
@@ -953,8 +956,8 @@ jako například funkce pro deklarativní správu databázových transakcí.
 
 % Transaction
 Modul Transacion podporuje programové a~deklarativní řízení
-transakcí pro třídy, které implementují speciální rozhraní a~
-pro všechny obyčejné Java objekty (POJOs).
+transakcí pro třídy, které implementují speciální rozhraní
+a~pro všechny obyčejné Java objekty (POJOs).
 % Web, MVC
 Další moduly, které používáme jsou Web a~Servlet, patřící do rodiny modulů Web.
 Kombinace těchto 2 modulů poskytuje implementaci architektury MVC
@@ -976,7 +979,27 @@ založených na frameworku Spring.
 %I~zásady a~postupy vývoje byly uceleny a~sjednoceny,
 %například kód píšeme oproti starší verzi výhradně v~anglickém jazyce.
 
-Pro přehlednost bylo ze všech implementovaných služeb vybráno 5 následujících:
+Do vývojového týmu gamifikovaného informačního systému jsem se začlenil v květnu 2018,
+v době, kdy byl projekt téměř na svém začátku a započaly se vytyčovat hlavní cíle a základy systému.
+Od této doby bylo realizováno mnoho schůzek, ze kterých bylo sesbíráno mnoho informací,
+které byly použity pro vytvoření návrhů prvního prototypu webové aplikace gamifikovaného informačního systému.
+Tento první prototyp byl implementován ve druhé polovině roku 2018 a byl tak vytvořen poměrně solidní základ
+pro další rozvoj webové aplikace informačního systému.
+
+% Metodika vývoje
+Od počátků vývoje se vývojový tým rozrostl o několik nových členů,
+mnoho částí systému bylo změněno nebo upraveno a byly zavedeny ucelenější postupy
+a metodiky pro realizaci vývoje.
+Aktuálně se pracuje na druhé verzi webové aplikace, vývoj probíhá prostřednictvím
+zjednodušené agilní metodiky SCRUM, kdy jsou plánovány analytické, designové, vývojové a jiné
+úkoly na každý týden. Rozplánované úkoly jsou dvakrát týdně procházeny na pravidelných schůzkách
+realizovaných prostřednictvím konferenčních hovorů, kdy každý přítomný člen podává informace
+o tom, na čem aktuálně pracuje, s jakými problémy se potýká a jaké úkoly dokončil během týdenního vývojového cyklu.
+Na druhou stranu je z hlediska implementace programových částí kladen vysoký důraz na kvalitu práce
+a každá změna, která má být do webové aplikace nasazena musí být nejdříve zkontrolována a schválena dalšími
+členy vývojového týmu, kteří dané problematice rozumí.
+
+Pro přehlednost bylo ze všech mnou implementovaných služeb vybráno 5 následujících:
 
 \begin{itemize}
 \item Služba pro registraci nového hráče
@@ -986,11 +1009,17 @@ Pro přehlednost bylo ze všech implementovaných služeb vybráno 5 následují
 \item Služba pro získaní důležitých událostí přihlášeného hráče
 \end{itemize}
 
-První 4 uvedené služby byly implementovány na základě servisně orientovaných modelů navržených Ing. Martinem Bendíkem.
-Tyto 4 služby byly vytvořeny v~rámci starší verze systému a~všechny se týkají inicializace nového uživatele.
+V těchto službách jsou využity technologie představené v kapitole literárního přehledu.
+V jednotlivých částech je popsán postup implementace jednotlivých služeb s možností použití jednotlivých technologií.
 
-Pro poslednní službu jsem ná zakladě požadavků a~dosupného databázového modelu navrhnul taktéž servisně orientovaných model,
-jehož prototyp jsem následně implementoval. Služba bude využita v~rámci nové verze systému.
+První 4 uvedené služby byly implementovány na základě servisně orientovaných modelů navržených Ing. Martinem Bendíkem.
+Tyto 4 služby byly vytvořeny v~rámci backendových modulů, prvního prototypu webové aplikace
+a~všechny se věcně týkají inicializace nového uživatele.
+
+Pro poslednní službu jsem ná zakladě požadavků a~dostupného databázového modelu,
+po vzoru jiných služeb  navrhnul taktéž servisně orientovaných model,
+jehož prototyp jsem následně implementoval.
+Poslední služba bude využita v~rámci nové verze systému.
 
 \clearpage
 
@@ -1113,8 +1142,8 @@ Metoda vytváří nový objekt od entitní třídy \texttt{PrihlasovacieUdaje} a
 včetně hesla, zašifrovaného pomocí šifrovacího alogritmu \texttt{SHA256}.
 
 Metoda \texttt{createNewHrace} provolá private metodu \texttt{initHrac},
-která vytvoří a~inicializuje objekt entitní třídy \texttt{Hrac}, vytvoří další 3 objekty \texttt{osobniUdaje}, \texttt{udajePostavy}, \texttt{nastaveni}
-a~prováže s~nimi objekt \texttt{hrac}.
+která vytvoří a~inicializuje objekt entitní třídy \texttt{Hrac}, vytvoří další 3 objekty \texttt{osobniUdaje},
+\texttt{udajePostavy}, \texttt{nastaveni} a~prováže s~nimi objekt \texttt{hrac}.
 
 Objekt \texttt{hrac} je metodou vrácen a~využit v~metodě \texttt{createNewHrac},
 kde je ve výsledném zpracování pomocí jeho id provozán s~objektem přihlašovacích údajů.
@@ -1269,7 +1298,8 @@ podle hodnoty uložené v~příchozím objektu z~HTTP požadavku -- \texttt{Prvn
 Záznam je po úpravě uložen do databáze.
 Na další straně je vidět úryvek ze třídy \texttt{HracServiceImplementation},
 která je zodpovědná za realizaci databázových operací v databázové transakci
-a připravení odchozího objektu pro konroler, který již předá výslednou odpověď klientovi.
+a připravení odchozího objektu pro \texttt{RestController},
+který již předá výslednou odpověď klientovi.
 
 \clearpage
 
@@ -1292,8 +1322,9 @@ PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
      */
     @Override
     @Transactional
-    public PrihlasovacieUdaje editPrvniPrihlaseni(Long hracId,
-                                   PrvniPrihlaseniDto prvniPrihlaseniDto) {
+    public PrihlasovacieUdaje editPrvniPrihlaseni(
+                                    Long hracId,
+                                    PrvniPrihlaseniDto prvniPrihlaseniDto) {
 
         Optional prihlasovacieUdajeOptinal
                 = prihlasovacieUdajeRepository.findByHracId(hracId);
@@ -1327,7 +1358,8 @@ Díky těmto rozvíjeným dovednostem uživatel vidí,
 jak se v~různých činnostech zlepšuje a~nabývá nových zkušeností či vědomostí.
 
 V~systému jsou dovednosti rozděleny do určitých kategorií dle věcného významu.
-Podle vydefinovaných pravidel v~databázy jsou pak přidělovány zmíněné body k~určitým dovednostem za splnění pracovních úkolů evidovaných naším systémem.
+Podle vydefinovaných pravidel v~databázy jsou pak přidělovány
+zmíněné body k~určitým dovednostem za splnění pracovních úkolů evidovaných naším systémem.
 
 Pro správu dovedností hráčů byl zřízen samostaný modul \texttt{oe-dovednosti},
 který pracuje s~daty těchto dovedností.
@@ -1344,8 +1376,9 @@ Pro vytvoření struktury dat dovedností (jinak dovednostního stromu) určité
 \item  a~následně vytvořit nové záznamy v~tabulce \texttt{dovednost} od každého typu dovednosti.
 \end{itemize}
 
-Data jednotlivých druhů kategorií dovedností a~druhů dovedností jsou uloženy v~tabulkách \texttt{typ\_kategoria\_dovednosti} a~\texttt{typ\_dovednosti}.
-Entitní třídy, zrcadlící databázové tabulky, se kterými služba pracuje,
+Data jednotlivých druhů kategorií dovedností a~druhů dovedností jsou
+uloženy v~tabulkách \texttt{typ\_kategoria\_dovednosti} a~\texttt{typ\_dovednosti}.
+Entitní třídy, zrcadlící databázové tabulky prostřednivtím ORM, se kterými služba pracuje,
 jsou \texttt{TypKategoriaDovednosti}, \texttt{TypDovednosti}, \texttt{KategoriaDovednosti} a~\texttt{Dovednost}.
 Na uvedeném obrázku 2 níže je možné si prohlédnout zjednodušený class diagram modulu \texttt{oe-dovednosti}.
 
@@ -1355,21 +1388,36 @@ Na uvedeném obrázku 2 níže je možné si prohlédnout zjednodušený class d
 \vlozeps{bakalarska-prace/oe-dovednosti-domain-simple.png}{0.5}
 \endobr{Zjednodušený class diagram entitních tříd modulu oe-dovednosti}
 
-Pro správné vytvoření celého dovednostního stromu hráče bylo ve třídě KategorieDovednostiServiceImplementation vytvořeno 6 metod, příčemž 5 z~nich jsou pomocné private metody.
+Pro správné vytvoření celého dovednostního stromu hráče bylo ve třídě KategorieDovednostiServiceImplementation vytvořeno 6 metod,
+příčemž 5 z~nich jsou pomocné private metody.
 
-Nejdříve byly implementovány metody pro vygenerování kategorií dovedností přihlášeného hráče. Metoda nesoucí název \texttt{createKategorieDovednosti} obstarává vložení nového záznamu kategorie dovednosti dle zadaného id hráče a~objektu třídy \texttt{TypKategorieDovednosti}.
-V~metodě \texttt{initKategorieDovednosti} je z~databáze získán seznam všech typů dovedností a~pro každou položku z~tohoto seznamu je provolána metoda \texttt{createKategorieDovednosti} pro vytvoření nové kategorie dovednosti určitého uživatele. Díky těmto dvěma metodám jsou vygenerovány všechny potřebné kategorie dovedností danému uživateli. 
+Nejdříve byly implementovány metody pro vygenerování kategorií dovedností přihlášeného hráče.
+Metoda nesoucí název \texttt{createKategorieDovednosti} obstarává vložení nového záznamu kategorie dovednosti dle zadaného id hráče a~objektu třídy
+\texttt{TypKategorieDovednosti}.
+V~metodě \texttt{initKategorieDovednosti} je z~databáze získán seznam všech typů dovedností
+a~pro každou položku z~tohoto seznamu je provolána metoda \texttt{createKategorieDovednosti} pro vytvoření nové kategorie dovednosti určitého uživatele.
+Díky těmto dvěma metodám jsou vygenerovány všechny potřebné kategorie dovedností danému uživateli.
 
-Jakmile jsou vytvořeny dovednostní kategorie započnou se vytvářet všechny potřebné dovednosti. K~tomuto jsou použity metody \texttt{initDovednostiHrace}, \texttt{createAllDovednostiKategorie} a~\texttt{createDovednost}. Metoda \texttt{initDovenostiHrace} projde vstupní seznam kategorií dovedností a~pro každou položku provolá metodu \texttt{createAllDovednostiKategorie}. Metoda \texttt{createAllDovednostiKategorie}  podle typu kategorie dovednosti, získaného ze vstupního objektu kategorie dovednosti, dotáhne z~databáze příslušné typy dovedností a~pro každou položku z~tohoto seznamu provolá metoda \texttt{createDovednost}, která zapříčiní vytvoření nové dovednosti. 
+Jakmile jsou vytvořeny dovednostní kategorie započnou se vytvářet všechny potřebné dovednosti.
+K~tomuto jsou použity metody \texttt{initDovednostiHrace}, \texttt{createAllDovednostiKategorie} a~\texttt{createDovednost}.
+Metoda \texttt{initDovenostiHrace} projde vstupní seznam kategorií dovedností
+a~pro každou položku provolá metodu \texttt{createAllDovednostiKategorie}.
+Metoda \texttt{createAllDovednostiKategorie}  podle typu kategorie dovednosti,
+získaného ze vstupního objektu kategorie dovednosti,
+dotáhne z~databáze příslušné typy dovedností a~pro každou položku z~tohoto seznamu provolá metoda \texttt{createDovednost},
+která zapříčiní vytvoření nové dovednosti.
 
-Vygenerování celého dovednostního stromu hráče je spuštěno zastřešující public metodou \texttt{initStromDovednosti}, která provolává 2 výše popsané metody \texttt{initKategorieDovednostiHrace} a~\texttt{initDovednostiHrace}. Aby byla zajištěna konzistence dat, je popsaná funkcionalita těchto 6 metod realizována jako databázová transakce. 
+Vygenerování celého dovednostního stromu hráče je spuštěno zastřešující public metodou \texttt{initStromDovednosti},
+která provolává 2 výše popsané metody \texttt{initKategorieDovednostiHrace} a~\texttt{initDovednostiHrace}.
+Aby byla zajištěna konzistence dat, je popsaná funkcionalita těchto 6 metod realizována jako databázová transakce.
 
-Služba je poskytována prostřednictvím třídy \texttt{DovednostiRestController} jakožto HTTP POST operace \texttt{initDovednostiHrace}, pod url koncovým bodem \texttt{/rest/dovednosti/inicializace}.
+Služba je poskytována prostřednictvím třídy \texttt{DovednostiRestController} jakožto HTTP POST operace \texttt{initDovednostiHrace},
+pod url koncovým bodem \texttt{/rest/dovednosti/inicializace}.
 
 \begin{lstlisting}
 @Service
 public class KategorieDovednostiServiceImplementation 
-        implements KategorieDovednostiService {
+                    implements KategorieDovednostiService {
         
     @Autowired
     private KategorieDovednostiRepository kategoriaDovednostiRepository;
@@ -1491,7 +1539,10 @@ Na základě splění tohoto úkolu budou postupně odemykány i~další.
 Proto bylo v~modulu \texttt{oe-questy} nezbytné vytvořit službu pro vytvoření instance prvního úkolu, 
 pro nově přihlášeného uživatele. 
 
-Implementačně se jedná o~poměrně jednoduchou databázovou transakci, která nejdříve dohledá v~databázi instanci typu prvního úkolu dle určitého kódu a~vytvoří v~tabulce \texttt{quest} nový záznam propojený s~dohledaným typem úkolu a~s~parametrem id hráče, rozšifrovaného z~JWT tokenu, náležejícímu určitému uživateli.
+Implementačně se jedná o~poměrně jednoduchou databázovou transakci,
+která nejdříve dohledá v~databázi instanci typu prvního úkolu dle určitého kódu a~vytvoří v~tabulce \texttt{quest}
+nový záznam propojený s~dohledaným typem úkolu a~s~parametrem id hráče,
+rozšifrovaného z~JWT tokenu, náležejícímu určitému uživateli.
 
 
 Entitními třídami, vytvořených dle databáze pro herní úkoly, 
@@ -1504,9 +1555,16 @@ potřebných pro fungování služby jsou \texttt{TypQuestu} a~\texttt{Quest}.
 
 
 Java třída implemetnující službu nese název \texttt{QuestServiceImplementation}.
-V~metodě \texttt{createQuestForNewPlayer} používá 2 instance repozitářů databázových dotazů \texttt{QuestRepository} a~\texttt{TypQuestuRepository}, pro správné vytvoření prvního úkolu. Pro získání instance typu prvního úkolu dle kódu je použit způsob, kdy je z~názvu metody \texttt{findByKod}, za pomocí referenční implementace Hibernate, vyvozen databázový dotaz pro získání chtěného záznamu. Posléze je provolána obslušná private metoda \texttt{createQuest} s~parametry id hráče, typem prvního úkolu a~id připraveného stavu úkolu. V~této private metodě je použit druhý repozitář databázových dotazů pro úkoly, na kterém je zavolána metoda \texttt{create} se sestaveným objektem prvního úkolu nového hráče v~parametru.
+V~metodě \texttt{createQuestForNewPlayer} používá 2 instance repozitářů databázových dotazů
+\texttt{QuestRepository} a~\texttt{TypQuestuRepository}, pro správné vytvoření prvního úkolu.
+Pro získání instance typu prvního úkolu dle kódu je použit způsob, kdy je z~názvu metody \texttt{findByKod},
+za pomocí referenční implementace Hibernate, vyvozen databázový dotaz pro získání chtěného záznamu.
+Posléze je provolána obslušná private metoda \texttt{createQuest} s~parametry id hráče, typem prvního úkolu a~id připraveného stavu úkolu.
+V~této private metodě je použit druhý repozitář databázových dotazů pro úkoly,
+na kterém je zavolána metoda \texttt{create} se sestaveným objektem prvního úkolu nového hráče v~parametru.
 
-Jelikož je vkládání nového záznamu prvního úkolu závislé na správném provedení databázového dotazu pro získání typu prvního úkolu, byla metoda\texttt{ createQuestForNewPlayer} opatřena anotací \texttt{@Trasnactional} pro vytvoření databázové transakce.
+Jelikož je vkládání nového záznamu prvního úkolu závislé na správném provedení databázového dotazu pro získání typu prvního úkolu,
+byla metoda\texttt{ createQuestForNewPlayer} opatřena anotací \texttt{@Trasnactional} pro vytvoření databázové transakce.
 
 \begin{lstlisting}
 @Service
@@ -2015,7 +2073,7 @@ Dostupné z:
 \nazev{Apache Tomcat} -- Wikipedia.[online]
 Dostupné z:
 \\
-\texttt{https://en.wikipedia.org/wiki/Apache_Tomcat}
+\texttt{https://en.wikipedia.org/wiki/Apache\_Tomcat}
 }
 
 \citace{xicom}{Xicom, 2020}{
@@ -2036,10 +2094,6 @@ Dostupné z:
 \texttt{https://yukaichou.com/gamification-examples/octalysis-complete-gamification-framework}
 }
 
-
-
-
-    
 
 \end{literatura}
 
