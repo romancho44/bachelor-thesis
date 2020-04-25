@@ -828,6 +828,7 @@ public class Obec implements Serializable {
     private Set adresy;
     
     ...
+
 \end{lstlisting}
 
 Anotace \texttt{@Entity} označuje třídu \texttt{Obec}
@@ -973,7 +974,7 @@ založených na frameworku Spring.
 
 \cite{springbootDocs}
 
-\kapitola{Vlastní práce}
+\kapitola{Vývoj backendových modulů}
 
 %Oproti starší verzi byla zásadním způsobem změněna celková struktura systému.
 %I~zásady a~postupy vývoje byly uceleny a~sjednoceny,
@@ -999,7 +1000,8 @@ Na druhou stranu je z hlediska implementace programových částí kladen vysok�
 a každá změna, která má být do webové aplikace nasazena musí být nejdříve zkontrolována a schválena dalšími
 členy vývojového týmu, kteří dané problematice rozumí.
 
-Pro přehlednost bylo ze všech mnou implementovaných služeb vybráno 5 následujících:
+Pro přehlednost bylo ze všech mnou implementovaných webových
+REST služeb backendových modulů vybráno 5 následujících:
 
 \begin{itemize}
 \item Služba pro registraci nového hráče
@@ -1897,9 +1899,37 @@ public class TimelineRestController extends AbstractJwtDecoderController
 }
 \end{lstlisting}
 
+\kapitola{Testování}
+
+\sekce{Registrace}
+
+\sekce{První přihlášení}
+
+\sekce{}
 
 
 \kapitola{Závěr}
+Hlavním cílem bakalářské práce bylo naimplementovat backendové moduly pro gamifikovaný informační systém.
+Backendové moduly pro první funkční prototyp webové aplikace systému byly
+úspěšně vytvořeny.
+Na základě tohoto prototypu byly postupně vytvořeny
+a jsou stále vyvíjeny nové části systému a různá vylepšení.
+Prototyp pro modul timeline (historie důležitých událostí hráče) byl taktéž úspěšně vytvořen
+a otestován. Aktuálně jsou řešeny jeho možnosti zapojení do stávajícího systému.
+Vzhledem k úspěšnému vytvoření v práci popsaných služeb a na základě kladné zpětné vazby od firmy Optimal Energy,
+považuji cíl práce za splněný.
+
+
+Práce na systému probíhají každým dnem a neustále se namýšlejí a přidávají další věci.
+Postupně je vyskládáván poměrně robustní systém, který bude denně používat mnoho pracovníku firmy.
+Do budoucna je počítáno s dalším rozvojem, v blízké době budou implementovány nové moduly,
+například modul pracující s mapou a geografickou polohou uživatele nebo modul obchodu, zahrnující práci s virtuální herní měnou.
+Paralelně jsou vyvíjeny mobilní aplikace pro iOS a Android.
+Další plánovanou funkcionalitou je tréninkový simulátor pro pracovníky, pro rozvoj jejich obchodních dovedností,
+u kterého se uvažuje o zapojení trendů z oblasti umělé inteligence.
+Aktuálně jsou nejvícce upínány síly k vydání nové verze systému, s novým poutavým provedením grafického uživatelského rozhraní,
+připravené pro každodenní ostrý provoz.
+
 
 \begin{literatura}
 
