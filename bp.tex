@@ -253,25 +253,18 @@ proto se pro ně jeví nezbytné, se určitým činnostem více věnovat.
 Cílem gamifikace je lidi motivovat, 
 pomoci jim ke splnění jejích cílů, ať už jsou to cíle kariérní, studijní či osobní.
 Ceny a~status, který hráči v~průběhu hraní získávají,
- pomáhají ke sledování jejich průběžného postupu.
+pomáhají ke sledování jejich průběžného postupu.
 Tyto mechaniky podporují osobní cestu k~jejich seberozvoji. 
 Gamifikace se dnes již uplatňuje v~nejrůznějších odvětvích,
- například pro vzdělávání, firemní rozvoj nebo marketing.
+například pro vzdělávání, firemní rozvoj nebo marketing.
 
 
 \sekce{Podniková gamifikace}
-
-% Přeformulovat, nebo dát pryč!
-%Současný propojený svět nabízí téměř neomezené virtuální možnosti zábavy. V~porovnání s~čtyřstěnnými betonovými kancelářními budovami,
-%které velice často nabízejí opakovatelné a~únavné úkoly.
-%Bez ohledu na to, kde lidé pracují, tak často svádějí bitvy
-%mezi produktivitou a~rozptýlením, který obvykle vyhrává.
 
 Jelikož se firmy snaží využívání lidských zdrojů zefektivnit co nejvíce, 
 někdy bývá nápor na zaměstnance velice kritický,
 gamifikace se tak stává rostoucím trendem pro podporu pracovních výkonů
 a~motivaci zaměstnanců.
-% citace ??
 Podniková gamifikace využívá prvků herního designu a~snaží se
 je implementovat do~neherního podnikového prostředí. 
 Gamifikace využívaná ve firmách
@@ -332,10 +325,13 @@ Aplikace nabízí možnost chatování s~hráči z~družiny, případně i~ve ve
 U~mobilní aplikace Epic Win si hráč vytváří seznam úkolů,
 ke kterým přiřazuje důležitost a~případně dovednost,
 kterou plněním daného úkolu rozvíjí. 
-S~plněním úkolu hráč rozvíjí své dovednosti a~zkušenosti,
- čímž zvyšuje svůj level a~zároveň postavičkou putuje po cestě za dobrodružstvím, 
-což je vizuálně reprezentováno mapou. 
-Tato aplikace se snaží zaujmout jednoduchostí a~grafickým zpracováním.
+Při plnění těchto úkolů hráč rozvíjí své dovednosti a získává zkušenostní body,
+čímž zvyšuje úroveň své postavy.
+Uživatelova postava se postupně posouvá po cestě,
+která je graficky vizualizována na herní mapě.
+Během putování touto cestou hráč průběžně nalézá
+různé herní předměty, kterými rozšiřuje svou sbírku trofejí.
+Tato aplikace se snaží zaujmout jednoduchostí a zajímavým grafickým zpracováním.
 
 \par
 
@@ -351,7 +347,8 @@ Co se spojení gamifikace a~podnikových aplikací či informačních systémů 
 které zahrnovaly z~gamifikace prvky především pro bodování zaměstnanců, statistické ukazatele výkonnosti, žebříčky, úspěchy, odznaky.
 Příkladem integrace gamifikovaných prvků do podnikových aplikací je gamifikovaný modul od společnosti SAP, SAP Cloud Platform Gamification,
 který je možné začlenit do existující či nové podnikové aplikace. 
-SAP Cloud Platform Gamification nabízí koncepty jako je bodování, odznaky, mise, analýzy, které zaměstnanec vidí přehledně na gamifikovaném panelu.
+SAP Cloud Platform Gamification nabízí koncepty jako je bodování,
+odznaky, mise, analýzy, které zaměstnanec vidí přehledně na gamifikovaném panelu.
 
 \par
 % příběh? možná spíš širší kontext, styl? 
@@ -372,9 +369,7 @@ aby jeho ovladatelnost byla velice intuitivní a~jednoduchá.
 \kapitola{Literární přehled}
 
 V~této kapitole jsou popsány stěžejní pojmy a~technologie použité pro vývoj webové aplikace
-gamifikovaného informačního systému. 
-
-Jelikož se práce zaměřuje primárně na vývoj webové aplikace... TODO
+gamifikovaného informačního systému.
 
 \sekce{Systém WWW}
 Webové aplikace fungují na základě systému WWW. 
@@ -410,7 +405,7 @@ Hlavičky MIME jsou součástí záhlaví HTTP zpráv, např.: \texttt{Content-t
 
 \textbf{Uniform Resource Locator} (URL) je typ URI -- identifikátoru přístupu k~internetovému zdroji.
 Formát URL pro protokol HTTP:
-\footnote{Přednaška z~předmětu Počítačové~sítě I: Systém WWW, 2017}}
+\footnote{Přednaška z~předmětu Počítačové~sítě I: Systém WWW, 2017}
 
 \bigskip
 \texttt{http://<host>[:<port>][<abs\_path>[?<query>][\#<fragment>]]}
@@ -452,18 +447,18 @@ přičemž každá z~nich může být jinak vhodná na určité úkony.
 
 Webové aplikace jsou obvykle psány ve více programovacích jazycích,
 které se liší mezi backendem a~frontendem,
-což jsou 2 hlavní části webových aplikací \cite{odinuv}.
+což jsou 2 hlavní části webových aplikací.
+\cite{odinuv}
 
 
 
 \sekce{Architektura MVC}
-Někdy bývá u~webových aplikací uplatňován architektonický vzor Model-View-Controller 
-% \footnote{https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm}
-(MVC),
+Někdy bývá u~webových aplikací uplatňován architektonický vzor Model-View-Controller (MVC),
 který rozděluje aplikaci do tří hlavních logických komponent (model, view, controller).
 Každá z~těchto komponent je vytvořena za účelem zpracování specifických aspektů aplikace.
 Architektura MVC je jednou z~nejvíce používaných standardů při vývoji
 škálovatelných a~rozšiřitelných webových aplikací.
+\cite{tutorialspointMvc}
 
 Komponenta model reprezentuje datový oddíl aplikace. 
 Tato komponenta obvykle pracuje s~databází a~na základě požadavků 
@@ -499,21 +494,20 @@ používáme JavaScript s~použitím frameworku Polymer.
 Bakend je souhrn funkcionalit zodpovědných za manipulaci dat, 
 podnikovou logiku, zabezpečení, komunikaci s~jinými službami či aplikacemi a~
 dodání kódů různých webových technologií do uživatelova prohlížeče (\texttt{HTML, CSS, JavaScript}).
-% \textbf{(http://odinuv.cz/articles/web-applications/)}
+\cite{odinuv}
 Pod pojmem backend si můžeme představit téměř všechno běžící na serveru, 
 případně více serverech, potřebného pro provoz a~fungování webových aplikací.
 
-Práce se zabývá implementací určitých \texttt{backendových modulů} webové aplikace informačního systému. Pod \texttt{backendovým modulem} si můžeme představit aplikaci
+Práce se zabývá implementací určitých \texttt{backendových modulů} webové aplikace informačního systému.
+Pod \texttt{backendovým modulem} si můžeme představit aplikaci
 poskytující výše uvedenou funkcionalitu a~to především manipulaci, správu a~přenos dat.
-Pro implementaci těchto modulů byl použit programovací jazyk \texttt{Java} s~využitím frameworku \texttt{Spring}. Obě technologie jsou více představeny a~popsány ve stejnojmenných samostatných sekcích.
-
-
+Pro implementaci těchto modulů byl použit programovací jazyk \texttt{Java} s~využitím frameworku \texttt{Spring}.
+Obě technologie jsou více představeny a~popsány ve stejnojmenných samostatných sekcích.
 
 \sekce{Webové služby}
 
 Webová služba
-% \footnote{Java Web Services, Martin Kalin, 2009} 
-je druh webové aplikace typicky poskytované prostředncitvím HTTP. 
+je druh webové aplikace typicky poskytované prostředncitvím HTTP. \cite{kalin}
 Webová služba je tedy distribuovaná aplikace, jejíž komponenty lze nasadit a~spustit na různých zařízeních. 
 
 Klientem webové služby je ve většině případů jiná aplikace, namísto webového prohlížeče.
@@ -523,20 +517,20 @@ Koncepce webových služeb klade vysoký důraz na jazykovou průhlednost,
 to znamená, že poskytovatel a~příjemce služby nemusejí být napsáni
 ve stejném programovacím jazyce. 
 % interoperabilita
-Jazyková průhlednost je klíčem k~\textbf{interoperabilitě}, schopnosti webových služeb hladce fungovat napříč různými systémy navzdory rozdílům v~programovací jazycích,
+Jazyková průhlednost je klíčem k~\textbf{interoperabilitě},
+schopnosti webových služeb hladce fungovat napříč různými systémy navzdory rozdílům v~programovací jazycích,
 podporovaných knihovnách a~platformách.
-%Několik funkcí odlišuje webové služby od distibuovaných systémů:
-%Otevřená infrastruktura, Jazyková průhlednost a~Modulární desgin
+
+Několik funkcí odlišuje webové služby od distibuovaných systémů: otevřená infrastruktura,
+jazyková průhlednost a~modulární desgin.
 Webové služby mohou být rozděleny do dvou skupin, na SOAP-ově založené a~RESTové.
 
 \sekce{SOAP -- Simple Object Access Protocol}
 
-Zjednodušeně je SOAP \footnote{Java Web Services, Martin Kalin, 2009}  určitý dialekt XML
-(EXtensible Markup Language), ve kterém je zapsána zpráva do xml dokumentu.
+Zjednodušeně je SOAP určitý dialekt XML
+(EXtensible Markup Language), ve kterém je zapsána zpráva do xml dokumentu \cite{kalin}.
 SOAP bývá někdy zaměňován za SOA (Service Oriented Architecture) protokol.
 SOAPově založenou službu poskytovanou prostřednictvím protokolu HTTP je možné brát i~jako speciální případ služby RESTové.
-
-
 
 \sekce{REST -- Representational State Transfer}
 
@@ -555,7 +549,7 @@ které při aplikování na návrh systému, utvářejí určítý architektonic
 \end{itemize}
 
 \noindent{RESTový systém může být implementován v~jakékoliv dostupné síťové architektuře.}
-(RESTful Java Web Services, Jose Sanodval, 2009)
+\cite(sandoval)
 
 
 % bezstavovost
@@ -563,8 +557,7 @@ Systémy, které se řídí paradigmatem REST jsou bezstavové, což znamená,
 že servre nemusí vědět nic o~tom, v~jakém stavu je klient a~naopak.
 Tímto způsobem mohou server i~klient porozumět  jakékoliv přijaté zprávě,
 aniž by viděli zprávy předchozí.
-
-% (https://www.codecademy.com/articles/what-is-rest)
+\cite{codecademyRest}
 
 % SOA - Mikroslužby
 \sekce{Servisně orientovaná architektura (SOA)}
@@ -613,9 +606,7 @@ V~této sekci se pokusím lehce představit programovací jazyk java a~
 vysvětlit důvod, proč jsme pro implementaci bakendových aplikací
 gamifikovaného informačního systému zvolili právě tento nástroj.
 
-Java
-% \footnote{https://www.oracle.com/technetwork/java/intro-141325.html, Oracle, 1999}
-je univerzální objektově orientovaný programovací jazyk. 
+Java je univerzální objektově orientovaný programovací jazyk.
 Byla navržena tak, aby byly v~ní napsané programy spustitelné na nejrůznějších platformách.
 Zkompilovaný kód javy lze spustit na všech platformách, které Javu podporují,
 aniž by bylo nutné zdrojové java kódy opětovně kompilovat.
@@ -623,11 +614,12 @@ Java aplikace jsou obvykle kompilovány do byte-kódu,
 který může být uveden do chodu na jakémkoliv java virtuálním stroji
 (Java Virtual Machine -- JVM) bez ohledu na základní architekturu počítače.
 Programovací jazyk java má poměrně jednoduchou syntaxi, 
-podobnou programovacím jazykům C a~C++. 
+podobnou programovacím jazykům C a~C++.
+\cite{oracleJava}
+
 
 % popularita, kde je používaná
 Programovací jazyk Java je jedním z~nejpopulárnějších programovacích jazyků.
-% (en.wikipedia.org)
 Byla využita pro vytvoření mnoha bankovních a~finančních systémů po celém světě.
 Je také používána velkými podniky jako je Amazon, Google nebo Facebook,
 díky čemuž je považována za jedno z~nejlepších řešení pro vývoj podnikových i~webových systémů.
@@ -655,12 +647,13 @@ jakémkoliv průmyslovém odvětví včetně zdravotnictví, výroby či finanč
 
 % IDE
 Pro javu lze použít nejrůznější nástroje usnadňující vývoj a~vynikající volně dostupná vývojová prostředí
-jako například NetBeans, který jsme používali pro vývoj první verze backendových modulů 
+jako například NetBeans, který jsme používali pro vývoj prvních verzí backendových modulů
 (aplikací).
 % Poznámka pod čarou
 Aktuálně používáme vysoce populární vývojové prostředí IntelliJ IDEA
 od společnosti JetBrains.
-% MULTI-THREADING -- TODO
+
+% Mult-thrading
 Díky schopnosti více-vláknového zpracování,
 mohou java aplikace spravovat více uživatelů či vláken najednou.
 Java napomáhá vytvářet co nejvíce procesových vláken z~jediné instance
@@ -684,7 +677,7 @@ jsou ochotní napomáhat a~sdílet své znalosti mezi sebou.
 Díky těmto komunitám lze získat různorodé pohledy na řešené problémy
 a~jejich různé možnosti řešení.
 
-% (https://www.xicom.biz/blog/9-best-reasons-to-choose-java-for-web-development/)
+\cite{xicom}
 
 \sekce{Apache Maven}
 
@@ -725,8 +718,7 @@ a~napomáhat tak vést vývoj projektu určitým směrem.
 V~tomto ohledu je kladen důraz například na testování,
 kde je specifikace a~spouštění určitých druhů testů
 součástí normálního cyklu sestavení aplikace.
-
-%(https://maven.apache.org/what-is-maven.html)
+\cite{maven}
 
 
 \sekce{Apache Tomcat}
@@ -750,7 +742,7 @@ Jasper je engine pro zpracování Java Server Pages (JSP).
 Soubory JSP zpracovává a~kompiluje je do Java kódu jakožto servlety,
 které pak může obsluhovat Catalina.
 
-% (https://en.wikipedia.org/wiki/Apache_Tomcat)
+\cite{tomcatWikipedia}
 
 % TomEE
 Poměrně důležitou nádstavbou k~Apache Tomcat je TomEE,
@@ -765,8 +757,7 @@ potřebné funkce serveru pro spuštění a~správný chod.
 Spouštění vestavěného serveru může velice zjednodušit vývoj,
 jelikož se vývojář musí vypořádat pouze s~jedinou komponentou a~to aplikací samotnou,
 tím pádem nemusí vůbec řešit nasazování aplikace na aplikační server.
-
-%(https://www.javaworld.com/article/3510460/what-is-apache-tomcat-the-original-java-servlet-container.html)
+\cite{javaWorld}
 
 Z~hlediska lokálního vývoje našich backendových modulů jsme dříve používali 
 spuštěný Tomcat jakožto nezávislého hostitele pro vyvíjené webové aplikace.
@@ -783,7 +774,6 @@ Objektově-relační mapování lze zjednodušeně vysvětlit jako
 programovací techniku pro přemodelování relační databáze
 na objektově orientovaný model v~aplikaci.
 Se samotnými záznamy databáze lze následně v~rámci aplikace pracovat jako s~objekty.
-% (https://en.wikipedia.org/wiki/Object-relational_mapping)
 
 %Java Persistence se skládá ze 4 oblastí: samotného Java Persistence API,
 %dotazovacího jazyka, Java Persistence Criteria API 
@@ -799,7 +789,7 @@ pro správné namapování databázových entit a~jejich vazeb.
 
 Níže je možné si prohlédnot ukázku entitní třídy Obec z~backendového 
 modulu oe-adresy. Třída byla mnou implementována na základě databázové tabulky 
-obec navžené Ing. Martinem Bendíkem. U~entitní třídy je možné spatřit 
+obec navržené Ing. Martinem Bendíkem. U~entitní třídy je možné spatřit
 význačné anotace z~balíčku javax.persistence knihovny JPA,
 pro mapování entitní třídy, kupříkladu anotace\texttt{@Entity}, \texttt{@Table}
 a~\texttt{@Column}. 
@@ -855,8 +845,7 @@ entit a~jejich vazeb.
 % Criteria API
 The Criteria API se používá pro vytváření typově bezpečných dotazů
 prostřednictvím specifických rozhraní programovacího jazyka java.
-
-% (https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html)
+\cite{oracleJPA}
 
 Pro práci s~daty v~backendových aplikacích využíváme referenční implementaci 
 JPA Hibernate, která je k~dispozici prostřednictvím frameworku Spring.
@@ -906,8 +895,6 @@ Proto byly nastavené vysoké standardy pro kvalitu kódu.
 Framework Spring klade velký důraz na smysluplný, aktuální a~přesný javadoc
 (Java dokumentace).
 
-%(https://docs.spring.io/spring/docs/current/spring-framework-reference/overview.html\#overview)
-
 % Dependency Injection and Inversion of Control
 Přestože Java platforma nabízí bohatou funkcionalitu pro vývoj aplikací,
 postrádá prostředky k~uspořádání základních stavebních jednotek do souvislého celku,
@@ -918,9 +905,9 @@ které výseledně tvoří aplikaci.
 Tyto návrhové vzory jsou formalizovanými osvědčenými postupy,
 které je však nutné nějakým způsobem implementovat.
 
-"Komponenta Spring Framework Inversion of Control řešít tento problém
+Komponenta Spring Framework Inversion of Control řešít tento problém
 poskytováním formalizovaných prostředků pro sestavování nesourodých
-součáští do plně funkční aplikace připravené k~použití."
+součáští do plně funkční aplikace připravené k~použití.
 Spring framework  implementuje určité návrhové vzory a~poskytuje
 je prostřednictvím objektů, které je možné integrovat do vlastních aplikací.
 Mnoho organizací využívá Spring Framework tímto způsobem k~vývoji robustních
@@ -930,6 +917,8 @@ Framework Spring se skládá z~různých funkcionalit organizovaných do 20 růz
 Tyto moduly jsou seskupený do částí Core, Container, Data Access/Integration,
 Web, Aspect Oriented Programming (AOP), Instrumentation a~Test,
 jako je vyzobrazeno na obrázku 2 níže.
+
+\cite{springFrameworkDocs}
 
 \obrazek
 \vlozeps{bakalarska-prace/spring-overview}{0.6}
@@ -943,10 +932,10 @@ Moduly Core a~Beans poskytují základní části frameworku,
 zahrnující funkce Inversion of Control a~Dependency Injection.
 Jednou z~těchto funkcionalit je \texttt{BeanFactory},
 což je sofistikovaná implementace návrhového vzoru továrna.
-\texttt{BeanFactory} odstraňuje potřebu používat programové jedináčky a~umožňuje oddělit konfiguraci a~specifikaci závislostí aplikace oddělit 
-od skutečné logiky programu.
+\texttt{BeanFactory} odstraňuje potřebu používat programové jedináčky
+a~umožňuje oddělit konfiguraci a~specifikaci závislostí aplikace oddělit od skutečné logiky programu.
 
-%
+
 Ze Skupiny Data Access/Integration modulů používáme především JDBC, ORM
 a~modul Transaction.
 
@@ -969,9 +958,9 @@ pro všechny obyčejné Java objekty (POJOs).
 % Web, MVC
 Další moduly, které používáme jsou Web a~Servlet, patřící do rodiny modulů Web.
 Kombinace těchto 2 modulů poskytuje implementaci architektury MVC
-pro webové aplikace. 
+pro webové aplikace.
 
-%https://docs.spring.io/spring/docs/3.0.x/spring-framework-reference/html/overview.html
+\cite{springFrameworkDocs}
 
 % Spring Boot
 Jedním z~nejčastěji používaných projektů z~rodiny Spring,
@@ -979,8 +968,7 @@ je projekt Spring Boot, který jsme se rozhodli v~backendových modulech použí
 Spring-Boot usnadňuje vytváření samostatných spustitelných aplikací
 založených na frameworku Spring.
 
-
-% https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
+\cite{springbootDocs}
 
 \kapitola{Vlastní práce}
 
@@ -1044,7 +1032,11 @@ Jedná se o~jednoduchý objekt zapouzdřující atribut accessToken, znakový ř
 
 Na základě servisně orientovaného modelu navrženého Ing. Martinem Bendíkem byla
 následně vydefinována HTTP REST operace v~REST API modulu oe-security. 
-REST API bylo implementována za pomocí technologie Swagger. Níže je možno vidět úryvek z~API, popisující registrační službu. 
+REST API bylo implementována za pomocí technologie Swagger,
+které slouží jako komunikační článek mezi frontendem a backendem
+a zároveň slouží jako dokumentace RESTových služeb
+Níže je možno vidět úryvek ze Swagger REST API (napaného v jazyce \texttt{Yaml}),
+který popisuje registrační službu.
 
 \clearpage
 
@@ -1098,9 +1090,12 @@ Služba pro registraci provádí databázovou transakci,
 která zastřešuje 5 databázových operací. 
 Pro zpřístupnění základní funkcionality webové aplikace nově registrovanému uživateli je nutné vytvořit 5 nových záznamů,
 v~5 vzájemně provázaných databázových tabulkách.
-Jedná se o~tabulky \texttt{osobne\_udaje}, \texttt{udaje\_postavy}, \texttt{nastavenia}, \texttt{hrac} a~\texttt{prihlasovacie\_udaje}.
+Jedná se o~tabulky \texttt{osobne\_udaje},
+\texttt{udaje\_postavy}, \texttt{nastavenia}, \texttt{hrac} a~\texttt{prihlasovacie\_udaje}.
 
 Pro práci s~uvedenými databázovými tabulkami byly v~jazyce java implementovány příslušné entitní třídy.
+Enitní třidy reprezentují databázové tabulky prostřednictvím objektově relačního mapování,
+diagram enitních tříd, se kterými služba pro registraci pracuje je vyobrazen níže.
 
 \obrazek
 \vlozeps{bakalarska-prace/oe-security-domain-simple.png}{0.6}
@@ -1108,17 +1103,26 @@ Pro práci s~uvedenými databázovými tabulkami byly v~jazyce java implementov�
 
 \clearpage
 
-Pro uložení nových záznamů do databáze bylo implementováno 5 obslužných metod ve třídě \texttt{LoginServiceImplementation}. Každá metoda ukládá nový záznam do určité databázové tabulky za pomocí metody save implementované referenční implementací JPA (Java Persistence API) Hibernate. 
+Pro uložení nových záznamů do databáze bylo implementováno 5 obslužných metod ve třídě \texttt{LoginServiceImplementation}.
+Každá metoda ukládá nový záznam do určité databázové tabulky
+za pomocí metody save implementované referenční implementací JPA (Java Persistence API) Hibernate.
 
-Stěžejní public metodou, která je důležitá pro realizaci celé databázové transakce, je metoda \texttt{createNewHra}c. Do této metody vstupuje objekt \texttt{NovyHracDto}, který byl získán na základě přijatého těla HTTP požadavku. Metoda vytváří nový objekt od entitní třídy \texttt{PrihlasovacieUdaje} a~nastaví mu hodnoty dle vstupního objektu novyHracDto, včetně hesla, zašifrovaného pomocí alogritmu \texttt{SHA256}. 
+Stěžejní public metodou, která je důležitá pro realizaci celé databázové transakce, je metoda \texttt{createNewHrac}.
+Do této metody vstupuje objekt \texttt{NovyHracDto}, který byl získán na základě přijatého těla HTTP požadavku.
+Metoda vytváří nový objekt od entitní třídy \texttt{PrihlasovacieUdaje} a~nastaví mu hodnoty dle vstupního objektu novyHracDto,
+včetně hesla, zašifrovaného pomocí šifrovacího alogritmu \texttt{SHA256}.
 
-Metoda \texttt{createNewHrace} provolá private metodu \texttt{initHrac}, která vytvoří a~inicializuje objekt entitní třídy \texttt{Hrac}, vytvoří další 3 objekty \texttt{osobniUdaje}, \texttt{udajePostavy}, \texttt{nastaveni} a~prováže s~nimi objekt \texttt{hrac}. 
+Metoda \texttt{createNewHrace} provolá private metodu \texttt{initHrac},
+která vytvoří a~inicializuje objekt entitní třídy \texttt{Hrac}, vytvoří další 3 objekty \texttt{osobniUdaje}, \texttt{udajePostavy}, \texttt{nastaveni}
+a~prováže s~nimi objekt \texttt{hrac}.
 
-Objekt \texttt{hrac} je metodou vrácen a~využit v~metodě \texttt{createNewHrac}, kde je ve výsledném zpracování pomocí jeho id provozán s~objektem přihlašovacích údajů. Objekt přihlašovacích údajů je následně doplněn o~další dvě hodnoty atributů prvního přihlášení a~uživatelské role. Pak je již předán výše zmíněné metodě save, která zapříčiní spuštění databázové transakce. 
+Objekt \texttt{hrac} je metodou vrácen a~využit v~metodě \texttt{createNewHrac},
+kde je ve výsledném zpracování pomocí jeho id provozán s~objektem přihlašovacích údajů.
+Objekt přihlašovacích údajů je následně doplněn o~další dvě hodnoty atributů prvního přihlášení a~uživatelské role.
+Pak je již předán výše zmíněné metodě save, která zapříčiní spuštění databázové transakce.
 
 Aby bylo dosaženo provedení jednotlivých databázových dotazů uvnitř jedné transakce,
 musí být metoda, případně třída anotována anotací \texttt{@Transactional} frameworku Spring. 
-
 
 \clearpage
 
@@ -1171,12 +1175,22 @@ public class LoginServiceImplementation implements LoginService {
 \clearpage
 
 HTTP REST operaci pro registraci uživatele obsluhuje třída \texttt{LoginRestController}. 
-Tato třída zpracovává přijaté HTTP požadavky a~jejich těla ve formátu JSON. Na základě zpracování požadavků provolává potřebné metody pro zpracování dat a~odesílá zpět příslušnou HTTP odpověď dle standardu REST.
+Tato třída zpracovává přijaté HTTP požadavky a~jejich těla ve formátu JSON.
+N a základě zpracování požadavků provolává potřebné metody pro zpracování dat
+a~odesílá zpět příslušnou HTTP odpověď dle standardu REST.
 
-Aby byla třída aplikací registrována, jakožto třída zpracovávající REST operace, byla anotována anotací \texttt{@RestController} frameworku Spring. Další význačnou anotací tohoto frameworku, kterou byla třída opatřena je anotace\texttt{ @RequestMapping}, díky které je specifikováno pod jakou url adresou tato třída zpracovává požadavky, v~jakém formátu požadavky příjmá a~v~jakém formátu odesílá odpovědi. 
+Aby byla třída aplikací registrována, jakožto třída zpracovávající REST operace,
+byla anotována anotací \texttt{@RestController} frameworku Sprin
+g. Další význačnou anotací tohoto frameworku, kterou byla třída opatřena je anotace\texttt{ @RequestMapping},
+díky které je specifikováno pod jakou url adresou tato třída zpracovává požadavky,
+v~jakém formátu požadavky příjmá a~v~jakém formátu odesílá odpovědi.
 
-HTTP POST operaci registrace nového uživatele zpracovává metoda \texttt{postNovyHrac}, fungující pod url koncovým bodem \texttt{/registration}. 
-Metoda \texttt{postNovyHrac} volá metodu \texttt{createNewHrac} přes instanci rozhraní \texttt{loginService}. Z~návraceného objektu z~metody \texttt{createNewHrac} je vytvořen JWT token, který je uložen do atributu \texttt{accessToken} odchozího objektu \texttt{LoginResponseDto}. Objekt \texttt{LoginResponseDto} je následně odeslán ve formátu JSON ven z~aplikace.
+HTTP POST operaci registrace nového uživatele zpracovává metoda \texttt{postNovyHrac},
+fungující pod url koncovým bodem \texttt{/registration}.
+Metoda \texttt{postNovyHrac} volá metodu \texttt{createNewHrac} přes instanci rozhraní \texttt{loginService}.
+Z~návraceného objektu z~metody \texttt{createNewHrac} je vytvořen JWT token,
+který je uložen do atributu \texttt{accessToken} odchozího objektu \texttt{LoginResponseDto}.
+Objekt \texttt{LoginResponseDto} je následně odeslán ve formátu JSON ven z~aplikace.
 
 \clearpage
 
@@ -1230,15 +1244,32 @@ public class LoginRestController implements SecurityApi {
 
 \sekce{Služba pro potvrzení prvního přihlášení}
 
-Pro zobrazení určitých vizuálních prvků a~informací uživateli, je třeba rozlišovat, zda se uživatel do systému přihlašuje poprvé. Jedním ze zobrazovaných prvků uživateli po prvním přihlášení je například uvítací modální okno, které hráče přivitá do aplikace a~ve stručnosti ho s~naší aplikací seznámí. Jakmile je uživatel proveden celým uvítacím procesem, nechceme ho již při dalším přihlášení do systému obtěžovat těmito informacemi a~proto mu již určité prvky nebudou znovu zobrazeny.
+Pro zobrazení určitých vizuálních prvků a~informací uživateli, je třeba rozlišovat,
+zda se uživatel do systému přihlašuje poprvé. Jedním ze zobrazovaných prvků uživateli po prvním přihlášení je například uvítací modální okno,
+které hráče přivitá do aplikace a~ve stručnosti ho s~naší aplikací seznámí.
+Jakmile je uživatel proveden celým uvítacím procesem, nechceme ho již při dalším přihlášení do systému
+obtěžovat těmito informacemi a~proto mu již určité prvky nebudou znovu zobrazeny.
 
-Informace o~prvním přihlášení určitého uživatele je uchována v~databázové tabulce \texttt{prihlasovacie\_udaje}. Do aplikace je zasílána službou modulu \texttt{oe-hrac} společně s~dalšími údaji o~uživateli ihned po uživatelově přihlášení.
+Informace o~prvním přihlášení určitého uživatele je uchována v~databázové tabulce \texttt{prihlasovacie\_udaje}.
+Do aplikace je zasílána službou modulu \texttt{oe-hrac} společně s~dalšími údaji o~uživateli ihned po uživatelově přihlášení.
 
-Po zobrazení prvků spojených s~prvním vstupem do aplikace je nutné odeslat požadavek na změnu příznaku prvního přihlášení. Proto bylo potřebné vytvořit službu, díky které bude možné tento příznak změnit. Jelikož se jedná o~službu týkající se základního panelu hráče, byla tato služba implementována v~modulu \texttt{oe-hrac}.
+Po zobrazení prvků spojených s~prvním vstupem do aplikace je nutné odeslat požadavek na změnu příznaku prvního přihlášení.
+Proto bylo potřebné vytvořit službu, díky které bude možné tento příznak změnit.
+Jelikož se jedná o~službu týkající se základního panelu hráče, byla tato služba implementována v~modulu \texttt{oe-hrac}.
 
-Služba pro potvrzení prvního přihlášení je implementačně poměrně jednoduchá. Pracuje pouze s~jednou již výše uvedenou databázovou tabulkou \texttt{prihlasovacie\_udaje}, kde na základě přijatého požadavku mění v~příslušném řádku tabulky, reprentujícím přihlašovací údaje přihlášeného hráče, hodnotu prvního přihlášení, definovanou logickým datovým typem boolean. 
+Služba pro potvrzení prvního přihlášení je implementačně poměrně jednoduchá.
+Pracuje pouze s~jednou již výše uvedenou databázovou tabulkou \texttt{prihlasovacie\_udaje},
+kde na základě přijatého požadavku mění v~příslušném řádku tabulky,
+reprentujícím přihlašovací údaje přihlášeného hráče, hodnotu prvního přihlášení,
+definovanou logickým datovým typem boolean.
 
-Pro realizaci této funkcionality je třeba nejdříve dohledat instanci přihlašovacích údajů dle id hráče přihlášeného uživatele. Takto získanému objektu je následně nastavena hodnota prvního přihlášení podle hodnoty uložené v~příchozím objektu z~HTTP požadavku -- \texttt{PrvniPrihlaseniDto}.  Záznam je po úpravě uložen do databáze. 
+Pro realizaci této funkcionality je třeba nejdříve dohledat instanci přihlašovacích údajů dle id hráče přihlášeného uživatele.
+Takto získanému objektu je následně nastavena hodnota prvního přihlášení
+podle hodnoty uložené v~příchozím objektu z~HTTP požadavku -- \texttt{PrvniPrihlaseniDto}.
+Záznam je po úpravě uložen do databáze.
+Na další straně je vidět úryvek ze třídy \texttt{HracServiceImplementation},
+která je zodpovědná za realizaci databázových operací v databázové transakci
+a připravení odchozího objektu pro konroler, který již předá výslednou odpověď klientovi.
 
 \clearpage
 
@@ -1281,19 +1312,29 @@ PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
 ...
 \end{lstlisting}
 
-Služba je poskytována pod url koncovým bodem \texttt{/rest/hrac/prvni-prihlaseni} a~HTTP metodou PUT.  Takto je služba registrována pod metodou \texttt{putPrvniPrihlaseni} třídy \texttt{HracRestController}.
+Služba je poskytována pod url koncovým bodem \texttt{/rest/hrac/prvni-prihlaseni} a~HTTP metodou PUT.
+Takto je služba registrována pod metodou \texttt{putPrvniPrihlaseni} třídy \texttt{HracRestController}.
 Část třídy s~implementací této metody si může čtenář prohlédnout v~kapitole příloh.
 
 \clearpage
 
 \sekce{Služba pro inicializaci dovednosního stromu hráče}
 
-Každý uživatel systému získává za plnění pracovních úkolů určité dovedností body. Tyto dovedností body náleží dovednostem, které v~průběhu kariéry ve firmě Optimal Energy za používání našeho systému, uživatel získává a~rozvíjí. Díky těmto rozvíjeným dovednostem uživatel vidí, jak se v~různých činnostech zlepšuje a~nabývá nových zkušeností či vědomostí. 
+Každý uživatel systému získává za plnění pracovních úkolů určité dovedností body.
+Tyto dovedností body náleží dovednostem, které v~průběhu kariéry ve firmě Optimal Energy za používání našeho systému,
+uživatel získává a~rozvíjí.
+Díky těmto rozvíjeným dovednostem uživatel vidí,
+jak se v~různých činnostech zlepšuje a~nabývá nových zkušeností či vědomostí.
 
-V~systému jsou dovednosti rozděleny do určitých kategorií dle věcného významu. Podle vydefinovaných pravidel v~databázy jsou pak přidělovány zmíněné body k~určitým dovednostem za splnění pracovních úkolů evidovaných naším systémem.
+V~systému jsou dovednosti rozděleny do určitých kategorií dle věcného významu.
+Podle vydefinovaných pravidel v~databázy jsou pak přidělovány zmíněné body k~určitým dovednostem za splnění pracovních úkolů evidovaných naším systémem.
 
-Pro správu dovedností hráčů byl zřízen samostaný modul \texttt{oe-dovednosti}, který pracuje s~daty těchto dovedností. Před tím než uživatel začne plnit v~systému pracovní úkoly je nezbytné, aby mu byla připravena příslušná struktura dat, týkající se jeho dovedností, které při plnění úkolů bude rozvíjet. Proto byla vyvinuta služba pro inicializaci dovednostního stromu hráče.
-
+Pro správu dovedností hráčů byl zřízen samostaný modul \texttt{oe-dovednosti},
+který pracuje s~daty těchto dovedností.
+Před tím než uživatel začne plnit v~systému pracovní úkoly je nezbytné,
+aby mu byla připravena příslušná struktura dat, týkající se jeho dovedností,
+které při plnění úkolů bude rozvíjet.
+Proto byla vyvinuta služba pro inicializaci dovednostního stromu hráče.
 
 Pro vytvoření struktury dat dovedností (jinak dovednostního stromu) určitého uživatele je nutné:
 
@@ -1304,7 +1345,9 @@ Pro vytvoření struktury dat dovedností (jinak dovednostního stromu) určité
 \end{itemize}
 
 Data jednotlivých druhů kategorií dovedností a~druhů dovedností jsou uloženy v~tabulkách \texttt{typ\_kategoria\_dovednosti} a~\texttt{typ\_dovednosti}.
-Entitní třídy, zrcadlící databázové tabulky, se kterými služba pracuje, jsou \texttt{TypKategoriaDovednosti}, \texttt{TypDovednosti}, \texttt{KategoriaDovednosti} a~\texttt{Dovednost}. Na uvedeném obrázku 2 níže je možné si prohlédnout zjednodušený class diagram modulu \texttt{oe-dovednosti}. 
+Entitní třídy, zrcadlící databázové tabulky, se kterými služba pracuje,
+jsou \texttt{TypKategoriaDovednosti}, \texttt{TypDovednosti}, \texttt{KategoriaDovednosti} a~\texttt{Dovednost}.
+Na uvedeném obrázku 2 níže je možné si prohlédnout zjednodušený class diagram modulu \texttt{oe-dovednosti}.
 
 \clearpage
 
@@ -1849,6 +1892,12 @@ Dostupné z:
 https://www.javaworld.com/article/3510460/what-is-apache-tomcat-the-original-java-servlet-container.html
 }
 
+\citace{kalin}{Martin Kalin, Java Web Services, 2020}
+{
+\autor{Kalin M.}
+\nazev{Java Web Services: Up and Running} | 1. vyd. Sebastopol: O'Reilly, 297 s. ISBN 978-0-596-52112-7.
+}
+
 \citace{gamethinking}{Kim, Game Thinking, 2018}
 {
 \autor{Kim, A.J. and Koster, R. and Kim, S.}:
@@ -1857,7 +1906,7 @@ Drive Deep Engagement with Design Techniques from Hit Games}
 Dostupné z: \texttt{https://Gamethinking.io}, 2018. ISBN 9780999788547
 }
 
-\citace{mavenIntroduction}{Maven, 2020}{
+\citace{maven}{Maven, 2020}{
 \autor{Maven}
 \nazev{Maven -- Introduction}. Maven -- Welcome to Apache Maven [online].
 \\
@@ -1866,7 +1915,7 @@ Dostupné z:
 \texttt{https://maven.apache.org/what-is-maven.html}
 }
 
-\citace{oracleJavaLanguage}{Oracle, 2019}{
+\citace{oracleJava}{Oracle, 2019}{
 \autor{Oracle}
 \nazev{The Java Language Environment} [online].
 Copyright © 2019 Oracle. 
@@ -1914,15 +1963,21 @@ Vedoucí práce doc. Ing. Filip Malý, Ph.D..
 Dostupné z: \texttt{https://theses.cz/id/9cfx4r}
 }
 
-
-
-\citace{odinuv}{Popelka}{
-\autor{Popelka Ondrřej, Lýsek Jiří}
+\citace{odinuv}{Popelka O., Lýsek J., odinuv.cz}{
+\autor{Popelka O., Lýsek J.}
 \nazev{Web Applications} 
 The Making of a Web Application [online]. 
 Dostupné z: 
 \\
 \texttt{http://odinuv.cz/articles/web-applications/}
+}
+
+\citace{sandoval}{Sandoval, 2009}{
+\autor{Sandoval J.}
+\nazev{RESTful Java Web Services}:
+master core REST concepts and create RESTful web services in Java.
+Birmingham: Packt Publishing, 2009. 256 s.
+ISBN 978-1-84719-646-0.
 }
 
 \citace{sapCloudGamification}{SAP Cloud Platform Gamification, 2018}{
