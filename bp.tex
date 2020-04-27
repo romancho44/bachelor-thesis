@@ -24,7 +24,7 @@
   breaklines=true,
   breakatwhitespace=true,
   tabsize=3,
-  inputencoding=utf8,
+  inputencoding=utf8/latin1,
   extendedchars=true,
   literate=
      {á}{{\'a}}1
@@ -70,6 +70,16 @@
 {Roman Vozka}{Ing. Jan Kolomazník, Ph.D.}{Brno, 2020}
 
 
+\podekovani{lib text}
+
+\prohlasenimuz{Brno, 2020}
+
+\abstract{introduction}{en text}
+
+\abstrakt{uvod}{cs text}
+
+
+
 \obsah
 \cislovat{2}
 
@@ -80,7 +90,8 @@
 Pro zpracování své bakalářské práce
 jsem se rozhodl připojit do vývojového týmu firmy Gamifika s.r.o.,
 který vyvíjí gamifikovaný informační systém 
-pro kariérní růst spolupracovníků firmy Optimal Energy.
+pro kariérní růst spolupracovníků firmy Optimal Energy,
+společnosti poskytující energetické poradenství.
 Ve vývojovém týmu zaujímám funkci bakendového vývojáře 
 a~již druhým rokem se podílím na vývoji backendu webové aplikace informačního systému.
 K~projektu jsem se připojil ve fázi, kdy se utvářely základy pro vývoj
@@ -390,8 +401,7 @@ prostřednictvím následujících základních složek:
 % HTTP
 \textbf{HTTP} je základem  WWW systému. 
 Jedná se o~jednoduchý síťový protokol aplikační vrstvy, 
-který pro přenos dat využívá protokol TCP. 
-% TODO: rozvést komunikaci typu klient -- server
+který pro přenos dat využívá protokol TCP.
 Je založený na principu klient -- server, 
 což znamená, že jsou zprávy ve formě požadavků a~odpovědí vyměňovány mezi klientem 
 a~serverem. 
@@ -1173,6 +1183,17 @@ public class LoginServiceImplementation implements LoginService {
 
     @Override
     public PrihlasovacieUdaje createNewHrac(NovyHracDto novyHracDto) {
+
+        // pokud jiz existuje hrac s takovymi prihl. udaji, vyhodit vyjimku
+        if (prihlasovacieUdajeRepository
+                        .existsByLoginOrEmail(
+                            novyHracDto.getLogin(),
+                            novyHracDto.getEmail())) {
+            throw new ErrorCodeException(
+                            ErrorCodeEnum.NEPLATNA_REGISTRACE,
+                            "Uzivatel s temito prihasovacimi udaji jiz existuje.");
+        }
+
         PrihlasovacieUdaje prihlasovacieUdaje = new PrihlasovacieUdaje();
         prihlasovacieUdaje.setLogin(novyHracDto.getLogin());
         prihlasovacieUdaje.setEmail(novyHracDto.getEmail());
@@ -1645,8 +1666,6 @@ Class diagram těchto tříd je uveden níže k~nahlédnutí.
 
 \clearpage
 
-% TODO: přidat do předchozího odstavce odkaz na obrazek
-
 \obrazek
 \vlozeps{bakalarska-prace/timeline-domain.png}{0.6}
 \endobr{Zjednodušený class diagram entitních tříd modulu timeline}
@@ -1859,54 +1878,139 @@ public class EventsServiceImpl implements EventsService {
 
 \clearpage
 
+\kapitola{Testování}
+
+Pro testování byly použity volně dostupné programy Postman pro funkční otestování REST služeb
+a SoapUI pro zátěžové testy.
+
+Program Postman je možné s výhodou používat pro otestování webových REST služeb.
+Prostřednictvím tohoto programu lze vytvářet nejrůznější možné HTTP požadavky
+s různými hlavičkami i těli, včetně cookies, bezpečnostních i jiných příznaků.
+Tímto způsobem lze nasimulovat například klientovo odeslání formuláře.
+Pro vývoj backendových služeb se jedná o ideální nástroj,
+který může vývojář použít pro rychlé otestování funkcionality
+vyvíjených služeb, jelikož vývojáři backendu nemusejí ztácet čas vytvářením formulářů
+a hledáním jiných prostředků pro vyvolání požadavku a navození nejrůznějších stavů.
+
+\vspace{10}
+
+\noindent{\textbf{Ukázka volání registrační služby prostřednictvím aplikace postman:}
+
+\vspace{10}
+
+\noindent{HTTP požadavek zaslán na:}
+
+\noindent{\texttt{http://localhost:8080/rest/security/registration} (POST)}
+
+\vspace{10}
+
+\noindent{Tělo HTTP požadavku (JSON):}
 
 \begin{lstlisting}
-@Slf4j
-@RestController
-@RequestMapping(path = "timeline", produces = {"application/json"})
-public class TimelineRestController extends AbstractJwtDecoderController
-                                    implements TimelineApi {
-
-    @Autowired
-    private EventsService eventsService;
-
-    /**
-     * Method calls appropriate service methods for retrieving
-     * player events.
-     *
-     * @param eventTypeCodes Notification Type's~codes
-     *        for filtering events
-     * @param limit
-     * @param offset
-     * @return List of Event's~DTOs
-     */
-    @Override
-    @GetMapping("/events")
-    public ResponseEntity> getPlayerEvents(@Valid List eventTypeCodes,
-                                                    @Valid Integer limit,
-                                                    @Valid Integer offset) {
-
-        EventsFilter eventsFilter = new EventsFilter(getTokenSubject(),
-                eventTypeCodes, limit, offset);
-
-        log.info("Calling getEvents with filter: {}", eventsFilter.toString());
-        // calling service method from lower layer
-        List eventDtoList = eventsService.getEvents(eventsFilter);
-        return new ResponseEntity<>(eventDtoList, HttpStatus.OK);
-    }
-    
-    ...
+{
+    "email": "petr.novak@mail.cz",
+    "login": "petr.novak",
+    "heslo" : "heslo",
+    "registrationToken": "1234",
+    "idParent": "1"
 }
 \end{lstlisting}
 
-\kapitola{Testování}
+\vspace{10}
 
-\sekce{Registrace}
+\noindent{Tělo HTTP odpovědi (JSON):}
 
-\sekce{První přihlášení}
+\begin{lstlisting}
+{
+    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdW
+                    IiOiIzMyIsImlkSHJhY2EiOiIzMyIsInJvbGEiOiI5NyIsImlzcyI
+                    6ImdhbWlmaWthIiwiZXhwIjoxNTg3ODQ5Njk0LCJsb2dpbiI6InBl
+                    dHIubm92YWsiLCJqdGkiOiJiNWFiNzgzMi1iOGRkLTRlN2QtYjk3M
+                    C00YTA4ZWJlYzZlNmEiLCJlbWFpbCI6InBldHIubm92YWtAbWFpbC
+                    5jeiJ9.CQttIGzSXEphm7n-hWhaxMlKUGHEgRpG4uF3k6-z96D2ks
+                    _eNE8aqakXHjQclyL1c1VnTT7XBK5hJfEya33v_lBY9lt6GptkdGQ
+                    s2eYoUKELxyYjjZ5XtouncqopqMqsHB08DpyeL9D4cE3ERRiT31W7
+                    EF1R1y40kR_p1t4HorcwYhRwttoymPIPIF1HYMqf7k6-zbFUsgF0S
+                    8PIiYQXkkCooU4kal9os8gKSZBKNV1kdJrc7ucop3TlNryQ-ZDuIP
+                    Whfo7XsiJr5-80qSwThyKWc8WARC5CwrEIR1aVj2Mi_LwhqGk2xS8
+                    WG9WpbMJuK8GdOCAN339AiIxc5qRdbg"
+}
+\end{lstlisting}
 
-\sekce{}
+\vspace{10}
 
+\noindent{Další ukázky funkčního otestování pomocí programu Postman je možné nalézt v kapitole příloh.}
+
+Program SoapUI lze použít pro vytvoření testovacího scénáře,
+který se může skládat z většího počtu různých požadavků odeslaných na různé webové služby a
+to RESTové i SOAPově založené. Tímto způsobem je možné nasimulovat předpokládanou práci uživatele.
+Vývojář si může připravit testovací scénář, který může spouštět pro jednoho i více virtuálních uživatelů a
+takto otestovat funkčnost aplikací pro různé stavy i při větším zatížení.
+Celkově se jedná o poměrně komplexní program nabízející mnoho různých funkcí
+pro různorodé testování webových aplikací, ale i vytváření falešných služeb a simulovat tak chování některých aplikací.
+K těmto, i jiným účelům podporuje program skriptovací jazyk groovy.
+
+Pro zátěžové otestování a simulaci práce většího počtu uživatelů byl prostřednictvím
+programu SoapUI vytvořen testovací scénář pro otestování služby modulu Timeline.
+Testovací scénář se skládá z různých volání služby pro získání událostí přihlášeného uživatele.
+
+\noindent{Kroky testovacího scénáře:}
+
+\begin{enumerate}
+\item \textbf{Zobrazit 10 nejnovějších událostí.}
+\item \textbf{Zobrazit 3 nejnovější události týkající se pouze dovedností nebo poddovedností.}
+\item \textbf{Zobrazit všechny události týkající se splněných herních misí.}
+\item \textbf{Zobrazit všechny událostí týkající se dosažení nové úrovně hráče.}
+\item \textbf{Zobrazit 3 nejstarší události týkající se splněných úkolů.}
+\end{enumerate}
+
+
+\noindent{Pro každý krok tohoto scénáře byl vytvořen požadavek volaný pod URL adresou
+\texttt{http://localhost:9010/timeline/events} se specifickými query parametry následovně:}
+
+\begin{enumerate}
+\item \texttt{...?limit=10}
+\item \texttt{...?eventTypeCodes=newSkillLevel,newSubskillLevel\&limit=3}
+\item \texttt{...?eventTypeCodes=missionCompleted}
+\item \texttt{...?eventTypeCodes=newPlayerLevel}
+\item \texttt{...?eventTypeCodes=questCompleted\&limit=3\&sortColumns=created}
+\end{enumerate}
+
+\clearpage
+
+Po vytvoření těchto požadavků, byl celý scénář spuštěn pro 10 virtuálních uživatelů,
+po dobu 60 sekund, s relativně náhodnými prodlevami mezi testovacími kroky v časové délce 1 sekundy.
+
+\vspace{10}
+
+\noindent{Výstupem zátěžového testu je následující tabulka:}
+
+\tabulka{Zátěžový test modulu Timeline}
+% \label{odkaz}
+\def\arraystretch{1.2}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Testovací krok} & \textbf{průměrná doba [ms]} & \textbf{rychlost přenosu [B/s]} \\
+\hline
+1 & 436,69 & 7956 \\
+\hline
+2 & 182,13 & 2266 \\
+\hline
+3 & 151,21 & 2837 \\
+\hline
+4 & 149,37 & 2546 \\
+\hline
+5 & 148,99 & 2863 \\
+\hline
+Celkově & 1068,41 & 18470 \\
+\hline
+\end{tabular}
+% \tabzdroj{SoapUI -- LoadTest}
+\endtab
+
+Celkově bylo pro každý testovací krok realizováno 325 volání, přičemž chybných bylo 0.
+Průměrnou dobu realizace celého testovacího scénáře 1068,41 ms lze vzhledem k dostupným prostředkům
+považovat za uspokojivou.
 
 \kapitola{Závěr}
 Hlavním cílem bakalářské práce bylo naimplementovat backendové moduly pro gamifikovaný informační systém.
@@ -1920,7 +2024,7 @@ Vzhledem k úspěšnému vytvoření v práci popsaných služeb a na základě 
 považuji cíl práce za splněný.
 
 
-Práce na systému probíhají každým dnem a neustále se namýšlejí a přidávají další věci.
+Práce na systému probíhají každým dnem a neustále se rozvíjí jeho růrné komponenty a je přidávána nová funkcionalita.
 Postupně je vyskládáván poměrně robustní systém, který bude denně používat mnoho pracovníku firmy.
 Do budoucna je počítáno s dalším rozvojem, v blízké době budou implementovány nové moduly,
 například modul pracující s mapou a geografickou polohou uživatele nebo modul obchodu, zahrnující práci s virtuální herní měnou.
@@ -2130,9 +2234,206 @@ Dostupné z:
 \kapitola{Přílohy}
 
 V kapitole příloh jsou k nahlédnutí vybrané části zdrojových kódů
-webových REST služeb představených v kapitole vlastní práce.
+webových REST služeb a výstupy z jejich testování.
 
 \sekce{Registrace nového hráče}
+
+\podsekce{Swagger API}
+\begin{lstlisting}
+paths:
+ /rest/security/registration:
+    post:
+      tags:
+        - Security
+      summary: Sluzba dle zadanych hodnot vytvori instanci noveho hrace.
+      operationId: postNovyHrac
+      parameters:
+        - in: body
+          name: novyHracDto
+          required: true
+          schema:
+            $ref: '#/definitions/NovyHracDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/LoginResponseDto'
+...
+definitions:
+# Vstupní DTO
+    NovyHracDto:
+        type: object
+        properties:
+          email:
+            type: string
+          login:
+            type: string
+          heslo:
+            type: string
+          registrationToken:
+            type: integer
+          idParent:
+            type: integer
+            format: int64
+
+# Výstupní DTO
+    LoginResponseDto:
+        type: object
+        properties:
+          accessToken:
+            type: string
+...
+\end{lstlisting}
+
+\podsekce{Business logika}
+
+\begin{lstlisting}
+
+@Service
+@Transactional
+public class LoginServiceImplementation implements LoginService {
+
+    @Autowired
+    private HracRepository hracRepository;
+
+    @Autowired
+    private PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
+
+    ...
+
+    @Override
+    public PrihlasovacieUdaje createNewHrac(NovyHracDto novyHracDto) {
+
+        // pokud jiz existuje hrac s takovymi prihl. udaji, vyhodit vyjimku
+        if (prihlasovacieUdajeRepository
+                        .existsByLoginOrEmail(
+                            novyHracDto.getLogin(),
+                            novyHracDto.getEmail())) {
+            throw new ErrorCodeException(
+                            ErrorCodeEnum.NEPLATNA_REGISTRACE,
+                            "Uzivatel s temito prihasovacimi udaji jiz existuje.");
+        }
+
+        PrihlasovacieUdaje prihlasovacieUdaje = new PrihlasovacieUdaje();
+        prihlasovacieUdaje.setLogin(novyHracDto.getLogin());
+        prihlasovacieUdaje.setEmail(novyHracDto.getEmail());
+
+        // nastavit zahashovane heslo dle algoritmu SHA256
+        prihlasovacieUdaje.setPassword(Hashing.sha256().hashString(
+                novyHracDto.getHeslo(), StandardCharsets.UTF_8).toString());
+
+        // provolat inicializaci Hrace a~provazat s~jeho ID
+        prihlasovacieUdaje.setIdHraca(initHrac(novyHracDto).getId());
+
+        // uzivatel se prihlasuje poprve
+        prihlasovacieUdaje.setPrvePrihlasenie(true);
+        prihlasovacieUdaje.setIdRola(ID_ROLE_STANDARD);
+        return prihlasovacieUdajeRepository.save(prihlasovacieUdaje);
+    }
+
+    ...
+
+    private Hrac initHrac(NovyHracDto novyHracDto) {
+        Hrac hrac = new Hrac();
+        hrac.setOsobneUdaje(initOsobniUdaje());
+        hrac.setUdajePostavy(initUdajePostavy());
+        hrac.setNastavenia(initNastaveni());
+        // set ID nadrizeneho
+        hrac.setIdParent(novyHracDto.getIdParent());
+        return hracRepository.save(hrac);
+    }
+\end{lstlisting}
+
+\podsekce{Controller}
+
+\begin{lstlisting}
+
+@RestController
+@RequestMapping(
+        value = "/rest/security",
+        produces = {"application/json"},
+        consumes = {"application/json"})
+public class LoginRestController implements SecurityApi {
+
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private JwtTokenService jwtTokenService;
+
+    ...
+
+    /**
+     * Dle vstupujiciho DTO metoda vytvori noveho hrace
+     * a~odesle zpet pristupovy token.
+     *
+     * @param novyHracDto prichozi DTO noveho hrace,
+     * ktery ma byt registrovan
+     *
+     * @return Metoda vraci LoginResponseDTO
+     * obsahujici pristupovy token
+     */
+    @Override
+    @PostMapping(value = "/registration")
+    public ResponseEntity postNovyHrac(
+            @RequestBody NovyHracDto novyHracDto) {
+
+        JwtToken jwtToken = jwtTokenService.createJwtToken(
+                loginService.createNewHrac(novyHracDto));
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setAccessToken(jwtToken.getToken());
+
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
+    }
+
+    ...
+
+\end{lstlisting}
+
+\podsekce{Funkční test (Postman)}
+
+\vspace{10}
+
+\noindent{HTTP požadavek zaslán na:}
+
+\noindent{\texttt{http://localhost:8080/rest/security/registration} (POST)}
+
+\vspace{10}
+
+\noindent{Tělo HTTP požadavku (JSON):}
+
+\begin{lstlisting}
+{
+"email": "petr.novak@mail.cz",
+"login": "petr.novak",
+"heslo" : "heslo",
+"registrationToken": "1234",
+"idParent": "1"
+}
+\end{lstlisting}
+
+\vspace{10}
+
+\noindent{Tělo HTTP odpovědi (JSON):}
+
+\begin{lstlisting}
+{
+"accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJzdW
+IiOiIzMyIsImlkSHJhY2EiOiIzMyIsInJvbGEiOiI5NyIsImlzcyI
+6ImdhbWlmaWthIiwiZXhwIjoxNTg3ODQ5Njk0LCJsb2dpbiI6InBl
+dHIubm92YWsiLCJqdGkiOiJiNWFiNzgzMi1iOGRkLTRlN2QtYjk3M
+C00YTA4ZWJlYzZlNmEiLCJlbWFpbCI6InBldHIubm92YWtAbWFpbC
+5jeiJ9.CQttIGzSXEphm7n-hWhaxMlKUGHEgRpG4uF3k6-z96D2ks
+_eNE8aqakXHjQclyL1c1VnTT7XBK5hJfEya33v_lBY9lt6GptkdGQ
+s2eYoUKELxyYjjZ5XtouncqopqMqsHB08DpyeL9D4cE3ERRiT31W7
+EF1R1y40kR_p1t4HorcwYhRwttoymPIPIF1HYMqf7k6-zbFUsgF0S
+8PIiYQXkkCooU4kal9os8gKSZBKNV1kdJrc7ucop3TlNryQ-ZDuIP
+Whfo7XsiJr5-80qSwThyKWc8WARC5CwrEIR1aVj2Mi_LwhqGk2xS8
+WG9WpbMJuK8GdOCAN339AiIxc5qRdbg"
+}
+\end{lstlisting}
+
 \sekce{Potvrzení prvního přihlášení}
 
 \podsekce{Swagger API}
@@ -2170,7 +2471,49 @@ definitions:
 
 \end{lstlisting}
 
-\podsekce{RestContoller}
+\podsekce{Business logika}
+
+\begin{lstlisting}
+@Service
+public class HracServiceImplementation implements HracService {
+
+@Autowired
+PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
+
+...
+
+    /**
+     * Metoda upravi hodnotu prvniho prihlaseni, dle vstupniho DTO,
+     * objektu prihlasovacich udaju, dohledaneho dle ID hrace.
+     *
+     * @param hracId ID prihlaseneho uzivatele
+     * @param prvniPrihlaseniDto DTO s~priznakem prvniho prihlaseni
+     * @return aktualizovany objekt prvniho prihlaseni
+     */
+    @Override
+    @Transactional
+    public PrihlasovacieUdaje editPrvniPrihlaseni(
+                                    Long hracId,
+                                    PrvniPrihlaseniDto prvniPrihlaseniDto) {
+
+        Optional prihlasovacieUdajeOptinal
+                = prihlasovacieUdajeRepository.findByHracId(hracId);
+
+        if (!prihlasovacieUdajeOptinal.isPresent()) {
+            return null;
+        }
+
+        PrihlasovacieUdaje prihlasovaciUdajeToEdit
+                    = prihlasovacieUdajeOptinal.get();
+        prihlasovaciUdajeToEdit.setPrvePrihlasenie(
+                prvniPrihlaseniDto.getPrvniPrihlaseni());
+        return prihlasovacieUdajeRepository.save(prihlasovaciUdajeToEdit);
+    }
+
+...
+\end{lstlisting}
+
+\podsekce{Controller}
 
 \begin{lstlisting}
 @RestController
@@ -2223,6 +2566,33 @@ public class HracRestController
     
 \end{lstlisting}
 
+
+\podsekce{Funkční test (Postman)}
+
+\vspace{10}
+
+\noindent{HTTP požadavek zaslán na:}
+
+\noindent{\texttt{http://localhost:8081/rest/hrac/prvni-prihlaseni} (PUT)}
+
+\vspace{10}
+
+\noindent{Tělo HTTP požadavku (JSON):}
+
+\begin{lstlisting}
+{
+    "prvniPrihlaseni": "false"
+}
+\end{lstlisting}
+
+\vspace{10}
+
+\noindent{Odesláno s příznakem \texttt{Authorization}, s hodnoutou \texttt{JWT tokenu} v hlavičce HTTP požadavku.}
+
+\vspace{10}
+
+\noindent{HTTP odpověď -- HTTP Status: 200 OK, bez těla odpovědi.}
+
 \sekce{Inicializace dovednostního stromu hráče}
 
 \podsekce{Swagger API}
@@ -2246,7 +2616,106 @@ paths:
 
 \end{lstlisting}
 
-\podsekce{RestController}
+\podsekce{Business logika}
+
+\begin{lstlisting}
+@Service
+public class KategorieDovednostiServiceImplementation
+                    implements KategorieDovednostiService {
+
+    @Autowired
+    private KategorieDovednostiRepository kategoriaDovednostiRepository;
+    @Autowired
+    private TypKategorieDovednostiRepository
+                                typKategorieDovednostiRepository;
+    @Autowired
+    private TypDovednostiRepository typDovednostiRepository;
+    @Autowired
+    private DovednostRepository dovednostRepository;
+
+    ...
+
+    @Override
+    @Transactional
+    public void initStromDovednosti(Long hracId) {
+
+        Iterable kategorieDovednostiIterable
+                = initKategorieDovednostiHrace(hracId);
+
+        initDovednostiHrace(kategorieDovednostiIterable);
+
+    }
+
+    private List initKategorieDovednostiHrace(Long hracId) {
+
+        // ziskat seznam vsech typu kategorii dovednosti
+        Iterable typyKategorieDovednosti
+                = typKategorieDovednostiRepository.findAll();
+
+        List kategoriaDovednostiList
+                = new ArrayList<>();
+
+        // pro kazdy typ kategorie dovednosti
+        // vytvorit hraci instanci kategorie dovednosti
+        typyKategorieDovednosti.forEach(TypKategorieDovednosti -> {
+                    KategoriaDovednosti kategoriaDovednosti =
+                            createKategorieDovednosti(hracId, TypKategorieDovednosti);
+                    kategoriaDovednostiList.add(kategoriaDovednosti);
+        });
+
+        return kategoriaDovednostiList;
+    }
+
+    private KategoriaDovednosti createKategorieDovednosti(
+            Long hracId, TypKategorieDovednosti typKategorieDovednosti) {
+
+        KategoriaDovednosti kategoriaDovednosti = new KategoriaDovednosti();
+        kategoriaDovednosti.setTypKategorieDovednosti(typKategorieDovednosti);
+        kategoriaDovednosti.setIdHraca(hracId);
+        kategoriaDovednosti.setZiskaneSkusenosti(0);
+        kategoriaDovednosti.setUroven(0);
+        kategoriaDovednosti.setAktivita(0);
+        return kategoriaDovednostiRepository.save(kategoriaDovednosti);
+    }
+
+    private void initDovednostiHrace(Iterable kategorieDovednostiIterable) {
+        kategorieDovednostiIterable.forEach(
+                KategoriaDovednosti -> createAllDovednostiKategorie(
+                        KategoriaDovednosti));
+    }
+
+    private void createAllDovednostiKategorie(
+            KategoriaDovednosti kategorieDovednosti) {
+
+        // vyhledat typy dovednosti dle typu kategorie dovednosti
+        Iterable typyDovednostiIterable = typDovednostiRepository
+                .findByTypKategorieDovednosti(
+                        kategorieDovednosti.getTypKategorieDovednosti());
+
+        // vytvorit instanci dovednosti od kazdeho typu dovednosti
+        // prislusne kategorie dovednosti
+        typyDovednostiIterable.forEach(
+                TypDovednosti -> createDovednost(
+                        kategorieDovednosti, TypDovednosti));
+    }
+
+    private Dovednost createDovednost(
+            KategoriaDovednosti kategoriaDovednosti,
+            TypDovednosti typDovednosti) {
+
+        Dovednost dovednost = new Dovednost();
+        dovednost.setKategoriaDovednosti(kategoriaDovednosti);
+        dovednost.setTypDovednosti(typDovednosti);
+        dovednost.setUroven(0);
+        dovednost.setSkusenosti(0);
+        dovednost.setAktivita(0);
+        return dovednostRepository.save(dovednost);
+    }
+
+
+\end{lstlisting}
+
+\podsekce{Controller}
 
 \begin{lstlisting}
 @RestController
@@ -2285,6 +2754,22 @@ public class DovednostiRestController
     
 \end{lstlisting}
 
+\podsekce{Funkční test (Postman)}
+
+\vspace{10}
+
+\noindent{HTTP požadavek zaslán na:}
+
+\noindent{\texttt{http://localhost:8082/rest/dovednosti} (POST)}
+
+\vspace{10}
+
+\noindent{Odesláno s příznakem \texttt{Authorization}, s hodnoutou \texttt{JWT tokenu}
+v hlavičce HTTP požadavku, bez těla požadavku.}
+
+\vspace{10}
+
+\noindent{HTTP odpověď -- HTTP Status: 200 OK, bez těla odpovědi.}
 
 \sekce{Inicializace úkolů nového hráče}
 
@@ -2309,7 +2794,56 @@ paths:
 
 \end{lstlisting}
 
-\podsekce{REST Controller}
+\podsekce{Business logika}
+
+\begin{lstlisting}
+@Service
+public class QuestServiceImplementation implements QuestService{
+
+    @Autowired
+    private QuestRepository questRepository;
+
+    @Autowired
+    private TypQuestuRepository typQuestuRepository;
+
+    ...
+
+    @Override
+    @Transactional
+    public Quest createQuestForNewPlayer(Long hracId) {
+
+        // ziskat typ prvniho questu
+        Optional typPrvnihoQuestu
+                = typQuestuRepository
+                    .findByKod(KOD_TYPU_PRVNIHO_QUESTU);
+
+        // pokud nenalezen, vrat null
+        if (!typPrvnihoQuestu.isPresent()) {
+            return null;
+        }
+
+        // vytvorit prvni quest noveho hrace
+        return createQuest(hracId, typPrvnihoQuestu.get(),
+                STAV_QUESTU_PRIPRAVENY);
+    }
+
+    private Quest createQuest(Long hracId,
+                              TypQuestu typQuestu,
+                              Long stavQuestuId) {
+
+        Quest quest = new Quest();
+        quest.setTypQuestu(typQuestu);
+        quest.setIdHraca(hracId);
+        quest.setIdStavQuestu(stavQuestuId);
+        quest.setDatumVzniku(new Date());
+        return questRepository.save(quest);
+    }
+
+    ...
+
+\end{lstlisting}
+
+\podsekce{Controller}
 
 \begin{lstlisting}
 @RestController
@@ -2349,6 +2883,321 @@ public class QuestyRestController
     
 \end{lstlisting}
 
+\podsekce{Funkční test (Postman)}
+
+\vspace{10}
+
+\noindent{HTTP požadavek zaslán na:}
+
+\noindent{\texttt{http://localhost:8083/rest/questy/inicializace} (POST)}
+
+\vspace{10}
+
+\noindent{Odesláno s příznakem \texttt{Authorization}, s hodnoutou \texttt{JWT tokenu}
+v hlavičce HTTP požadavku, bez těla požadavku.}
+
+\vspace{10}
+
+\noindent{HTTP odpověď -- HTTP Status: 200 OK, bez těla odpovědi.}
+
 \sekce{Získání důležitých událostí přihlášeného hráče}
+
+\podsekce{Swagger API}
+
+\begin{lstlisting}
+
+...
+
+  "paths": {
+    "/timeline/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Service for retrieving players in game important events",
+        "operationId": "getPlayerEvents",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "eventTypeCodes",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "sortColumns",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/EventDto"
+              }
+            }
+          }
+        }
+      }
+
+...
+
+ "definitions": {
+    "EventDto": {
+      "type": "object",
+      "properties": {
+        "idRoute": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "example": "Mise {{missionTitle}} splněna."
+        },
+        "eventTypeCode": {
+          "type": "string",
+          "example": "missionCompleted",
+          "description": "NotificationType.code"
+        },
+        "created": {
+          "type": "string",
+          "example": "2019-11-10 11:08:50"
+        }
+      }
+    }
+  }
+
+...
+
+\end{lstlisting}
+
+
+\podsekce{Filtrovací databázový predikát -- použití knihovny QueryDSL}
+
+\begin{lstlisting}
+public class NotificationPredicate {
+
+    /**
+     * Method creates Predicate that represents
+     * conditions for DB query by input filter.
+     *
+     * @param filter contains params for creating query conditions
+     * @return querydsl BooleanBuilder
+     */
+    public static Predicate createBy(EventsFilter filter) {
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        QNotification notification = QNotification.notification;
+
+        // Get without notifications which types are specified
+        // in unwanted notification type codes in events filter.
+        cutOffNotificationsByNotifTypeCodes(
+                filter.getUnwantedNotificationTypeCodes(),
+                booleanBuilder, notification);
+
+        // find only notifications of logged in player
+        booleanBuilder.and(notification.idPlayer.eq(filter.getIdPlayer()));
+
+        // filter by user wanted notification types
+        filterByNotificationTypeCodes(
+                filter.getNotificationTypeCodes(),
+                booleanBuilder, notification);
+
+
+        return booleanBuilder;
+    }
+
+    private static void cutOffNotificationsByNotifTypeCodes(
+            List notificationTypeCodes,
+            BooleanBuilder booleanBuilder,
+            QNotification notification) {
+
+        if (!CollectionUtils.isEmpty(notificationTypeCodes)) {
+
+            BooleanBuilder codeBooleanBuilder = new BooleanBuilder();
+            notificationTypeCodes.forEach(notificationTypeCode ->
+                    codeBooleanBuilder.andNot(
+                            notification.notificationType()
+                                    .code.eq(notificationTypeCode)));
+
+            booleanBuilder.and(codeBooleanBuilder);
+        }
+    }
+
+    private static void filterByNotificationTypeCodes(
+                List notificationTypeCodes,
+                BooleanBuilder booleanBuilder,
+                QNotification notification) {
+
+        if (!CollectionUtils.isEmpty(notificationTypeCodes)) {
+
+            BooleanBuilder codeBooleanBuilder = new BooleanBuilder();
+            notificationTypeCodes.forEach(notificationTypeCode ->
+                    codeBooleanBuilder.or(
+                            notification.notificationType()
+                                    .code.eq(notificationTypeCode)));
+
+            booleanBuilder.and(codeBooleanBuilder);
+        }
+    }
+}
+\end{lstlisting}
+
+\podsekce{Business logika}
+
+\begin{lstlisting}
+
+@Service
+@Slf4j
+public class EventsServiceImpl implements EventsService {
+
+    @Autowired
+    private NotificationRepository notificationRepository;
+
+    ...
+
+    /**
+     * Method calls findAll with Predicate
+     * created from EventsFilter
+     * for retrieving Notification records from DB
+     * and map them to Event DTOs.
+     *
+     * @param filter for filtering events
+     * @return List of Event DTOs
+     */
+    @Override
+    public List getEvents(EventsFilter filter) {
+
+        // get query predicate
+        Predicate predicate = NotificationPredicate.createBy(filter);
+
+        // call findAll method from lower layer
+        // with querydsl Predicate and Spring Data Pageable
+        List notifications = Lists
+                .newArrayList(notificationRepository
+                        .findAll(predicate,
+                                filter.getPaggingAndSorting()));
+
+        if (notifications == null) {
+            return null;
+        }
+        return getEventDtoListFromNotifications(notifications);
+    }
+
+    ...
+
+\end{lstlisting}
+
+
+\podsekce{Controller}
+
+\begin{lstlisting}
+@Slf4j
+@RestController
+@RequestMapping(path = "timeline", produces = {"application/json"})
+public class TimelineRestController extends AbstractJwtDecoderController
+                                    implements TimelineApi {
+
+    @Autowired
+    private EventsService eventsService;
+
+    /**
+     * Method calls appropriate service methods for retrieving
+     * player events.
+     *
+     * @param eventTypeCodes Notification Type's~codes
+     *        for filtering events
+     * @param limit
+     * @param offset
+     * @return List of Event's~DTOs
+     */
+    @Override
+    @GetMapping("/events")
+    public ResponseEntity> getPlayerEvents(
+                                @Valid List<String> eventTypeCodes,
+                                @Valid Integer limit,
+                                @Valid Integer offset,
+                                @Valis List<String> sortColumns) {
+
+        EventsFilter eventsFilter = new EventsFilter(getTokenSubject(),
+                eventTypeCodes, limit, offset);
+
+        log.info("Calling getEvents with filter: {}", eventsFilter.toString());
+        // calling service method from lower layer
+        List eventDtoList = eventsService.getEvents(eventsFilter);
+        return new ResponseEntity<>(eventDtoList, HttpStatus.OK);
+    }
+
+    ...
+}
+\end{lstlisting}
+
+\podsekce{Funkční test (Postman)}
+
+\vspace{10}
+
+\noindent{HTTP požadavek zaslán na:}
+
+\noindent{\texttt{http://localhost:9010/timeline/events} (GET)}
+
+\vspace{10}
+
+\noindent{Odesláno s:}
+
+\begin{itemize}
+\item \texttt{query} parametry:
+        \begin{itemize}
+            \item \texttt{eventTypeCodes=newSkillLevel,newSubskillLevel} --
+                    pro vyhledání událostí týkajících
+                    se pouze nově dosažených dovednostních úrovní hráče
+            \item \texttt{limit=3} -- pro omezení počtu výstupních položek na 3
+        \end{itemize}
+
+\item příznakem \texttt{Authorization}, s hodnoutou \texttt{JWT tokenu}v hlavičce HTTP požadavku}
+\end{itemize}
+
+\vspace{10}
+
+\noindent{Tělo HTTP odpovědi (JSON):}
+
+\begin{lstlisting}
+[
+    {
+        "idRoute": "46",
+        "title": "Dosazen level 2 dovednosti Obchod",
+        "eventTypeCode": "newSkillLevel",
+        "created": "2020-02-04 17:36:18.0"
+    },
+    {
+        "idRoute": "122",
+        "title": "Dosazen level 2 poddovednosti Kontaktovani klientu",
+        "eventTypeCode": "newSubskillLevel",
+        "created": "2020-02-04 17:36:18.0"
+    },
+    {
+        "idRoute": "119",
+        "title": "Dosazen level 2 poddovednosti Domacnosti",
+        "eventTypeCode": "newSubskillLevel",
+        "created": "2020-01-28 16:53:15.0"
+    }
+]
+\end{lstlisting}
 
 \end{document}
