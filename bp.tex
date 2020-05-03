@@ -194,7 +194,6 @@ aby bylo možné odlišit různe druhy motivace lidí.
 Gamifikační framework Octalysis byl vytvořen jako osmihran reprezentující
 8 různých motivačních principů na každé straně.
 
-% TODO: dodelat zdroj
 \obrazek
 \vlozobr{bakalarska-prace/oktalyza}{0.18}
 \endobr{Zjednodušený diagram gamifikačního frameworku Octalysis
@@ -412,7 +411,7 @@ gamifikovaného informačního systému.
 
 \sekce{Systém WWW}
 Webové aplikace fungují na základě systému WWW.
-Systém WWW (World Wide Web) poskytuje komunikaci typu klient -- server (Obrázek 1)
+Systém WWW (World Wide Web) poskytuje komunikaci typu klient -- server (Obrázek 2)
 prostřednictvím následujících základních složek:
 
 \begin{itemize}
@@ -424,7 +423,8 @@ prostřednictvím následujících základních složek:
 
 \obrazek
 \vlozobr{bakalarska-prace/client-server.jpg}{0.8}
-\endobr{Komunikace typu klient -- server}
+\endobr{Komunikace typu klient -- server
+\obrzdroj{Zakresleno pomocí volně dostupného nástroje \texttt{draw.io}}}
 
 % HTTP
 \textbf{HTTP} je základem  WWW systému.
@@ -446,7 +446,7 @@ Formát URL pro protokol HTTP:
 \footnote{Přednaška z~předmětu Počítačové~sítě I: Systém WWW, 2017}
 
 \bigskip
-\texttt{http://[:][[?][\#]]}
+\texttt{http://<host>[:<port>][<abs\_path>[?<query>][\#<fragment>]]}
 
 \bigskip
 
@@ -555,7 +555,7 @@ Koncepce webových služeb klade vysoký důraz na jazykovou průhlednost,
 to znamená, že poskytovatel a~příjemce služby nemusejí být napsáni
 ve stejném programovacím jazyce.
 % interoperabilita
-Jazyková průhlednost je klíčem k~\textbf{interoperabilitě},
+Jazyková průhlednost je klíčem k~ interoperabilitě,
 schopnosti webových služeb hladce fungovat napříč různými systémy navzdory rozdílům v~programovací jazycích,
 podporovaných knihovnách a~platformách.
 
@@ -589,7 +589,7 @@ které při aplikování na návrh systému, utvářejí určítý architektonic
 \end{itemize}
 
 \noindent{RESTový systém může být implementován v~jakékoliv dostupné síťové architektuře.}
-\cite(sandoval)
+\cite{sandoval}
 
 
 % bezstavovost
@@ -781,7 +781,6 @@ a~odesílá zpět odpověd klientovi, který požadavek odeslal.
 Jasper je engine pro zpracování Java Server Pages (JSP).
 Soubory JSP zpracovává a~kompiluje je do Java kódu jakožto servlety,
 které pak může obsluhovat Catalina.
-
 \cite{tomcatWikipedia}
 
 % TomEE
@@ -842,28 +841,28 @@ a~\texttt{@Column}.
 @EntityListeners(AuditingEntityListener.class)
 public class Obec implements Serializable {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Basic(optional = false)
-@Column(name = "id", unique = true, nullable = false)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id", unique = true, nullable = false)
+    private Long id;
 
-@Basic(optional = false)
-@Column (name = "nazov", length = 255, nullable = false)
-private String nazov;
+    @Basic(optional = false)
+    @Column (name = "nazov", length = 255, nullable = false)
+    private String nazov;
 
-@Basic(optional = false)
-@Column(name = "psc", length = 5, nullable = false)
-private String psc;
+    @Basic(optional = false)
+    @Column(name = "psc", length = 5, nullable = false)
+    private String psc;
 
-@ManyToOne
-@JoinColumn(name = "id_okresu")
-private Okres okres;
+    @ManyToOne
+    @JoinColumn(name = "id_okresu")
+    private Okres okres;
 
-@OneToMany(cascade = CascadeType.ALL,
-fetch = FetchType.LAZY,
-mappedBy = "obec")
-private Set adresy;
+    @OneToMany(cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY,
+    mappedBy = "obec")
+    private Set adresy;
 
 ...
 
@@ -1012,6 +1011,18 @@ založených na frameworku Spring.
 
 \cite{springbootDocs}
 
+\sekce{JSON Web Token}
+JSON Web Token je otevřený standard pro zabezpečný přenos dat,
+mezi různými stranami, ve formátu JSON (JavaScriptové objektové notace).
+Posílané informace mohou být ověřeny a považovány za důvěryhodné,
+díky tomu, že jsou digitálně podepsány. Tokeny mohou být podepsány
+pomocí tajného klíče (s využitím šifrovacího alogritmu \texttt{HMAC}) nebo
+s využitím páru soukromého a veřejného klíče s použítím algoritmů \texttt{RSA} či \texttt{ECDSA}.
+\cite{jwt}
+
+
+
+
 \kapitola{Vývoj backendových modulů}
 
 %Oproti starší verzi byla zásadním způsobem změněna celková struktura systému.
@@ -1068,7 +1079,7 @@ Poslední služba bude využita v~rámci nové verze systému.
 Služba byla implementována v~rámci modulu oe-security pro potřebu vytvoření nového uživatelského účtu.
 Novému uživateli systému je tedy za pomocí této služby připraven účet,
 díky kterému se bude moci do webové aplikace přihlašovat a~bude mu tak umožněno používat její základní funkcionalitu.
-Modul oe-security je modul, který spravuje veškeré operace týkající se zabezpečení aplikace.
+Modul \texttt{oe-security} je modul, který spravuje veškeré operace týkající se zabezpečení aplikace.
 To znamená, že poskytuje služby pro přihlášení, odhlášení a~operace pro zabezpečení služeb jiných modulů.
 
 Služby poskytované uživatelům jsou zabezpečeny prostřednictvím JWT tokenu (JSON Web Token).
@@ -1145,8 +1156,8 @@ definitions:
           idParent:
             type: integer
             format: int64
-        
-# Výstupní DTO 
+
+# Výstupní DTO
     LoginResponseDto:
         type: object
         properties:
@@ -1200,13 +1211,13 @@ musí být metoda, případně třída anotována anotací \texttt{@Transactiona
 @Service
 @Transactional
 public class LoginServiceImplementation implements LoginService {
-    
+
     @Autowired
     private HracRepository hracRepository;
 
     @Autowired
     private PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
-    
+
     ...
 
 @Override
@@ -1282,13 +1293,13 @@ Objekt \texttt{LoginResponseDto} je následně odeslán ve formátu JSON ven z~a
         produces = {"application/json"},
         consumes = {"application/json"})
 public class LoginRestController implements SecurityApi {
-    
+
     @Autowired
     private LoginService loginService;
-    
+
     @Autowired
     private JwtTokenService jwtTokenService;
-    
+
     ...
 
     /**
@@ -1297,7 +1308,7 @@ public class LoginRestController implements SecurityApi {
      *
      * @param novyHracDto prichozi DTO noveho hrace,
      * ktery ma byt registrovan
-     *                    
+     *
      * @return Metoda vraci LoginResponseDTO
      * obsahujici pristupovy token
      */
@@ -1305,16 +1316,16 @@ public class LoginRestController implements SecurityApi {
     @PostMapping(value = "/registration")
     public ResponseEntity postNovyHrac(
             @RequestBody NovyHracDto novyHracDto) {
-             
+
         JwtToken jwtToken = jwtTokenService.createJwtToken(
                 loginService.createNewHrac(novyHracDto));
-                
+
         LoginResponseDto loginResponseDto = new LoginResponseDto();
         loginResponseDto.setAccessToken(jwtToken.getToken());
 
-        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);      
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
     }
-    
+
     ...
 
 \end{lstlisting}
@@ -1366,7 +1377,7 @@ PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
     /**
      * Metoda upravi hodnotu prvniho prihlaseni, dle vstupniho DTO,
      * objektu prihlasovacich udaju, dohledaneho dle ID hrace.
-     * 
+     *
      * @param hracId ID prihlaseneho uzivatele
      * @param prvniPrihlaseniDto DTO s~priznakem prvniho prihlaseni
      * @return aktualizovany objekt prvniho prihlaseni
@@ -1384,7 +1395,7 @@ PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
             return null;
         }
 
-        PrihlasovacieUdaje prihlasovaciUdajeToEdit 
+        PrihlasovacieUdaje prihlasovaciUdajeToEdit
                     = prihlasovacieUdajeOptinal.get();
         prihlasovaciUdajeToEdit.setPrvePrihlasenie(
                 prvniPrihlaseniDto.getPrvniPrihlaseni());
@@ -1467,41 +1478,41 @@ pod url koncovým bodem \texttt{/rest/dovednosti/inicializace}.
 
 \begin{lstlisting}
 @Service
-public class KategorieDovednostiServiceImplementation 
+public class KategorieDovednostiServiceImplementation
                     implements KategorieDovednostiService {
-        
+
     @Autowired
     private KategorieDovednostiRepository kategoriaDovednostiRepository;
     @Autowired
-    private TypKategorieDovednostiRepository 
+    private TypKategorieDovednostiRepository
                                 typKategorieDovednostiRepository;
     @Autowired
     private TypDovednostiRepository typDovednostiRepository;
     @Autowired
     private DovednostRepository dovednostRepository;
-    
+
     ...
-    
+
     @Override
     @Transactional
     public void initStromDovednosti(Long hracId) {
-        
+
         Iterable kategorieDovednostiIterable
                 = initKategorieDovednostiHrace(hracId);
 
         initDovednostiHrace(kategorieDovednostiIterable);
 
     }
-    
+
     private List initKategorieDovednostiHrace(Long hracId) {
 
         // ziskat seznam vsech typu kategorii dovednosti
         Iterable typyKategorieDovednosti
                 = typKategorieDovednostiRepository.findAll();
-    
+
         List kategoriaDovednostiList
                 = new ArrayList<>();
-    
+
         // pro kazdy typ kategorie dovednosti
         // vytvorit hraci instanci kategorie dovednosti
         typyKategorieDovednosti.forEach(TypKategorieDovednosti -> {
@@ -1512,7 +1523,7 @@ public class KategorieDovednostiServiceImplementation
 
         return kategoriaDovednostiList;
     }
-    
+
     private KategoriaDovednosti createKategorieDovednosti(
             Long hracId, TypKategorieDovednosti typKategorieDovednosti) {
 
@@ -1524,7 +1535,7 @@ public class KategorieDovednostiServiceImplementation
         kategoriaDovednosti.setAktivita(0);
         return kategoriaDovednostiRepository.save(kategoriaDovednosti);
     }
-    
+
     private void initDovednostiHrace(Iterable kategorieDovednostiIterable) {
         kategorieDovednostiIterable.forEach(
                 KategoriaDovednosti -> createAllDovednostiKategorie(
@@ -1545,7 +1556,7 @@ public class KategorieDovednostiServiceImplementation
                 TypDovednosti -> createDovednost(
                         kategorieDovednosti, TypDovednosti));
     }
-    
+
     private Dovednost createDovednost(
             KategoriaDovednosti kategoriaDovednosti,
             TypDovednosti typDovednosti) {
@@ -1620,15 +1631,15 @@ byla metoda\texttt{ createQuestForNewPlayer} opatřena anotací \texttt{@Trasnac
 \begin{lstlisting}
 @Service
 public class QuestServiceImplementation implements QuestService{
-    
+
     @Autowired
     private QuestRepository questRepository;
-    
+
     @Autowired
     private TypQuestuRepository typQuestuRepository;
-    
+
     ...
-    
+
     @Override
     @Transactional
     public Quest createQuestForNewPlayer(Long hracId) {
@@ -1647,7 +1658,7 @@ public class QuestServiceImplementation implements QuestService{
         return createQuest(hracId, typPrvnihoQuestu.get(),
                 STAV_QUESTU_PRIPRAVENY);
     }
-    
+
     private Quest createQuest(Long hracId,
                               TypQuestu typQuestu,
                               Long stavQuestuId) {
@@ -1659,7 +1670,7 @@ public class QuestServiceImplementation implements QuestService{
         quest.setDatumVzniku(new Date());
         return questRepository.save(quest);
     }
-    
+
     ...
 
 \end{lstlisting}
@@ -1868,9 +1879,9 @@ public class EventsServiceImpl implements EventsService {
 
     @Autowired
     private NotificationRepository notificationRepository;
-    
+
     ...
-    
+
     /**
      * Method calls findAll with Predicate
      * created from EventsFilter
@@ -1898,7 +1909,7 @@ public class EventsServiceImpl implements EventsService {
         }
         return getEventDtoListFromNotifications(notifications);
     }
-    
+
     ...
 
 \end{lstlisting}
@@ -2109,7 +2120,15 @@ Dostupné z:
 Welcome to JavaWorld.com [online]. Copyright © 2020 IDG Communications, Inc.
 Dostupné z:
 \\
-https://www.javaworld.com/article/3510460/what-is-apache-tomcat-the-original-java-servlet-container.html
+\texttt{https://www.javaworld.com/article/3510460/what-is-apache-tomcat-the-original-java-servlet-container.html}
+}
+
+\citace{jwt}{jwt.io, 2020}{
+\autor{jwt.io}
+\nazev{JSON Web Token Introduction -- jwt.io.} JSON Web Tokens -- jwt.io [online]
+Dostupné z:
+\\
+\texttt{https://jwt.io/introduction/}
 }
 
 \citace{kalin}{Martin Kalin, Java Web Services, 2020}
@@ -2210,6 +2229,14 @@ Dostupné z:
 \texttt{https://cloudplatform.sap.com/capabilities/product-info.SAP-Cloud-Platform-Gamification.e7f91e3d-24b0-422b-8eef-c74f4aaa0c5d.html\#Features}
 }
 
+\citace{slerka}{Šlerka J., 2012}{
+\autor{Šlerka, J.}
+\nazev{Gamifikace a širší kontext.} [online]. 2012.
+Dostupné z:
+\\
+\texttt{https://slideslive.com/ladegustationonline/38889586}
+}
+
 \citace{technologyAdviceGamification}{technologyadvice.com, 2019}{
 \autor{technologyadvice.com}
 \nazev{Gamification}
@@ -2259,14 +2286,17 @@ Dostupné z:
 
 \end{literatura}
 
-\kapitola{Přílohy}
+\prilohy
 
-V kapitole příloh jsou k nahlédnutí vybrané části zdrojových kódů
-webových REST služeb a výstupy z jejich testování.
+\clearpage
 
-\sekce{Registrace nového hráče}
+%V kapitole příloh jsou k nahlédnutí vybrané části zdrojových kódů
+%webových REST služeb a výstupy z jejich testování.
 
-\podsekce{Swagger API}
+\priloha{Registrace nového hráče}
+
+\noindent{\textbf{Swagger API (\texttt{Yaml})}}
+
 \begin{lstlisting}
 paths:
  /rest/security/registration:
@@ -2303,17 +2333,15 @@ definitions:
           idParent:
             type: integer
             format: int64
-
 # Výstupní DTO
     LoginResponseDto:
         type: object
         properties:
           accessToken:
             type: string
-...
 \end{lstlisting}
 
-\podsekce{Business logika}
+\noindent{\textbf{Business logika}}
 
 \begin{lstlisting}
 
@@ -2372,7 +2400,9 @@ public class LoginServiceImplementation implements LoginService {
     }
 \end{lstlisting}
 
-\podsekce{Controller}
+\clearpage
+
+\noindent{\textbf{Controller}}
 
 \begin{lstlisting}
 
@@ -2419,7 +2449,9 @@ public class LoginRestController implements SecurityApi {
 
 \end{lstlisting}
 
-\podsekce{Funkční test (Postman)}
+\clearpage
+
+\noindent{\textbf{Funkční test (Postman)}}
 
 \vspace{10}
 
@@ -2462,9 +2494,10 @@ public class LoginRestController implements SecurityApi {
 }
 \end{lstlisting}
 
-\sekce{Potvrzení prvního přihlášení}
+\priloha{Potvrzení prvního přihlášení}
 
-\podsekce{Swagger API}
+\noindent{\textbf{Swagger API (\texttt{Yaml})}}
+
 \begin{lstlisting}
 
 ...
@@ -2485,7 +2518,7 @@ paths:
           responses:
             '200':
               description: OK
-              
+
 ...
 
 definitions:
@@ -2499,7 +2532,9 @@ definitions:
 
 \end{lstlisting}
 
-\podsekce{Business logika}
+\clearpage
+
+\noindent{\textbf{Business logika}}
 
 \begin{lstlisting}
 @Service
@@ -2541,29 +2576,30 @@ PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
 ...
 \end{lstlisting}
 
-\podsekce{Controller}
+\clearpage
+
+\noindent{\textbf{Controller}}
 
 \begin{lstlisting}
 @RestController
 @RequestMapping(
-        value = "/rest/hrac",
-        produces = {"application/json"})
-public class HracRestController 
+        value = "/rest/hrac", produces = {"application/json"})
+public class HracRestController
         extends AbstractJwtRestController implements HracApi {
-    
+
     @Autowired
     private HracService hracService;
-    
+
     ...
-    
+
     /**
      * Metoda provola prislusnou service metodu
      * pro zmenu hodnoty prvnihoPrihlaseni
      * v~prihlasovacich udajich prihlaseneho hrace.
      *
-     * @param prvniPrihlaseniDto jednoduche DTO 
+     * @param prvniPrihlaseniDto jednoduche DTO
      *        obsahujici boolean prvnihoPrihlaseni
-     *                           
+     *
      * @return prislusnou HTTP odpoved
      */
     @Override
@@ -2583,19 +2619,16 @@ public class HracRestController
 
         if (prihlasovacieUdaje == null) {
             LOG.error("Prihlasovaci udaje pro ID hrace:
-                                {} nenalezeny.,hracId);
+                                {} nenalezeny.", hracId);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
-    ...
-    
 \end{lstlisting}
 
+\clearpage
 
-\podsekce{Funkční test (Postman)}
+\noindent{\textbf{Funkční test (Postman)}}
 
 \vspace{10}
 
@@ -2621,9 +2654,9 @@ public class HracRestController
 
 \noindent{HTTP odpověď -- HTTP Status: 200 OK, bez těla odpovědi.}
 
-\sekce{Inicializace dovednostního stromu hráče}
+\priloha{Inicializace dovednostního stromu hráče}
 
-\podsekce{Swagger API}
+\noindent{\textbf{Swagger API (\texttt{Yaml})}}
 
 \begin{lstlisting}
 
@@ -2644,7 +2677,9 @@ paths:
 
 \end{lstlisting}
 
-\podsekce{Business logika}
+\vspace{50}
+
+\noindent{\textbf{Business logika}}
 
 \begin{lstlisting}
 @Service
@@ -2743,46 +2778,50 @@ public class KategorieDovednostiServiceImplementation
 
 \end{lstlisting}
 
-\podsekce{Controller}
+\clearpage
+
+\noindent{\textbf{Controller}}
 
 \begin{lstlisting}
 @RestController
 @RequestMapping(value = "/rest/dovednosti",
                 produces = {"application/json"})
-public class DovednostiRestController 
-        extends AbstractJwtRestController 
+public class DovednostiRestController
+        extends AbstractJwtRestController
         implements DovednostiApi {
 
     @Autowired
     private KategorieDovednostiService kategoriaDovednostiService;
-    
+
     ...
 
     /**
      * Metoda provola inicializaci
      * dovednostniho stromu noveho hrace.
-     * 
+     *
      */
     @Override
     @PostMapping(
             value = "/inicializace",
             consumes = {"application/json"})
     public ResponseEntity initDovednostiHrace() {
-        
+
         // ziskat ID hrace z~JWT tokenu
         Long hracId = Long.parseLong(getValidJwtToken().getSubject());
 
         // provolat prislusnou metodu sluzby z~nizsi vrstvy
         kategoriaDovednostiService.initStromDovednosti(hracId);
-        
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
     ...
-    
+
 \end{lstlisting}
 
-\podsekce{Funkční test (Postman)}
+\clearpage
+
+\noindent{\textbf{Funkční test (Postman)}}
 
 \vspace{10}
 
@@ -2799,9 +2838,9 @@ v hlavičce HTTP požadavku, bez těla požadavku.}
 
 \noindent{HTTP odpověď -- HTTP Status: 200 OK, bez těla odpovědi.}
 
-\sekce{Inicializace úkolů nového hráče}
+\priloha{Inicializace úkolů nového hráče}
 
-\podsekce{Swagger API}
+\noindent{\textbf{Swagger API (\texttt{Yaml})}}
 
 \begin{lstlisting}
 
@@ -2817,12 +2856,14 @@ paths:
       responses:
         '200':
           description: OK
-          
+
 ...
 
 \end{lstlisting}
 
-\podsekce{Business logika}
+\vspace{50}
+
+\noindent{\textbf{Business logika}}
 
 \begin{lstlisting}
 @Service
@@ -2871,7 +2912,9 @@ public class QuestServiceImplementation implements QuestService{
 
 \end{lstlisting}
 
-\podsekce{Controller}
+\clearpage
+
+\noindent{\textbf{Controller}}
 
 \begin{lstlisting}
 @RestController
@@ -2880,12 +2923,12 @@ public class QuestServiceImplementation implements QuestService{
         produces = {"application/json"})
 public class QuestyRestController
         extends AbstractJwtRestController implements QuestyApi {
-    
+
     @Autowired
     private QuestService questService;
-    
+
     ...
-    
+
     /**
      * Metoda provola prislusne service metody pro
      * vytvoreni instance prvniho questu noveho hrace.
@@ -2908,10 +2951,12 @@ public class QuestyRestController
         return new ResponseEntity<>(HttpStatus.OK);
     }
     ...
-    
+
 \end{lstlisting}
 
-\podsekce{Funkční test (Postman)}
+\clearpage
+
+\noindent{\textbf{Funkční test (Postman)}}
 
 \vspace{10}
 
@@ -2928,95 +2973,56 @@ v hlavičce HTTP požadavku, bez těla požadavku.}
 
 \noindent{HTTP odpověď -- HTTP Status: 200 OK, bez těla odpovědi.}
 
-\sekce{Získání důležitých událostí přihlášeného hráče}
+\priloha{Získání důležitých událostí přihlášeného hráče}
 
-\podsekce{Swagger API}
+\noindent{\textbf{Swagger API (\texttt{Yaml})}}
 
 \begin{lstlisting}
-
-...
-
-  "paths": {
-    "/timeline/events": {
-      "get": {
-        "tags": [
-          "Events"
-        ],
-        "summary": "Service for retrieving players in game important events",
-        "operationId": "getPlayerEvents",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "eventTypeCodes",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "limit",
-            "type": "integer"
-          },
-          {
-            "in": "query",
-            "name": "offset",
-            "type": "integer"
-          },
-          {
-            "in": "query",
-            "name": "sortColumns",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/EventDto"
-              }
-            }
-          }
-        }
-      }
-
-...
-
- "definitions": {
-    "EventDto": {
-      "type": "object",
-      "properties": {
-        "idRoute": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string",
-          "example": "Mise {{missionTitle}} splněna."
-        },
-        "eventTypeCode": {
-          "type": "string",
-          "example": "missionCompleted",
-          "description": "NotificationType.code"
-        },
-        "created": {
-          "type": "string",
-          "example": "2019-11-10 11:08:50"
-        }
-      }
-    }
-  }
-
-...
-
+paths:
+  /timeline/events:
+    get:
+      ...
+      parameters:
+        - in: query
+          name: eventTypeCodes
+          type: array
+          items:
+            type: string
+        - in: query
+          name: limit
+          type: integer
+        - in: query
+          name: offset
+          type: integer
+        - in: query
+          name: sortColumns
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EventDto'
+definitions:
+  EventDto:
+    type: object
+    properties:
+      idRoute:
+        type: string
+      title:
+        type: string
+      eventTypeCode:
+        type: string
+      created:
+        type: string
 \end{lstlisting}
 
+\clearpage
 
-\podsekce{Filtrovací databázový predikát -- použití knihovny QueryDSL}
+\noindent{\textbf{Filtrovací databázový predikát -- použití knihovny QueryDSL}}
 
 \begin{lstlisting}
 public class NotificationPredicate {
@@ -3088,7 +3094,9 @@ public class NotificationPredicate {
 }
 \end{lstlisting}
 
-\podsekce{Business logika}
+\clearpage
+
+\noindent{\textbf{Business logika}}
 
 \begin{lstlisting}
 
@@ -3133,8 +3141,9 @@ public class EventsServiceImpl implements EventsService {
 
 \end{lstlisting}
 
+\clearpage
 
-\podsekce{Controller}
+\noindent{\textbf{Controller}}
 
 \begin{lstlisting}
 @Slf4j
@@ -3177,7 +3186,9 @@ public class TimelineRestController extends AbstractJwtDecoderController
 }
 \end{lstlisting}
 
-\podsekce{Funkční test (Postman)}
+\clearpage
+
+\noindent{\textbf{Funkční test (Postman)}}
 
 \vspace{10}
 
