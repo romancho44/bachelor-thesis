@@ -77,8 +77,8 @@ se na tomto projektu podílet. V neposlední řadě patří velké díky mé rod
 \prohlasenimuz{Brno, 1. května 2020}
 
 
-\abstract{Vozka R. Implementation of backend modules and subsequent design and implementation of module Timeline for needs of Gamificated Information System. Brno, 2020}
-{Thesis describes implementation of backend modules for the web application of gamificated information system.
+\abstract{Vozka R. Implementation of backend modules and subsequent design and implementation of module Timeline for needs of Gamified Information System. Brno, 2020}
+{Thesis describes implementation of backend modules for the web application of Gamified Information System.
 In the thesis are introduced concepts and technologies of web, concept of gamification and interestingness of its application
 to the information system. With the use of this concepts backend modules has been created.}
 
@@ -97,9 +97,9 @@ jejího provázání s informačním systémem. S využitím těchto poznatků b
 
 \obsah
 
- \listoffigures
+\listoffigures
 
-  \listoftables
+\listoftables
 
 \cislovat{2}
 
@@ -199,7 +199,6 @@ aby bylo možné odlišit různe druhy motivace lidí.
 Gamifikační framework Octalysis byl vytvořen jako osmihran reprezentující
 8 různých motivačních principů na každé straně.
 
-% TODO: dodelat zdroj
 \obrazek
 \vlozobr{bakalarska-prace/oktalyza}{0.18}
 \endobr{Zjednodušený diagram gamifikačního frameworku Octalysis
@@ -416,8 +415,8 @@ V~této kapitole jsou popsány stěžejní pojmy a~technologie použité pro vý
 gamifikovaného informačního systému.
 
 \sekce{Systém WWW}
-Webové aplikace fungují na základě systému WWW.
-Systém WWW (World Wide Web) poskytuje komunikaci typu klient -- server (Obrázek 2)
+Webové aplikace fungují na základě systému WWW (World Wide Web).
+Systém WWW  poskytuje komunikaci typu klient -- server (Obrázek 2)
 prostřednictvím následujících základních složek:
 
 \begin{itemize}
@@ -441,11 +440,11 @@ což znamená, že jsou zprávy ve formě požadavků a~odpovědí vyměňovány
 a~serverem.
 
 % HTTP Response, MIME
-\texttt{HTTP} odpovědi byly původně textové dokumenty ve tvaru HTML.
+\texttt{HTTP} odpovědi byly původně textové dokumenty ve tvaru \texttt{HTML}.
 Nyní, díky podpoře \texttt{MIME} (Multipurpose Internet Mail Extensions),
 mohou obsahovat soubory různých i~netextových formátů.
 \texttt{MIME} je tedy standard pro specifikaci internetového média (zdroje).
-Hlavičky \texttt{MIME} jsou součástí záhlaví \texttt{HTTP zpráv}, např.: \texttt{Content-type:~application/json.}
+Hlavičky \texttt{MIME} jsou součástí záhlaví \texttt{HTTP} zpráv, např.: \texttt{Content-type:~application/json.}
 
 \textbf{Uniform Resource Locator} (URL) je typ URI -- identifikátoru přístupu k~internetovému zdroji.
 Formát URL pro protokol HTTP:
@@ -462,7 +461,7 @@ Formát URL pro protokol HTTP:
 \item \textbf{Hierarchická složka} -- vyjadřuje cestu k~webovému objektu
 \item \textbf{Nehierarchická složka} -- obsahuje volitelné položky:
 \begin{itemize}
-\item \textbf{Query} -- hodnoty předávané ke zpracování webovým aplikacím jako parametr QUERY\_STRING.
+\item \textbf{Query} -- hodnoty předávané ke zpracování webovým aplikacím jako parametr \texttt{QUERY\_STRING}.
 \item \textbf{Fragment} -- odkaz na identifikátor, kterým je označena určitá část webového objektu
 \end{itemize}
 \end{itemize}
@@ -482,7 +481,8 @@ Tato vlastnost je činí velice přístupnými. Na druhé straně však webové 
 využít plnou funkcionalitu počítače, pakliže to webový prohlížeč neumožňuje.
 
 Pro vývoj webových aplikací neexistuje žádná obecná technika,
-která by se dala brát jako určité paradigma, exisují různé osvědčené postupy,
+která by se dala brát jako určité paradigma.
+Exisují různé osvědčené postupy,
 které však mohou být protichůdné a~nebo jsou vhodné pouze za určitých podmínek.
 
 % TODO: formy webových aplikací
@@ -516,8 +516,8 @@ atd.
 Komponenta \texttt{controller} poskytuje rozhraní mezi dvěma zmíněnými komponentami
 model a~view. Zpracovává veškerou podnikovou logiku aplikace.
 Typicky na základě obdržených požadavků od uživatele, zprostředkovaných komponentou
-view, manipuluje s~daty prostřednictvím komponenty model a~v~závěru odesílá
-odpověď zpět komponentě view, která výsledek vykreslí uživateli.
+\texttt{view}, manipuluje s~daty prostřednictvím komponenty \texttt{model} a~v~závěru odesílá
+odpověď zpět komponentě \texttt{view}, která výsledek vykreslí uživateli.
 
 
 \sekce{Frontend}
@@ -530,19 +530,18 @@ V~dnešní době je hojně využíván \texttt{JavaScript}, který z~frontendu u
 Pro první verzi frontendu webové aplikace byl využiván \texttt{TypeScript}
 s~použitím frameworku \texttt{Angular},
 tyto technologie jsou popsány v~diplomové práci Ing. Martina Bendíka.
-Pro druhou a~třetí verzi webové aplikace, která je aktuálně vyvíjena,
+Pro druhou verzi webové aplikace, která je aktuálně vyvíjena,
 používáme \texttt{JavaScript} s~použitím frameworku \texttt{Polymer}.
 
 \sekce{Backend}
 
-\texttt{Bakend} je souhrn funkcionalit zodpovědných za manipulaci dat,
-podnikovou logiku, zabezpečení, komunikaci s~jinými službami či aplikacemi a~
-dodání kódů různých webových technologií do uživatelova prohlížeče (\texttt{HTML, CSS, JavaScript}).
-\par
+
 Pod pojmem \texttt{backend} si můžeme představit téměř všechno běžící na serveru,
 případně více serverech, potřebného pro provoz a~fungování webových aplikací.
 \cite{odinuv}
-
+\par
+\texttt{Bakend} je souhrn funkcionalit zodpovědných za manipulaci dat,
+podnikovou logiku, zabezpečení, komunikaci s~jinými aplikacemi atd.
 
 Práce se zabývá implementací určitých \texttt{backendových modulů} webové aplikace informačního systému.
 Pod \texttt{backendovým modulem} si můžeme představit aplikaci
@@ -563,7 +562,8 @@ to znamená, že poskytovatel a~příjemce služby nemusejí být napsáni
 ve stejném programovacím jazyce.
 % interoperabilita
 Jazyková průhlednost je klíčem k~ interoperabilitě,
-schopnosti webových služeb hladce fungovat napříč různými systémy navzdory rozdílům v~programovací jazycích,
+schopnosti webových služeb hladce fungovat napříč různými systémy,
+navzdory rozdílům v~programovací jazycích,
 podporovaných knihovnách a~platformách.
 
 Několik funkcí odlišuje webové služby od distibuovaných systémů: otevřená infrastruktura,
@@ -574,7 +574,8 @@ Webové služby mohou být rozděleny do dvou skupin, na SOAP-ově založené a~
 
 Zjednodušeně je \texttt{SOAP} určitý dialekt \texttt{XML}
 (EXtensible Markup Language), ve kterém je zapsána zpráva do \texttt{XML} dokumentu.
-\texttt{SOAP} bývá někdy zaměňován za \texttt{SOA} (Service Oriented Architecture) protokol.
+\texttt{SOAP} bývá někdy zaměňován za \texttt{SOA} (Service Oriented Architecture) protokol,
+který je více popsán níže v této kapitole.
 SOAPově založenou službu poskytovanou prostřednictvím protokolu \texttt{HTTP}
 je možné brát i~jako speciální případ služby RESTové.
 \cite{kalin}
@@ -601,7 +602,7 @@ které při aplikování na návrh systému, utvářejí určítý architektonic
 
 % bezstavovost
 Systémy, které se řídí paradigmatem REST jsou bezstavové, což znamená,
-že servre nemusí vědět nic o~tom, v~jakém stavu je klient a~naopak.
+že server nemusí vědět nic o~tom, v~jakém stavu je klient a~naopak.
 Tímto způsobem mohou server i~klient porozumět  jakékoliv přijaté zprávě,
 aniž by viděli zprávy předchozí.
 \cite{codecademyRest}
@@ -634,51 +635,53 @@ Tato služba je schopna fungovat nezávisle a~také je možné ji nezávisle upr
 \end{itemize}
 
 Různé služby mohou být spojeny pro poskytnutí funkcionality velké softwarové aplikace,
-tento princip SOA sdílí s~přístupem modulárního programování.
+tento princip \texttt{SOA} sdílí s~přístupem modulárního programování.
 Servisně orientovaná architektura integruje distribuované,
 odděleně spravované a~nasazené komponenty softwarového systému.
 Tato integrace je umožněna technologiemi a~standardy, které usnadňují
 komunikaci komponent a~spolupráci v~síti.
 
-SOA je spojena s~myšlenkou aplikačního programového rozhraní
-(application programming interface -- API), komunikačního protokolu mezi
+\texttt{SOA} je spojena s~myšlenkou aplikačního programového rozhraní
+(application programming interface -- \texttt{API}), komunikačního protokolu mezi
 různými částmi počítačového systému určeného pro zjednodušení implementace,
 údržby a~komunikace jednolivých částí systému.
-Toto API umožňuje provoz jednotlivých služeb.
+Toto \texttt{API} umožňuje provoz jednotlivých služeb.
 %(en.wikipedia.org, 2020)
 
 \sekce{Programovací jazyk Java}
 % úvod
-V~této sekci se pokusím lehce představit programovací jazyk \texttt{Java} a~
-vysvětlit důvod, proč jsme pro implementaci bakendových aplikací
-gamifikovaného informačního systému zvolili právě tento nástroj.
+V~této sekci se pokusím lehce představit programovací jazyk \texttt{Java},
+poukázat na jeho silné stránky
+a~vysvětlit důvod, proč byl pro implementaci bakendových aplikací
+gamifikovaného informačního systému zvolen.
 
-\texttt{Java} je univerzální objektově orientovaný programovací jazyk.
+Java je univerzální objektově orientovaný programovací jazyk.
 Byla navržena tak, aby byly v~ní napsané programy spustitelné na nejrůznějších platformách.
-Zkompilovaný kód javy lze spustit na všech platformách, které Javu podporují,
+Zkompilovaný kód Javy lze spustit na všech platformách, které Javu podporují,
 aniž by bylo nutné zdrojové java kódy opětovně kompilovat.
-Java aplikace jsou obvykle kompilovány do byte-kódu,
-který může být uveden do chodu na jakémkoliv java virtuálním stroji
-(\texttt{Java Virtual Machine -- JVM}) bez ohledu na základní architekturu počítače.
-Programovací jazyk java má poměrně jednoduchou syntaxi,
+Java aplikace jsou obvykle kompilovány do \texttt{byte-kódu},
+který může být uveden do chodu na jakémkoliv Java virtuálním stroji
+bez ohledu na základní architektuře počítače.
+Programovací jazyk Java má poměrně jednoduchou syntaxi,
 podobnou programovacím jazykům \texttt{C} a~\texttt{C++}.
 \cite{oracleJava}
 
 
 % popularita, kde je používaná
 Programovací jazyk Java je jedním z~nejpopulárnějších programovacích jazyků.
-Byla využita pro vytvoření mnoha bankovních a~finančních systémů po celém světě.
-Je také používána velkými podniky jako je Amazon, Google nebo Facebook,
-díky čemuž je považována za jedno z~nejlepších řešení pro vývoj podnikových i~webových systémů.
+Byl využit pro vytvoření mnoha bankovních a~finančních systémů po celém světě.
+Je také používaný velkými podniky jako je Amazon, Google nebo Facebook,
+díky čemuž je považován za jedno z~nejlepších řešení pro vývoj podnikových i~webových systémů.
 
 % bezpečnost
 Java má mnoho vestavěných zabezpečovacích funkcí pro pokročilé ověřování,
 kryptografii a~řízení přístupu, které jsou velmi užitečné pro vývoj webových aplikací.
 Za pomocí těchto funkcí, mohou vývojáři s~výhodou využívat komplexní
-rozhraní, zahrnující mechanismy pro bezpečné přihlášování, digitální podpisy a~možnost vytvářet vlastní bepečností politiku.
+rozhraní, zahrnující mechanismy pro bezpečné přihlášování, digitální podpisy
+a~možnost vytvářet vlastní bepečností politiku.
 
 % rozmanitá sada volně dostupných nástrojů a~knihoven
-Spousta špičkových firem vyvíjejících webové aplikace dává přednost javě,
+Spousta špičkových firem, vyvíjejících webové aplikace, dává přednost Javě
 před jinými technologiemi díky rozmanité sadě volně dostupných nástrojů a~knihoven.
 Java poskytuje nejrůznější rozhraní pro vytváření sítí, zpracování různorodých dat,
 napojení na databáze, jejich správu a~nespočetné množství dalších věcí.
@@ -689,36 +692,36 @@ Apache POI, Google Guava, Jackson a~další.
 Javu používá mnoho slavných webových stránek jako jsou
 eBay.com, Amazon.com, LinkedIn.com a~Facebook.com.
 Je považována za jeden z~nejlepších nástrojů
-pro vývoj jakékoliv podnikové webové aplikace, v~téměř
-jakémkoliv průmyslovém odvětví včetně zdravotnictví, výroby či finančnictví.
+pro vývoj jakékoliv podnikové webové aplikace,
+v~téměř jakémkoliv průmyslovém odvětví včetně zdravotnictví,
+výroby či finančnictví.
 
 % IDE
-Pro javu lze použít nejrůznější nástroje usnadňující vývoj a~vynikající volně dostupná vývojová prostředí
-jako například NetBeans, který jsme používali pro vývoj prvních verzí backendových modulů
-(aplikací).
+Pro Javu lze použít nejrůznější nástroje usnadňující vývoj a~vynikající volně dostupná vývojová prostředí
+jako například \texttt{NetBeans}, který jsme používali pro vývoj prvních verzí backendových modulů.
 % Poznámka pod čarou
-Aktuálně používáme vysoce populární vývojové prostředí IntelliJ IDEA
+Aktuálně používáme vysoce populární vývojové prostředí \texttt{IntelliJ IDEA}
 od společnosti JetBrains.
 
 % Mult-thrading
-Díky schopnosti více-vláknového zpracování,
-mohou java aplikace spravovat více uživatelů či vláken najednou.
+Díky schopnosti více-vláknového zpracování
+mohou Java aplikace spravovat více uživatelů či vláken najednou.
 Java napomáhá vytvářet co nejvíce procesových vláken z~jediné instance
-spuštěné java aplikace na stejném počítači, podle toho jak to aplikace vyžaduje.
+spuštěné Java aplikace na stejném počítači, podle toho jak to aplikace vyžaduje.
 
 % Škálovatelnost
 
 % Objektová orientace
-Jednou z~hlavních příčín popularity javy je její objektová orientace.
+Jednou z~hlavních příčin popularity Javy je její objektová orientace.
 Pro vývoj webových aplikací tato schopnost může být velice žádoucí,
 objektově orientované aplikace se jednodušeji spravují a~programují.
 Objektový přístup udržuje systém modulární, flexibilní a~škálovatelný.
-Objekty vytvářené v~javě lze znovu použít v~jiných částech systému.
-Možnost znovu použít jednotlivě části systému může výrazně snížit náklady na vývoj.
+Objekty vytvářené v~Javě lze znovu použít v~jiných částech systému.
+Možnost znovu použít jednotlivé části systému může výrazně snížit náklady na vývoj.
 
 % Komunita
 Další velkou výhodou tohoto programovacího jazyka je rozsáhlá komunita vývojářů,
-tento jazyk použivájící, díky čemuž existuje spousta různých diskuzních fórem,
+díky čemuž existuje spousta různých diskuzních fórem,
 skupin, seminářů atd. Členové těchto komunit
 jsou ochotní napomáhat a~sdílet své znalosti mezi sebou.
 Díky těmto komunitám lze získat různorodé pohledy na řešené problémy
@@ -732,10 +735,10 @@ díky kterému budeme moci efektivně spravovat naše aplikace,
 stahovat a~používat různé frameworky, knihovny, pluginy
 a~definovat určité informace o~našich projektech včetně jejich vzájemných závislostí.
 
-K~těmto účelům jsme se rozhodli používat Maven od firmy Apache.
-Maven je nástroj pro správu a~vytváření projektů založených na javě.
+K~těmto účelům jsme se rozhodli používat \texttt{Maven} od firmy Apache.
+Maven je nástroj pro správu a~vytváření projektů založených na Javě.
 Primárním cílem nástroje Maven je umožnit vývojářům získat přehled o~stavu
-vývoje, v~co nejkratším čase.
+vývoje v~co nejkratším čase.
 
 % Usnadnění procesu sestavení aplikací
 Maven ulehčuje proces sestavení aplikací a~snaží se poskytnout především
@@ -747,15 +750,15 @@ které se však dají v~případě potřeby získat.
 Maven poskytuje jendotný systém pro sestavení aplikací.
 Jak má být projekt sestaven je možné definovat pomocí
 jeho objektového modelu projeku (project object model),
-který je v~aplikaci reprezentován konfiguračním xml dokumentem,
-a~sady pluginů, které jsou sdílené pro všechny projekty.
+který je v~aplikaci reprezentován konfiguračním xml dokumentem
+a~sadou pluginů, které jsou sdílené pro všechny projekty.
 Jakmile se uživatel Mavenu seznámí s~tímto procesem sestavování aplikací,
-je již díky jednotné struktuře, poměrně snadné se zorientovat i~v~jiných aplikacích,
+je již díky jednotné struktuře poměrně snadné se zorientovat i~v~jiných aplikacích,
 vytvořených pomocí Maven.
 
 % Poskytnutí kvalitních informací o~projektu
 Prostřednictvím dat definovaných v~objektovém modelu projektu (obyčejně pom.xml)
-a~zdrojových kódu je Maven schopen podávat spoustu užitečných informací o~projektu,
+a~zdrojových kódů je Maven schopen podávat spoustu užitečných informací o~projektu,
 např.: křížové zdoje, seznam závistlostí, reporty, týkající se testů aplikace atd.
 
 % Poskytování pokynů a~rad pro vývoj osvědčených postupů
@@ -768,34 +771,37 @@ součástí normálního cyklu sestavení aplikace.
 
 
 \sekce{Apache Tomcat}
-Tomcat je jedním z~nejrozšířenějších aplikačních java serverů,
-pro provoz webových aplikací.
-Základní komponenty Apache Tomcat jsou Catalina, Coyote a~Jasper.
+\texttt{Tomcat} je jedním z~nejrozšířenějších
+aplikačních Java serverů pro provoz webových aplikací.
+Základní komponenty Apache Tomcat jsou \texttt{Catalina}, \texttt{Coyote} a~\texttt{Jasper}.
 
 % Catalina
-Catalina funguje v~rámci Tomcatu jako servlet kontejner.
-To znamená, že implementuje specifikace pro servlety a~technologii JavaServer Pages (JSP).
+\texttt{Catalina} funguje v~rámci Tomcatu jako servlet kontejner.
+To znamená, že implementuje specifikace pro \texttt{servlety}
+\footnote{\texttt{Servlet} je Java třída zpracovávající HTTP požadavky.}
+a~technologii \texttt{Java Server Pages}
+\footnote{\texttt{Java Server Pages} je Java technologie pro vykreslování webového obsahu založená na HTML.} (JSP).
 
 % Coyote
-Coyote je konektorovou komponentou Tomcatu podporující protokol HTTP 1.1
+\texttt{Coyote} je konektorovou komponentou Tomcatu podporující protokol HTTP 1.1
 a~funguje jako webový server, který spravuje lokální soubory a~HTTP dokumenty.
 Coyote naslouchá na určitém TCP portu a~očekává příchozí připojení,
 následně předává obdržené požadavky na Tomcat Engine pro jejich zpracování
 a~odesílá zpět odpověd klientovi, který požadavek odeslal.
 
 % Jasper
-Jasper je engine pro zpracování Java Server Pages (JSP).
+\texttt{Jasper} je engine pro zpracování JSP.
 Soubory JSP zpracovává a~kompiluje je do Java kódu jakožto servlety,
 které pak může obsluhovat Catalina.
 \cite{tomcatWikipedia}
 
 % TomEE
-Poměrně důležitou nádstavbou k~Apache Tomcat je TomEE,
+Poměrně důležitou nádstavbou k~Apache Tomcat je \texttt{TomEE},
 který podporuje dodatečné technologie,
-jako například populární Java Persistence API (JPA) pro práci s~databází,
+jako například populární \texttt{Java Persistence API} (JPA) pro práci s~databází,
 které je více popsáno v~samostatně sekci.
 
-Apache Tomcat lze použít i~jako vestavěnou aplikaci, v~rámci webové aplikace.
+Apache Tomcat lze použít i~jako vestavěnou aplikaci v~rámci webové aplikace.
 Při vývoji webové aplikace pak lze s~využitím vestavěného tomcatu
 spouštět pouze samotnou webovou aplikaci, jelikož sama sobě vyvolá
 potřebné funkce serveru pro spuštění a~správný chod.
@@ -811,8 +817,8 @@ aplikaci za pomocí knihovny Spring Boot, o~které je možno se dozvědět více
 věnované frameworku Spring.
 
 \sekce{Java Persistence API}
-Java Persistence API (JPA) poskytuje java vývojářům
-objektově-relační mapování pro správu relačních dat v~java aplikacích.
+\texttt{Java Persistence API} (JPA) poskytuje Java vývojářům
+objektově-relační mapování pro správu relačních dat v~Java aplikacích.
 
 % ORM
 Objektově-relační mapování lze zjednodušeně vysvětlit jako
@@ -825,19 +831,20 @@ Se samotnými záznamy databáze lze následně v~rámci aplikace pracovat jako 
 %a~objektově/relačních mapovacích metadat.
 
 Jednou z~nejdůležitějších částí JPA jsou entitní třídy.
-Entitní třídy ve svě podstatě reprezentují databázovou tabulku
+Entitní třídy ve své podstatě reprezentují databázovou tabulku
 relační databáze a~instance entitních tříd odopovídají jednomu řádku v~tabulce.
 
 Trvalý stav entit je reprezentován prostřednictvím jejich atributů,
-u~kterých se používají objektově/relační mapovací anotace
+u~kterých se používají objektově-relační mapovací anotace
 pro správné namapování databázových entit a~jejich vazeb.
 
-Níže je možné si prohlédnot ukázku entitní třídy Obec z~backendového
-modulu oe-adresy. Třída byla mnou implementována na základě databázové tabulky
-obec navržené Ing. Martinem Bendíkem.
+Níže je možné si prohlédnot ukázku entitní třídy \texttt{Obec} z~backendového
+modulu \texttt{oe-adresy}.
+Třída byla mnou implementována na základě databázové tabulky
+\texttt{obec} navržené Ing. Martinem Bendíkem.
 
 U~entitní třídy je možné spatřit
-význačné anotace z~balíčku \texttt{javax.persistence}, knihovny \texttt{JPA},
+význačné anotace z~balíčku \texttt{javax.persistence} knihovny \texttt{JPA},
 pro mapování entitní třídy, například anotace \texttt{@Entity}, \texttt{@Table}
 a~\texttt{@Column}.
 
@@ -877,32 +884,31 @@ public class Obec implements Serializable {
 \end{lstlisting}
 
 Anotace \texttt{@Entity} označuje třídu \texttt{Obec}
-jako entitní třidu a~v~kombinaci s~anotací \texttt{@Table}
+jako entitní třídu a~v~kombinaci s~anotací \texttt{@Table}
 a~použitím parametru \texttt{name} s~hodnotou \texttt{"obec"}
-je určeno pro jakou databázovou tabulku bude entitní třída použita.
-Anotace \texttt{@Column} uvedené nad některými atributy třídy ,
-JPA říkají, které atributy náležejí jakým databázovým sloupcům a~s~jakými omezeními.
+je určeno, pro jakou databázovou tabulku bude entitní třída použita.
+Anotace \texttt{@Column} uvedené nad některými atributy třídy
+říkají knihovně JPA, které atributy náležejí jakým databázovým sloupcům a~s~jakými omezeními.
 V~příkladu je možné vidět i~anotace \texttt{@ManyToOne} a~\texttt{@OneToMany},
-které zachycují vazby na jiné databázové tabulky, včetně jejich kardinality.
+které zachycují vazby na jiné databázové tabulky včetně jejich kardinalit.
 
 % Dotazovací metody JPA
 JPA nabízí 2 význačné metody pro vytváření databázových dotazů,
-The Java Persistence query language (JPQL) a~The Criteria API.
+\texttt{The Java Persistence query language} (JPQL) a~\texttt{The Criteria API}.
 % JPQL
-JPQL je dotazovacím jazykem velice podobným SQL, používaným pro dotazování
-entit a~jejich vazeb.
+\texttt{JPQL} je dotazovací jazyk velice podobný SQL, používaný pro databázové dotazování.
 % Criteria API
-The Criteria API se používá pro vytváření typově bezpečných dotazů
-prostřednictvím specifických rozhraní programovacího jazyka java.
+\texttt{The Criteria API} se používá pro vytváření typově bezpečných dotazů
+prostřednictvím specifických rozhraní programovacího jazyka Java.
 \cite{oracleJPA}
 
 Pro práci s~daty v~backendových aplikacích využíváme referenční implementaci
-JPA Hibernate, která je k~dispozici prostřednictvím frameworku Spring.
+JPA \texttt{Hibernate}, která je k~dispozici prostřednictvím frameworku Spring.
 
 \sekce{Framework Spring}
 
-Framework Spring je vysoce používaným a~volně dostupným frameworkem
-jazyka java pro vývoj podknikových a~webových aplikací.
+\texttt{Framework Spring} je vysoce používaným a~volně dostupným frameworkem
+jazyka Java pro vývoj podknikových a~webových aplikací.
 Nabízí mnoho technologických řešení, které je možné s~výhodou
 použít a~tím velice zefektivnit vývoj.
 Framework Spring je rozdělen do několika modulů.
@@ -918,7 +924,7 @@ a~paralelně Spring WebFlux reactive web framework.
 Spring framework byl vystavěn na základě určitých principů.
 % Možnost výběru na různých úrovních
 Jedním z~nich je poskytnutí možnosti výběru na různých úrovních vývoje.
-Spring umožňuje určitá rozhodnutí týkající se návrhu systému,
+Spring umožňuje určitá rozhodnutí týkající se návrhu systému
 co nejvíce odložit, případně i~změnit.
 Příkladem může být změna poskytovatelů
 pro správu dat prostřednictvím konfigurace,
@@ -933,44 +939,44 @@ a~lze jej přizpůsobit různým potřebám aplikace.
 Spring udržuje poměrně silnou zpětnou kompatibilitu.
 Z~těchto důvodů framework podoporuje pouze určitou řadu
 pečlivě vybraných verzí Java Development Kit
-a~knihoven třetích stran, usnadňujících správu aplikací,
+a~knihoven třetích stran usnadňujících správu aplikací
 a~knihoven závislých na frameworku Spring.
 
 % Inuitivita a~jednoduchost použití
 Vývojáři tohoto frameworku se snažili vytvořit aplikační rozhraní tak,
 aby bylo velice intuitivní a~vydrželo v~mnoha verzích po mnoho let.
 % Dokumentace
-Proto byly nastavené vysoké standardy pro kvalitu kódu.
+Proto byly nastaveny vysoké standardy pro kvalitu kódu.
 Framework Spring klade velký důraz na smysluplný, aktuální a~přesný javadoc
 (Java dokumentace).
 
 % Dependency Injection and Inversion of Control
 Přestože Java platforma nabízí bohatou funkcionalitu pro vývoj aplikací,
-postrádá prostředky k~uspořádání základních stavebních jednotek do souvislého celku,
+postrádá prostředky k~uspořádání základních stavebních jednotek do souvislého celku.
 Tento úkol je ponechán softwarovým architektům a~vývojářům.
-K~těmto účelům he možné použít návrhové vzory, jako jsou továrny, abstraktní továrny,
+K~těmto účelům je možné použít návrhové vzory, jako jsou továrny, abstraktní továrny,
 stavitel, dekorátor, pro skládání různých tříd a~instancí objektů,
 které výseledně tvoří aplikaci.
 Tyto návrhové vzory jsou formalizovanými osvědčenými postupy,
 které je však nutné nějakým způsobem implementovat.
 
-Komponenta Spring Framework Inversion of Control řešít tento problém
+Komponenta Spring Framework \texttt{Inversion of Control} řeší tento problém
 poskytováním formalizovaných prostředků pro sestavování nesourodých
 součáští do plně funkční aplikace připravené k~použití.
-Spring framework  implementuje určité návrhové vzory a~poskytuje
+Spring framework implementuje určité návrhové vzory a~poskytuje
 je prostřednictvím objektů, které je možné integrovat do vlastních aplikací.
 Mnoho organizací využívá Spring Framework tímto způsobem k~vývoji robustních
 a~udržovatelných aplikací.
 
 Framework Spring se skládá z~různých funkcionalit organizovaných do 20 různých modulů.
-Tyto moduly jsou seskupený do částí Core, Container, Data Access/Integration,
+Tyto moduly jsou seskupeny do částí Core, Container, Data Access/Integration,
 Web, Aspect Oriented Programming (AOP), Instrumentation a~Test,
-jako je vyzobrazeno na obrázku 2 níže.
+jako je vyzobrazeno na obrázku 3 níže.
 
 \cite{springFrameworkDocs}
 
 \obrazek
-\vlozobr{bakalarska-prace/spring-overview}{0.6}
+\vlozobr{bakalarska-prace/spring-overview}{0.55}
 \endobr{Přehled modulů Spring frameworku
 \obrzdroj{Spring Framework Reference Documentation, 2010}}
 
@@ -982,27 +988,27 @@ Moduly Core a~Beans poskytují základní části frameworku,
 zahrnující funkce Inversion of Control a~Dependency Injection.
 Jednou z~těchto funkcionalit je \texttt{BeanFactory},
 což je sofistikovaná implementace návrhového vzoru továrna.
-\texttt{BeanFactory} odstraňuje potřebu používat programové jedináčky
-a~umožňuje oddělit konfiguraci a~specifikaci závislostí aplikace oddělit od skutečné logiky programu.
+BeanFactory odstraňuje potřebu používat programové jedináčky
+a~umožňuje oddělit konfiguraci a~specifikaci závislostí aplikace od skutečné logiky programu.
 
 
-Ze Skupiny Data Access/Integration modulů používáme především JDBC, ORM
-a~modul Transaction.
+Ze Skupiny Data Access/Integration modulů používáme především \texttt{JDBC}, \texttt{ORM}
+a~modul \texttt{Transaction}.
 
 % JDBC
-JDBC modul poskytuje vrstvu pro Java Database Connection
--- JDBC (aplikační rozhraní pro připojení do databází),
-která odstraňuje potřebu zdlouhavého implementování JDBC a~zpracování chybových stavů specifických pro různé druhy databázových systému.
+\texttt{JDBC} modul poskytuje vrstvu pro Java Database Connection
+-- JDBC, aplikační rozhraní pro připojení do databází,
+která odstraňuje potřebu zdlouhavého implementování JDBC
+a~zpracování chybových stavů specifických pro různé druhy databázových systému.
 
 % ORM
-Modul ORM poskytuje integrační vrstvy pro populární objektově-relační mapování
+Modul \texttt{ORM} poskytuje integrační vrstvy pro populární objektově-relační mapování
 zahrnující JPA, Hibernate a~další technologie.
-Použitím modulu ORM je možné použít oba zmíněné ORM frameworky
-v~kombinaci s~dalšími funkcemi, které Spring nabízí,
+Tyto 2 technologie lze použít v~kombinaci s~dalšími funkcemi, které Spring nabízí,
 jako například funkce pro deklarativní správu databázových transakcí.
 
 % Transaction
-Modul Transacion podporuje programové a~deklarativní řízení
+Modul \texttt{Transacion} podporuje programové a~deklarativní řízení
 transakcí pro třídy, které implementují speciální rozhraní
 a~pro všechny obyčejné Java objekty (POJOs).
 % Web, MVC
@@ -1012,41 +1018,41 @@ pro webové aplikace.
 \cite{springFrameworkDocs}
 
 % Spring Boot
-Jedním z~nejčastěji používaných projektů z~rodiny Spring,
-je projekt Spring Boot, který jsme se rozhodli v~backendových modulech použít.
-Spring-Boot usnadňuje vytváření samostatných spustitelných aplikací
+Jedním z~nejčastěji používaných Spring projektů,
+je projekt \texttt{Spring Boot}, který jsme se rozhodli v~backendových modulech použít.
+Spring Boot usnadňuje vytváření samostatných spustitelných aplikací
 založených na frameworku Spring.
 \cite{springbootDocs}
 
 \sekce{Swagger, OpenAPI specifikace}
 
-Pro efektivní propojení \texttt{backendu} a \texttt{frontendu} bylo nutné používat určitou specifikaci,
+Pro efektivní propojení backendu a frontendu bylo nutné používat určitou specifikaci,
 která zjednoduší, zdokumentuje a zpřehlední dostupné backendové služby.
 K těmto účelům byla použita \texttt{OpenAPI} specifikace, dříve známá jako \texttt{Swagger} specifikace.
 Jedná se o světový standard pro definování RESTových aplikační rozhraní.
 OpenAPI specifikace popisuje dostupné \texttt{REST} služby, včetně adresy serveru,
 koncových bodů služeb, zabezpečení, posílaných dat a spoustu dalších informací.
 \par
-Při vývoji využíváme \texttt{Swagger} specifikace ve verzi 2.0, které definujeme prostřednictvím
+Při vývoji využíváme Swagger specifikace ve verzi 2.0, které definujeme prostřednictvím
 webového editoru
 \footnote{Swagger Editor je volně dostupný z adresy: \texttt{https://editor.swagger.io/}},
 v programovacím jazyce \texttt{Yaml}.
 Tyto vydefinované specifikace zapojujeme do aplikací backendu i frontendu.
-\texttt{Swagger} od společnosti SmartBear poskytuje i dodatečné technologie,
+Swagger od společnosti SmartBear poskytuje i dodatečné technologie,
 díky kterým lze z vydefinovaného rozhraní generovat kód v různých programovacích jazycích.
-Případně je možné proces provádět i opačně, tudíž z určitého kódu
+Případně je možné proces provádět i opačně, tím pádem lze z určitého kódu
 rozhraní služeb backendových aplikací generovat OpenAPI specifikace.
-V našem případě, pro implementaci backendových modulů definujeme swagger specifikace,
-ze kterých po zapojení do těchto modulů generujeme kód rozhraní pro vrstvu \texttt{controller}
-(architektura \texttt{MVC}) v programovacím jazyce Java.
+V našem případě pro implementaci backendových modulů definujeme Swagger specifikace,
+ze kterých po zapojení do těchto modulů generujeme kód rozhraní pro vrstvu controller
+(architektura MVC) v programovacím jazyce Java.
 \par
-Použití Swagger technologií u obou částí webové aplikace (frontendu i backendu),
+Použitím Swagger technologií u obou částí webové aplikace (frontendu i backendu)
 získáváme poměrně důslendou kontrolu nad celým procesem komunikace mezi těmito částmi.
 
 \sekce{JSON Web Token}
-\texttt{JSON Web Token} je otevřený standard pro zabezpečný přenos dat,
-mezi různými stranami, ve formátu \texttt{JSON} (JavaScriptové objektové notace).
-Posílané informace mohou být ověřeny a považovány za důvěryhodné,
+\texttt{JSON Web Token} je otevřený standard pro zabezpečný přenos dat
+mezi různými stranami webu ve formátu \texttt{JSON} (JavaScriptové objektové notace).
+Posílané informace mohou být ověřeny a považovány za důvěryhodné
 díky tomu, že jsou digitálně podepsány. Tokeny mohou být podepsány
 pomocí tajného klíče (s využitím šifrovacího alogritmu \texttt{HMAC}) nebo
 s využitím páru soukromého a veřejného klíče s použítím algoritmů \texttt{RSA} či \texttt{ECDSA}.
@@ -1054,27 +1060,24 @@ s využitím páru soukromého a veřejného klíče s použítím algoritmů \t
 \par
 \texttt{JWT} používáme pro zabezpečení backendových služeb.
 Jedná se o služby registrace, přihlašování a služby, které na požádání poskytují
-data, které se týkají konkrétního, příhlášeného uživatele.
+data, které se týkají konkrétního příhlášeného uživatele.
 
 
-\kapitola{Vývoj backendových modulů}
-
-%Oproti starší verzi byla zásadním způsobem změněna celková struktura systému.
-%I~zásady a~postupy vývoje byly uceleny a~sjednoceny,
-%například kód píšeme oproti starší verzi výhradně v~anglickém jazyce.
+\kapitola{Vlastní práce -- vývoj backendových modulů}
 
 Do vývojového týmu gamifikovaného informačního systému jsem se začlenil v květnu 2018,
-v době, kdy byl projekt téměř na svém začátku a započaly se vytyčovat hlavní cíle a základy systému.
+v době kdy byl projekt téměř na svém začátku a započaly se vytyčovat hlavní cíle a základy systému.
 Od této doby bylo realizováno mnoho schůzek, ze kterých bylo sesbíráno mnoho informací,
 které byly použity pro vytvoření návrhů prvního prototypu webové aplikace gamifikovaného informačního systému.
 Tento první prototyp byl implementován ve druhé polovině roku 2018 a byl tak vytvořen poměrně solidní základ
 pro další rozvoj webové aplikace informačního systému.
 
 % Metodika vývoje
-Od počátků vývoje se vývojový tým rozrostl o několik nových členů,
-mnoho částí systému bylo změněno nebo upraveno a byly zavedeny ucelenější postupy
+Od počátku vývoje se vývojový tým rozrostl o několik nových členů.
+Mnoho částí systému bylo změněno nebo upraveno a byly zavedeny ucelenější postupy
 a metodiky pro realizaci vývoje.
-Aktuálně se pracuje na druhé verzi webové aplikace, vývoj probíhá prostřednictvím
+Aktuálně se pracuje na druhé verzi webové aplikace.
+Vývoj probíhá prostřednictvím
 zjednodušené agilní metodiky \texttt{SCRUM}, kdy jsou plánovány analytické, designové, vývojové a jiné
 úkoly na každý týden. Rozplánované úkoly jsou dvakrát týdně procházeny na pravidelných schůzkách
 realizovaných prostřednictvím konferenčních hovorů, kdy každý přítomný člen podává informace
@@ -1098,11 +1101,11 @@ V těchto službách jsou využity technologie představené v kapitole literár
 V jednotlivých částech je popsán postup implementace jednotlivých služeb s možností použití jednotlivých technologií.
 
 První 4 uvedené služby byly implementovány na základě servisně orientovaných modelů navržených Ing. Martinem Bendíkem.
-Tyto 4 služby byly vytvořeny v~rámci backendových modulů, prvního prototypu webové aplikace
-a~všechny se věcně týkají inicializace nového uživatele.
+Tyto 4 služby byly vytvořeny v~rámci backendových modulů prvního prototypu webové aplikace
+a~všechny se věcně týkají vytvoření a inicializace nového uživatele.
 
-Pro poslednní službu jsem ná zakladě požadavků a~dostupného databázového modelu,
-po vzoru jiných služeb  navrhnul taktéž servisně orientovaných model,
+Pro poslednní službu jsem na základě požadavků a~dostupného databázového modelu,
+po vzoru jiných služeb, navrhnul taktéž servisně orientovaných model,
 jehož prototyp jsem následně implementoval.
 Poslední služba bude využita v~rámci nové verze systému.
 
@@ -1113,16 +1116,16 @@ Poslední služba bude využita v~rámci nové verze systému.
 Služba byla implementována v~rámci modulu \texttt{oe-security} pro potřebu vytvoření nového uživatelského účtu.
 Novému uživateli systému je tedy za pomocí této služby připraven účet,
 díky kterému se bude moci do webové aplikace přihlašovat a~bude mu tak umožněno používat její základní funkcionalitu.
-Modul \texttt{oe-security} je modul, který spravuje veškeré operace týkající se zabezpečení aplikace.
+Modul oe-security je modul, který spravuje veškeré operace týkající se zabezpečení aplikace.
 To znamená, že poskytuje služby pro přihlášení, odhlášení a~operace pro zabezpečení služeb jiných modulů.
 
 Služby poskytované uživatelům jsou zabezpečeny prostřednictvím \texttt{JWT} (JSON Web Token).
-Uživatel po úspěšném přihlášení do systému obdrží z~modulu \texttt{oe-security} zašifrovaný token.
+Uživatel po úspěšném přihlášení do systému obdrží z~modulu oe-security zašifrovaný token.
 Obdržený token je následně uložen do lokálního uložiště klientova webového prohlížeče.
 Tímto je uživatel autentizován a~další služby jsou z~aplikace volány s~tímto tokenem vloženým do hlavičky HTTP požadavku.
-Takto příchozí požadavky jsou vyhondnoceny, zda obsahují v~hlavičče validní token a~pokud ano,
+Takto jsou příchozí požadavky vyhondnoceny, zda obsahují v~hlavičče validní token a~pokud ano,
 tak je toto volání považováno za autentizované a~validní.
-Z~příchozího tokenu možné získnat id přihlášeného uživatele,
+Z~příchozího tokenu je možné získnat id přihlášeného uživatele,
 které je použito pro získaní dat, týkajících se tohoto uživatele.
 
 Nový uživatel je do systému registrován po obdržení a~potvzení emailu s~pozvánkou.
@@ -1130,7 +1133,7 @@ Pozvánku budou mít možnost zasílat všichni uživatelé systému.
 Po potvrzení pozvánky je uživatel přesměrován na registrační
 formulář, kde vyplní svůj email, login a~heslo.
 Na základě odeslání tohoto formuláře je mu vytvořen a~inicializován účet.
-Tuto \texttt{HTTP POST} operaci obsluhuje služba pro registraci nového hráče.
+Tuto HTTP POST operaci obsluhuje služba pro registraci nového hráče.
 
 \vspace{10}
 
@@ -1140,27 +1143,28 @@ Tuto \texttt{HTTP POST} operaci obsluhuje služba pro registraci nového hráče
 \item login -- název účtu, volený pseudonym,
 \item heslo,
 \item registrationToken -- registrační token, získaný z~emailové pozvánky,
-\item idParent -- ID nadřízeného
+\item idParent -- ID nadřízeného.
 \end{itemize}
 
 Po úspěšném zpracování požadavku je vrácen výstupní objekt,
 který byl nazván \texttt{LoginResponseDto}.
 Jedná se o~jednoduchý objekt zapouzdřující atribut \texttt{accessToken}, znakový řetězec reprezentující přístupový token.
 
-Na základě servisně orientovaného modelu navrženého Ing. Martinem Bendíkem byla vydefinována \texttt{HTTP POST} operace ve \texttt{Swagger REST API} specifikaci pro modul \texttt{oe-security}.
-Úryvek z této specifikace,
-který popisuje registrační službu je k nahlédnutí v kapitole příloh.
+Na základě servisně orientovaného modelu navrženého Ing. Martinem Bendíkem
+byla vydefinována HTTP POST operace ve Swagger REST API specifikaci pro modul oe-security.
+Úryvek z této specifikace, který popisuje registrační službu je k nahlédnutí v kapitole příloh.
 
 Služba pro registraci provádí databázovou transakci,
 která zastřešuje 5 databázových operací.
-Pro zpřístupnění základní funkcionality webové aplikace nově registrovanému uživateli je nutné vytvořit 5 nových záznamů,
+Pro zpřístupnění základní funkcionality webové aplikace nově registrovanému uživateli je nutné vytvořit 5 nových záznamů
 v~5 vzájemně provázaných databázových tabulkách.
 Jedná se o~tabulky \texttt{osobne\_udaje},
 \texttt{udaje\_postavy}, \texttt{nastavenia}, \texttt{hrac} a~\texttt{prihlasovacie\_udaje}.
 
-Pro práci s~uvedenými databázovými tabulkami byly v~jazyce \texttt{Java} implementovány příslušné \texttt{entitní třídy}. \texttt{Enitní třidy} reprezentují databázové tabulky prostřednictvím
-objektově relačního mapování (\texttt{ORM}).
-Diagram enitních tříd, se kterými služba pro registraci pracuje je vyobrazen níže.
+Pro práci s~uvedenými databázovými tabulkami byly v~jazyce Java implementovány příslušné entitní třídy.
+Enitní třídy reprezentují databázové tabulky prostřednictvím
+objektově-relačního mapování (\texttt{ORM}).
+Diagram enitních tříd, se kterými služba pro registraci pracuje, je vyobrazen níže.
 
 \obrazek
 \vlozobr{bakalarska-prace/oe-security-domain-simple.png}{0.6}
@@ -1169,15 +1173,12 @@ Diagram enitních tříd, se kterými služba pro registraci pracuje je vyobraze
 
 \clearpage
 
-Pro uložení nových záznamů do databáze bylo implementováno 5 obslužných metod ve třídě \texttt{LoginServiceImplementation}.
-Každá metoda ukládá nový záznam do určité databázové tabulky
-za pomocí metody \texttt{save} implementované
-referenční implementací JPA (Java Persistence API) Hibernate.
+Pro uložení nových záznamů do databáze bylo implementováno několik obslužných metod ve třídě \texttt{LoginServiceImplementation}.
+Každá metoda připravuje nový entitní objekt pro uložení do určité databázové tabulky.
 
 Stěžejní public metodou, která je důležitá pro realizaci celé databázové transakce, je metoda \texttt{createNewHrac}.
 Do této metody vstupuje objekt \texttt{NovyHracDto}, který byl získán na základě přijatého těla HTTP požadavku.
-Metoda vytváří nový objekt od entitní třídy \texttt{PrihlasovacieUdaje} a~nastaví mu hodnoty dle vstupního objektu \texttt{novyHracDto},
-včetně hesla, zašifrovaného pomocí šifrovacího alogritmu \texttt{SHA256}.
+Metoda vytváří nový objekt od entitní třídy \texttt{PrihlasovacieUdaje} a~nastaví mu hodnoty dle vstupního objektu \texttt{novyHracDto}, včetně hesla zašifrovaného pomocí šifrovacího alogritmu \texttt{SHA256}.
 
 Metoda \texttt{createNewHrace} provolává private metodu \texttt{initHrac}.
 Metoda \texttt{initHrac} vytváří a incializuje objekt entitní třídy \texttt{Hrac}
@@ -1185,12 +1186,13 @@ i společně s jeho navázanými 3 entitními objekty
  \texttt{osobniUdaje},
 \texttt{udajePostavy}, \texttt{nastaveni}.
 Po inicilizaci jsou tyto 4 vzájemně provázané objekty kaskádově uložěny prostřednictvím
-repozitáře databázových operací \texttt{hracRepository} a jeho implicitně implementované metody \texttt{save}.
+repozitáře databázových operací \texttt{hracRepository} a jeho metody \texttt{save}
+\footnote{Metoda \texttt{save} je implementována refereční implementací JPA Hibernate.}.
 
 Inicializovaný objekt \texttt{hrac} je využit opět v~metodě \texttt{createNewHrac},
-kde je posléze pomocí jeho \texttt{id} provozán s~objektem přihlašovacích údajů.
-Objekt přihlašovacích údajů je následně doplněn o~další dvě hodnoty atributů prvního přihlášení a~uživatelské role.
-Pak je již předán výše zmíněné metodě \texttt{save}, která je poslední oprací databázové transakce.
+kde je posléze pomocí jeho \texttt{id} provozán s~objektem \texttt{prihlasovacie\_udaje}.
+Objekt \texttt{prihlasovacie\_udaje} je následně doplněn o~další dvě hodnoty atributů, prvního přihlášení a~uživatelské role.
+Pak je již předán metodě \texttt{save}, která je poslední operací databázové transakce.
 
 Aby bylo dosaženo provedení jednotlivých databázových dotazů uvnitř jedné transakce,
 musí být metoda, případně třída anotována anotací \texttt{@Transactional}
@@ -1256,73 +1258,28 @@ public PrihlasovacieUdaje createNewHrac(NovyHracDto novyHracDto) {
     }
 \end{lstlisting}
 
-HTTP REST operaci pro registraci uživatele obsluhuje třída \texttt{LoginRestController}.
-Tato třída zpracovává přijaté \texttt{HTTP} požadavky a~jejich těla ve formátu \texttt{JSON}.
+\vspace{10}
+
+HTTP REST operaci pro registraci uživatele obsluhuje třída \texttt{LoginRestController},
+kterou je možno vidět v přílohách.
+Tato třída zpracovává přijaté HTTP požadavky a~jejich těla ve formátu JSON.
 Na základě zpracování požadavků provolává potřebné metody pro zpracování dat
 a~odesílá zpět příslušnou HTTP odpověď dle standardu REST.
 
 Aby byla třída aplikací registrována, jakožto třída zpracovávající REST operace,
 byla anotována anotací \texttt{@RestController} frameworku Spring.
-Další význačnou anotací tohoto frameworku, kterou byla třída opatřena je anotace \texttt{@RequestMapping},
-díky které je specifikováno pod jakou url adresou tato třída zpracovává požadavky,
+Další význačnou anotací tohoto frameworku, kterou byla třída opatřena, je \texttt{@RequestMapping}.
+Díky této anotaci je specifikováno pod jakou URL adresou tato třída zpracovává požadavky,
 v~jakém formátu požadavky příjmá a~v~jakém formátu odesílá odpovědi.
 
 HTTP POST operaci registrace nového uživatele zpracovává metoda \texttt{postNovyHrac},
-fungující pod url koncovým bodem \texttt{/registration}.
+fungující pod URL koncovým bodem \texttt{/rest/security/registration}.
 Metoda \texttt{postNovyHrac} volá metodu \texttt{createNewHrac} přes instanci rozhraní \texttt{loginService}.
 Z~návraceného objektu z~metody \texttt{createNewHrac} je vytvořen token,
 který je uložen do atributu \texttt{accessToken} odchozího objektu \texttt{LoginResponseDto}.
 Objekt \texttt{LoginResponseDto} je následně odeslán ve formátu JSON ven z~aplikace.
 
 \clearpage
-
-\begin{lstlisting}
-
-@RestController
-@RequestMapping(
-        value = "/rest/security",
-        produces = {"application/json"},
-        consumes = {"application/json"})
-public class LoginRestController implements SecurityApi {
-
-    @Autowired
-    private LoginService loginService;
-
-    @Autowired
-    private JwtTokenService jwtTokenService;
-
-    ...
-
-    /**
-     * Dle vstupujiciho DTO metoda vytvori noveho hrace
-     * a~odesle zpet pristupovy token.
-     *
-     * @param novyHracDto prichozi DTO noveho hrace,
-     * ktery ma byt registrovan
-     *
-     * @return Metoda vraci LoginResponseDTO
-     * obsahujici pristupovy token
-     */
-    @Override
-    @PostMapping(value = "/registration")
-    public ResponseEntity postNovyHrac(
-            @RequestBody NovyHracDto novyHracDto) {
-
-        JwtToken jwtToken = jwtTokenService.createJwtToken(
-                loginService.createNewHrac(novyHracDto));
-
-        LoginResponseDto loginResponseDto = new LoginResponseDto();
-        loginResponseDto.setAccessToken(jwtToken.getToken());
-
-        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
-    }
-
-    ...
-
-\end{lstlisting}
-
-\clearpage
-
 
 \sekce{Služba pro potvrzení prvního přihlášení}
 
@@ -1341,64 +1298,37 @@ Jelikož se jedná o~službu týkající se základního panelu hráče, byla ta
 
 Služba pro potvrzení prvního přihlášení je implementačně poměrně jednoduchá.
 Pracuje pouze s~jednou již výše uvedenou databázovou tabulkou \texttt{prihlasovacie\_udaje},
-kde na základě přijatého požadavku mění v~příslušném řádku tabulky,
-reprentujícím přihlašovací údaje přihlášeného hráče, hodnotu prvního přihlášení,
-definovanou logickým datovým typem boolean.
+kde na základě přijatého požadavku mění v~příslušném řádku tabulky hodnotu prvního přihlášení,
+definovanou logickým datovým typem \texttt{boolean}.
 
-Pro realizaci této funkcionality je třeba nejdříve dohledat instanci přihlašovacích údajů dle id hráče přihlášeného uživatele.
-Takto získanému objektu je následně nastavena hodnota prvního přihlášení
-podle hodnoty uložené v~příchozím objektu z~HTTP požadavku -- \texttt{PrvniPrihlaseniDto}.
-Záznam je po úpravě uložen do databáze.
-Na další straně je vidět úryvek ze třídy \texttt{HracServiceImplementation},
-která je zodpovědná za realizaci databázových operací v databázové transakci
-a připravení odchozího objektu pro \texttt{RestController},
-který již předá výslednou odpověď klientovi.
+Po registraci je hodnota prnvího přihlášení uživateli nastavena na \texttt{true}.
+Uživatel se úspěšně přihlásí a obdrží autorizační token pro volání dalších služeb.
+Provede se uvítací proces v aplikaci a po ukončení tohoto uvítání
+je volána služba pro potvrzení prvního přihlášení.
 
-\clearpage
+HTTP PUT požadavek této služby je volán s objektem \texttt{PrvniPrihlaseniDto},
+který obsahuje hodnotu prvního přihlášení nastavenou na \texttt{false}, v těle
+a s hlavičkou obsahující autorizační JWT token.
 
-\begin{lstlisting}
-@Service
-public class HracServiceImplementation implements HracService {
+Tento požadavek je přijat controllerem, který je implementován třídou \texttt{HracRestController}.
+\texttt{HracRestController} po přijetí požadavku konroluje validnost tokenu, ze kterého získá id hráče
+a společně s přijatým objektem \texttt{PrvniPrihlaseniDto} volá metodu \texttt{editPrvniPrihlaseni}
+třídy \texttt{HracServiceImplementation}
+\footnote{Třída \texttt{HraceServiceImplementation} implementuje podnikovou logiku služby.}.
 
-@Autowired
-PrihlasovacieUdajeRepository prihlasovacieUdajeRepository;
+Pro editaci hodnoty prvního přihlášení v databázi je v metodě \texttt{editPrvniPrihlaseni} nejdříve dohledána
+instance přihlašovacích údajů dle id hráče přihlášeného uživatele.
+Instance přihlašovacích údajů je reprezentována objektem \texttt{prihlasovacie\_udaje},
+kterému je nastavena hodnota atributu \texttt{prvniPrihlaseni} na \texttt{false},
+dle hodnoty nastavené v příchozím objektu \texttt{prvniPrihlaseniDto}.
+Záznam je po úpravě uložen do databáze pomocí metody \texttt{save}
+\footnote{Metoda \texttt{save} je v tomto případě použita pro provedení aktualizace záznamu v databázi}.
 
-...
+Služba je poskytována pod URL koncovým bodem \texttt{/rest/hrac/prvni-prihlaseni} a~HTTP metodou PUT.
+Příslušná PUT operace je registrována pod metodou \texttt{putPrvniPrihlaseni} třídy \texttt{HracRestController}.
 
-    /**
-     * Metoda upravi hodnotu prvniho prihlaseni, dle vstupniho DTO,
-     * objektu prihlasovacich udaju, dohledaneho dle ID hrace.
-     *
-     * @param hracId ID prihlaseneho uzivatele
-     * @param prvniPrihlaseniDto DTO s~priznakem prvniho prihlaseni
-     * @return aktualizovany objekt prvniho prihlaseni
-     */
-    @Override
-    @Transactional
-    public PrihlasovacieUdaje editPrvniPrihlaseni(
-                                    Long hracId,
-                                    PrvniPrihlaseniDto prvniPrihlaseniDto) {
-
-        Optional prihlasovacieUdajeOptinal
-                = prihlasovacieUdajeRepository.findByHracId(hracId);
-
-        if (!prihlasovacieUdajeOptinal.isPresent()) {
-            return null;
-        }
-
-        PrihlasovacieUdaje prihlasovaciUdajeToEdit
-                    = prihlasovacieUdajeOptinal.get();
-        prihlasovaciUdajeToEdit.setPrvePrihlasenie(
-                prvniPrihlaseniDto.getPrvniPrihlaseni());
-        return prihlasovacieUdajeRepository.save(prihlasovaciUdajeToEdit);
-    }
-
-...
-\end{lstlisting}
-
-Služba je poskytována pod url koncovým bodem \texttt{/rest/hrac/prvni-prihlaseni} a~HTTP metodou PUT.
-Takto je služba registrována pod metodou \texttt{putPrvniPrihlaseni} třídy \texttt{HracRestController}.
-Část třídy s~implementací této metody si může čtenář prohlédnout v~kapitole příloh.
+Popisovanou fuknkcionalitu třídy \texttt{HracServiceImplementation} společně s ukázkou třídy \texttt{HracRestController}
+si může čtenář prohlédnout v~kapitole příloh.
 
 \clearpage
 
@@ -2125,10 +2055,10 @@ Dostupné z:
 \texttt{https://jwt.io/introduction/}
 }
 
-\citace{kalin}{Martin Kalin, Java Web Services, 2020}
+\citace{kalin}{Martin Kalin, Java Web Services, 2013}
 {
 \autor{Kalin M.}
-\nazev{Java Web Services: Up and Running} | 1. vyd. Sebastopol: O'Reilly, 297 s. ISBN 978-0-596-52112-7.
+\nazev{Java Web Services: Up and Running} | 2. vyd. Sebastopol: O'Reilly, ISBN 978-1-449-36511-0.
 }
 
 \citace{gamethinking}{Kim, Game Thinking, 2018}
@@ -3173,10 +3103,10 @@ public class TimelineRestController extends AbstractJwtDecoderController
     @Override
     @GetMapping("/events")
     public ResponseEntity> getPlayerEvents(
-                                @Valid List<String> eventTypeCodes,
+                                @Valid List eventTypeCodes,
                                 @Valid Integer limit,
                                 @Valid Integer offset,
-                                @Valis List<String> sortColumns) {
+                                @Valis List sortColumns) {
 
         EventsFilter eventsFilter = new EventsFilter(getTokenSubject(),
                 eventTypeCodes, limit, offset);
